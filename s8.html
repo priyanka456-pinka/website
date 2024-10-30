@@ -1,0 +1,61 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str1[100], str2[100], result[200];<br>
+    int i = 0, j = 0;<br>
+<br>
+    // Taking input for the first string<br>
+    printf(&quot;Enter the first string: &quot;);<br>
+    fgets(str1, sizeof(str1), stdin);<br>
+<br>
+    // Taking input for the second string<br>
+    printf(&quot;Enter the second string: &quot;);<br>
+    fgets(str2, sizeof(str2), stdin);<br>
+<br>
+    // Copying the first string into the result<br>
+    while (str1[i] != &apos;\0&apos;) {<br>
+        if (str1[i] == &apos;\n&apos;) {<br>
+            i++; // Skip the newline character<br>
+            continue;<br>
+        }<br>
+        result[j] = str1[i];<br>
+        i++;<br>
+        j++;<br>
+    }<br>
+<br>
+    // Reset i for the second string<br>
+    i = 0;<br>
+<br>
+    // Copying the second string into the result<br>
+    while (str2[i] != &apos;\0&apos;) {<br>
+        if (str2[i] == &apos;\n&apos;) {<br>
+            i++; // Skip the newline character<br>
+            continue;<br>
+        }<br>
+        result[j] = str2[i];<br>
+        i++;<br>
+        j++;<br>
+    }<br>
+<br>
+    // Add the null terminator at the end of the result string<br>
+    result[j] = &apos;\0&apos;;<br>
+<br>
+    // Output the concatenated string<br>
+    printf(&quot;Concatenated string: %s\n&quot;, result);<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the first string: hare<br>
+Enter the second string: krishna<br>
+Concatenated string: harekrishna<br>
+</h3>
+</body>
+</html>

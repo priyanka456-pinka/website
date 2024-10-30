@@ -1,0 +1,45 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    int i;<br>
+<br>
+    // Get the string input from the user<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    // Calculate and print the difference in ASCII values between consecutive characters<br>
+    for (i = 0; str[i] != &apos;\0&apos; &amp;&amp; str[i+1] != &apos;\0&apos;; i++) {<br>
+        int current_char = str[i];<br>
+        int next_char = str[i + 1];<br>
+        <br>
+        // Calculate the absolute difference<br>
+        int difference = abs(next_char - current_char);<br>
+        <br>
+        // Print the difference<br>
+        printf(&quot;Difference between &apos;%c&apos; and &apos;%c&apos; is %d\n&quot;, str[i], str[i + 1], difference);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: priyanka<br>
+Difference between &apos;p&apos; and &apos;r&apos; is 2<br>
+Difference between &apos;r&apos; and &apos;i&apos; is 9<br>
+Difference between &apos;i&apos; and &apos;y&apos; is 16<br>
+Difference between &apos;y&apos; and &apos;a&apos; is 24<br>
+Difference between &apos;a&apos; and &apos;n&apos; is 13<br>
+Difference between &apos;n&apos; and &apos;k&apos; is 3<br>
+Difference between &apos;k&apos; and &apos;a&apos; is 10<br>
+Difference between &apos;a&apos; and &apos;a&apos; is 87<br>
+</h3>
+</body>
+</html>

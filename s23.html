@@ -1,0 +1,88 @@
+<html>
+<head>
+</head>
+<body> 
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+
+// Function to compare two strings<br>
+int compareStrings(char *str1, char *str2) {<br>
+    int i = 0;<br>
+    while (str1[i] != '\0' && str2[i] != '\0') {<br>
+        if (str1[i] != str2[i]) {<br>
+            return 0; // Strings are not equal<br>
+        }<br>
+        i++;<br>
+    }<br>
+    // If both strings reached the end, they are equal<br>
+    return (str1[i] == '\0' && str2[i] == '\0');<br>
+}<br>
+
+// Function to count occurrences of a word in a sentence<br>
+int countOccurrences(char *sentence, char *word) {<br>
+    int count = 0;<br>
+    int i = 0, j = 0;<br>
+    char temp[100]; // Temporary array to store each word<br>
+
+    while (sentence[i] != '\0') {<br>
+        // Extract each word from the sentence<br>
+        j = 0;<br>
+        while (sentence[i] != ' ' && sentence[i] != '\n' && sentence[i] != '\0') {<br>
+            temp[j++] = sentence[i++];<br>
+        }<br>
+        temp[j] = '\0'; // Null-terminate the word<br>
+
+        // Compare the extracted word with the target word<br>
+        if (compareStrings(temp, word)) {<br>
+            count++;<br>
+        }<br>
+
+        // Skip any spaces<br>
+        while (sentence[i] == ' ') {<br>
+            i++;<br>
+        }<br>
+    }<br>
+    return count;<br>
+}<br>
+
+int main() {<br>
+    char sentence[1000]; // Array to hold the input sentence<br>
+    char word[100];      // Array to hold the target word<br>
+    int occurrences;<br>
+
+    // Input: Get the sentence from the user<br>
+    printf("Enter a sentence: ");<br>
+    fgets(sentence, sizeof(sentence), stdin); // Read the input sentence<br>
+
+    // Input: Get the word to search for<br>
+    printf("Enter the word to count: ");<br>
+    fgets(word, sizeof(word), stdin); // Read the input word<br>
+
+    // Remove the newline character from the word if it exists<br>
+    int i = 0;<br>
+    while (word[i] != '\0') {<br>
+        if (word[i] == '\n') {<br>
+            word[i] = '\0';<br>
+            break;<br>
+        }<br>
+        i++;<br>
+    }<br>
+
+    // Count occurrences of the word in the sentence<br>
+    occurrences = countOccurrences(sentence, word);<br>
+
+    // Output the result<br>
+    printf("The word \"%s\" occurs %d times in the sentence.\n", word, occurrences);<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a sentence: Hello world! Hello everyone.<br>
+Enter the word to count: Hello<br>
+The word "Hello" occurs 2 times in the sentence.<br>
+<br>
+</h3>
+</body>
+</html>

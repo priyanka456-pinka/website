@@ -1,0 +1,71 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+// Structure to represent a petrol pump<br>
+typedef struct {<br>
+    int petrol;  // Amount of petrol at the petrol pump<br>
+    int distance; // Distance to the next petrol pump<br>
+} PetrolPump;<br>
+<br>
+// Function to find the starting petrol pump index for the circular tour<br>
+int findStartingPoint(PetrolPump pumps[], int n) {<br>
+    int start = 0;<br>
+    int end = 1;<br>
+    int current_petrol = pumps[start].petrol - pumps[start].distance;<br>
+<br>
+    // Loop until we complete a full circle or find the starting point<br>
+    while (start != end || current_petrol &lt; 0) {<br>
+        // If the current amount of petrol is less than 0, move to the next pump<br>
+        while (current_petrol &lt; 0 && start != end) {<br>
+            // Remove the starting petrol pump from the tour<br>
+            current_petrol -= pumps[start].petrol - pumps[start].distance;<br>
+            start = (start + 1) % n;<br>
+<br>
+            // If we have come back to the starting point, no solution is possible<br>
+            if (start == 0) {<br>
+                return -1;<br>
+            }<br>
+        }<br>
+<br>
+        // Add the next petrol pump to the tour<br>
+        current_petrol += pumps[end].petrol - pumps[end].distance;<br>
+        end = (end + 1) % n;<br>
+    }<br>
+<br>
+    // Return the starting index of the petrol pump<br>
+    return start;<br>
+}<br>
+<br>
+// Main function to test the solution<br>
+int main() {<br>
+    // Array of petrol pumps<br>
+    PetrolPump pumps[] = {<br>
+        {6, 4},<br>
+        {3, 6},<br>
+        {7, 3}<br>
+    };<br>
+<br>
+    int n = sizeof(pumps) / sizeof(pumps[0]);<br>
+<br>
+    int start = findStartingPoint(pumps, n);<br>
+<br>
+    if (start == -1) {<br>
+        printf(&quot;No solution possible.\n&quot;);<br>
+    } else {<br>
+        printf(&quot;The starting petrol pump index is: %d\n&quot;, start);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Petrol pumps: {6, 4}, {3, 6}, {7, 3}<br>
+The starting petrol pump index is: 2<br>
+</h3>
+</body>
+</html>

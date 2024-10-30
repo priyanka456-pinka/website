@@ -1,0 +1,127 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+typedef struct {<br>
+    int value;  // Value of the element<br>
+    int priority;  // Priority of the element<br>
+} Element;<br>
+<br>
+typedef struct {<br>
+    Element *elements;  // Dynamic array to hold elements<br>
+    int size;          // Current number of elements<br>
+    int capacity;      // Maximum capacity of the array<br>
+} PriorityQueue;<br>
+<br>
+PriorityQueue* createPriorityQueue(int capacity) {<br>
+    PriorityQueue *pq = (PriorityQueue *)malloc(sizeof(PriorityQueue));<br>
+    pq->capacity = capacity;<br>
+    pq->size = 0;<br>
+    pq->elements = (Element *)malloc(capacity * sizeof(Element));<br>
+    return pq;<br>
+}<br>
+<br>
+int isEmpty(PriorityQueue *pq) {<br>
+    return pq->size == 0;<br>
+}<br>
+<br>
+int isFull(PriorityQueue *pq) {<br>
+    return pq->size == pq->capacity;<br>
+}<br>
+<br>
+void insert(PriorityQueue *pq, int value, int priority) {<br>
+    if (isFull(pq)) {<br>
+        printf(&quot;Priority Queue is full. Cannot insert '%d'.\n&quot;, value);<br>
+        return;<br>
+    }<br>
+    Element newElement = {value, priority};<br>
+    pq->elements[pq->size] = newElement;<br>
+    pq->size++;<br>
+<br>
+    // Rearranging elements to maintain priority order<br>
+    for (int i = pq->size - 1; i &gt; 0; i--) {<br>
+        if (pq->elements[i].priority &gt; pq->elements[i - 1].priority) {<br>
+            Element temp = pq->elements[i];<br>
+            pq->elements[i] = pq->elements[i - 1];<br>
+            pq->elements[i - 1] = temp;<br>
+        } else {<br>
+            break; // No need to continue if the order is correct<br>
+        }<br>
+    }<br>
+    printf(&quot;Inserted '%d' with priority '%d'.\n&quot;, value, priority);<br>
+}<br>
+<br>
+int delete(PriorityQueue *pq) {<br>
+    if (isEmpty(pq)) {<br>
+        printf(&quot;Priority Queue is empty. Cannot delete.\n&quot;);<br>
+        return -1;  // Indicate that deletion is not possible<br>
+    }<br>
+    int value = pq->elements[0].value;<br>
+    for (int i = 0; i &lt; pq->size - 1; i++) {<br>
+        pq->elements[i] = pq->elements[i + 1]; // Shift elements left<br>
+    }<br>
+    pq->size--;<br>
+    printf(&quot;Deleted '%d' from priority queue.\n&quot;, value);<br>
+    return value;<br>
+}<br>
+<br>
+int peek(PriorityQueue *pq) {<br>
+    if (isEmpty(pq)) {<br>
+        printf(&quot;Priority Queue is empty. No element to peek.\n&quot;);<br>
+        return -1;  // Indicate that peeking is not possible<br>
+    }<br>
+    return pq->elements[0].value; // Return the value of the highest priority element<br>
+}<br>
+<br>
+void freePriorityQueue(PriorityQueue *pq) {<br>
+    free(pq->elements);<br>
+    free(pq);<br>
+}<br>
+<br>
+int main() {<br>
+    PriorityQueue *pq = createPriorityQueue(5);<br>
+<br>
+    // Insert elements with priorities<br>
+    insert(pq, 10, 1);<br>
+    insert(pq, 20, 3);<br>
+    insert(pq, 15, 2);<br>
+    insert(pq, 25, 5);<br>
+    insert(pq, 30, 4);<br>
+<br>
+    // Attempt to insert when the queue is full<br>
+    insert(pq, 40, 6);<br>
+<br>
+    // Peek at the highest priority element<br>
+    printf(&quot;Highest priority element: %d\n&quot;, peek(pq));<br>
+<br>
+    // Delete elements<br>
+    delete(pq);<br>
+    delete(pq);<br>
+    <br>
+    // Peek again<br>
+    printf(&quot;Highest priority element: %d\n&quot;, peek(pq));<br>
+<br>
+    // Free the allocated memory<br>
+    freePriorityQueue(pq);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Inserted '10' with priority '1'.<br>
+Inserted '20' with priority '3'.<br>
+Inserted '15' with priority '2'.<br>
+Inserted '25' with priority '5'.<br>
+Inserted '30' with priority '4'.<br>
+Priority Queue is full. Cannot insert '40'.<br>
+Highest priority element: 25<br>
+Deleted '25' from priority queue.<br>
+Deleted '20' from priority queue.<br>
+Highest priority element: 15<br>
+</h3>
+</body>
+</html>

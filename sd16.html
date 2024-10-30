@@ -1,0 +1,62 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+int main() {<br>
+    int n1, n2;<br>
+    printf(&quot;Enter the number of elements in the first array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n1);<br>
+    int arr1[n1];<br>
+    printf(&quot;Enter %d elements for the first array:\n&quot;, n1);<br>
+    for (int i = 0; i &lt; n1; i++) {<br>
+        scanf(&quot;%d&quot;, &arr1[i]);<br>
+    }<br>
+    printf(&quot;Enter the number of elements in the second array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n2);<br>
+    int arr2[n2];<br>
+    printf(&quot;Enter %d elements for the second array:\n&quot;, n2);<br>
+    for (int i = 0; i &lt; n2; i++) {<br>
+        scanf(&quot;%d&quot;, &arr2[i]);<br>
+    }<br>
+    if (n1 != n2) {<br>
+        printf(&quot;The arrays are not the same.\n&quot;);<br>
+        return 0;<br>
+    }<br>
+    int areSame = 1;<br>
+    for (int i = 0; i &lt; n1; i++) {<br>
+        if (arr1[i] != arr2[i]) {<br>
+            areSame = 0;<br>
+            break;<br>
+        }<br>
+    }<br>
+    if (areSame) {<br>
+        printf(&quot;The arrays are the same.\n&quot;);<br>
+    } else {<br>
+        printf(&quot;The arrays are not the same.\n&quot;);<br>
+    }<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the first array: 5<br>
+Enter 5 elements for the first array:<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+Enter the number of elements in the second array: 5<br>
+Enter 5 elements for the second array:<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+The arrays are the same.<br>
+</h3>
+</body>
+</html>

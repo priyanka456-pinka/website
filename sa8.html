@@ -1,0 +1,63 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+int compare(const void *a, const void *b) {<br>
+    return (*(char *)a - *(char *)b);<br>
+}<br>
+<br>
+int binarySearch(char str[], char target) {<br>
+    int left = 0;<br>
+    int right = strlen(str) - 1;<br>
+<br>
+    while (left &lt;= right) {<br>
+        int mid = left + (right - left) / 2;<br>
+<br>
+        if (str[mid] == target) {<br>
+            return mid;<br>
+        } else if (str[mid] &lt; target) {<br>
+            left = mid + 1;<br>
+        } else {<br>
+            right = mid - 1;<br>
+        }<br>
+    }<br>
+    return -1;<br>
+}<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    char target;<br>
+<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    str[strcspn(str, "\n")] = 0;<br>
+<br>
+    qsort(str, strlen(str), sizeof(char), compare);<br>
+<br>
+    printf("Enter a character to search for: ");<br>
+    scanf(" %c", &amp;target);<br>
+<br>
+    int index = binarySearch(str, target);<br>
+<br>
+    if (index != -1) {<br>
+        printf("Character '%c' found at index: %d\n", target, index);<br>
+    } else {<br>
+        printf("Character '%c' not found in the string.\n", target);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: Programming<br>
+Enter a character to search for: z<br>
+Character 'z' not found in the string.<br>
+</h3>
+</body>
+</html>

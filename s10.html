@@ -1,0 +1,48 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    int index, length = 0;<br>
+<br>
+    // Taking input for the string<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    // Calculate the length of the string manually<br>
+    while (str[length] != &apos;\0&apos;) {<br>
+        // Stop counting if we hit a newline character<br>
+        if (str[length] == &apos;\n&apos;) {<br>
+            break;<br>
+        }<br>
+        length++;<br>
+    }<br>
+<br>
+    // Taking input for the index number<br>
+    printf(&quot;Enter the index number: &quot;);<br>
+    scanf(&quot;%d&quot;, &index);<br>
+<br>
+    // Check if the index is within the valid range<br>
+    if (index >= 0 && index &lt; length) {<br>
+        // Printing the character at the specified index<br>
+        printf(&quot;Character at index %d: %c\n&quot;, index, str[index]);<br>
+    } else {<br>
+        // If the index is out of range<br>
+        printf(&quot;Invalid index! Please enter a number between 0 and %d.\n&quot;, length - 1);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: calculator<br>
+Enter the index number: 6<br>
+Character at index 6: a<br>
+</h3>
+</body>
+</html>

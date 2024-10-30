@@ -1,0 +1,95 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;ctype.h&gt;<br>
+#define MAX_SIZE 100<br>
+typedef struct {<br>
+    int top;<br>
+    int items[MAX_SIZE];<br>
+} Stack;<br>
+void initStack(Stack* s) {<br>
+    s-&gt;top = -1;<br>
+}<br>
+int isEmpty(Stack* s) {<br>
+    return s-&gt;top == -1;<br>
+}<br>
+int isFull(Stack* s) {<br>
+    return s-&gt;top == MAX_SIZE - 1;<br>
+}<br>
+void push(Stack* s, int item) {<br>
+    if (!isFull(s)) {<br>
+        s-&gt;items[++(s-&gt;top)] = item;<br>
+    } else {<br>
+        printf("Stack is full!\n");<br>
+    }<br>
+}<br>
+int pop(Stack* s) {<br>
+    if (!isEmpty(s)) {<br>
+        return s-&gt;items[(s-&gt;top)--];<br>
+    } else {<br>
+        printf("Stack is empty!\n");<br>
+        return -1;<br>
+    }<br>
+}<br>
+int evaluatePostfix(char* expression) {<br>
+    Stack stack;<br>
+    initStack(&amp;stack);<br>
+    for (int i = 0; expression[i] != '\0'; i++) {<br>
+        if (expression[i] == ' ') {<br>
+            continue;<br>
+        }<br>
+        if (isdigit(expression[i])) {<br>
+            int num = 0;<br>
+            while (isdigit(expression[i])) {<br>
+                num = num * 10 + (expression[i] - '0');<br>
+                i++;<br>
+            }<br>
+            push(&amp;stack, num);<br>
+            i--; <br>
+        } else {<br>
+            int operand2 = pop(&amp;stack);<br>
+            int operand1 = pop(&amp;stack);<br>
+            int result;<br>
+            switch (expression[i]) {<br>
+                case '+':<br>
+                    result = operand1 + operand2;<br>
+                    break;<br>
+                case '-':<br>
+                    result = operand1 - operand2;<br>
+                    break;<br>
+                case '*':<br>
+                    result = operand1 * operand2;<br>
+                    break;<br>
+                case '/':<br>
+                    result = operand1 / operand2;<br>
+                    break;<br>
+                default:<br>
+                    printf("Invalid operator: %c\n", expression[i]);<br>
+                    return -1;<br>
+            }<br>
+            push(&amp;stack, result);<br>
+        }<br>
+    }<br>
+    return pop(&amp;stack);<br>
+}<br>
+int main() {<br>
+    char expression[MAX_SIZE];<br>
+    printf("Enter a postfix expression: ");<br>
+    fgets(expression, sizeof(expression), stdin);<br>
+    int result = evaluatePostfix(expression);<br>
+    printf("The result of the postfix expression is: %d\n", result);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a postfix expression: 5 6 2 + *<br>
+The result of the postfix expression is: 40<br>
+</h3>
+</body>
+</html>

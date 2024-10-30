@@ -1,0 +1,99 @@
+<html> <br>
+<head> <br>
+</head> <br>
+<body> <br>
+<h2> <b> CODE </b> </h2> <br>
+<h3> <br>
+#include &lt;stdio.h&gt; <br>
+#include &lt;string.h&gt; <br>
+#include &lt;time.h&gt; <br>
+#define MAX_STRINGS 100 <br>
+#define MAX_LENGTH 100 <br>
+void merge(char arr[][MAX_LENGTH], int left, int mid, int right) { <br>
+    int i, j, k; <br>
+    int n1 = mid - left + 1; <br>
+    int n2 = right - mid; <br>
+    char L[MAX_STRINGS][MAX_LENGTH], R[MAX_STRINGS][MAX_LENGTH]; <br>
+    for (i = 0; i &lt; n1; i++) <br>
+        strcpy(L[i], arr[left + i]); <br>
+    for (j = 0; j &lt; n2; j++) <br>
+        strcpy(R[j], arr[mid + 1 + j]); <br>
+    i = 0; <br>
+    j = 0; <br>
+    k = left; <br>
+    while (i &lt; n1 && j &lt; n2) { <br>
+        if (strcmp(L[i], R[j]) &lt;= 0) { <br>
+            strcpy(arr[k], L[i]); <br>
+            i++; <br>
+        } else { <br>
+            strcpy(arr[k], R[j]); <br>
+            j++; <br>
+        } <br>
+        k++; <br>
+    } <br>
+    while (i &lt; n1) { <br>
+        strcpy(arr[k], L[i]); <br>
+        i++; <br>
+        k++; <br>
+    } <br>
+    while (j &lt; n2) { <br>
+        strcpy(arr[k], R[j]); <br>
+        j++; <br>
+        k++; <br>
+    } <br>
+} <br>
+void mergeSort(char arr[][MAX_LENGTH], int left, int right) { <br>
+    if (left &lt; right) { <br>
+        int mid = left + (right - left) / 2; <br>
+        mergeSort(arr, left, mid); <br>
+        mergeSort(arr, mid + 1, right); <br>
+        merge(arr, left, mid, right); <br>
+    } <br>
+} <br>
+int main() { <br>
+    char arr[MAX_STRINGS][MAX_LENGTH]; <br>
+    int n; <br>
+    clock_t start, end; <br>
+    printf("Enter the number of strings: "); <br>
+    scanf("%d", &amp;n); <br>
+    getchar(); <br>
+    printf("Enter %d strings:\n", n); <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        fgets(arr[i], sizeof(arr[i]), stdin); <br>
+        arr[i][strcspn(arr[i], "\n")] = '\0'; <br>
+    } <br>
+    start = clock(); <br>
+    mergeSort(arr, 0, n - 1); <br>
+    end = clock(); <br>
+    printf("\nSorted strings:\n"); <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        printf("%s\n", arr[i]); <br>
+    } <br>
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC; <br>
+    printf("Time taken for sorting: %f seconds\n", time_taken); <br>
+    printf("Best case time complexity: O(n log n)\n"); <br>
+    printf("Worst case time complexity: O(n log n)\n"); <br>
+    return 0; <br>
+} <br>
+</h3> <br>
+<h2> <b> OUTPUT </b> </h2> <br>
+<h3> <br>
+Enter the number of strings: 5 <br>
+Enter 5 strings: <br>
+Michael <br>
+Sarah <br>
+Jessica <br>
+David <br>
+Laura <br>
+Sorted strings: <br>
+David <br>
+Jessica <br>
+Laura <br>
+Michael <br>
+Sarah <br>
+Time taken for sorting: 0.000002 seconds <br>
+Best case time complexity: O(n log n) <br>
+Worst case time complexity: O(n log n) <br>
+</h3> <br>
+</body> <br>
+</html>

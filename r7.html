@@ -1,0 +1,41 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+// Function to calculate the sum of digits using recursion<br>
+int sumOfDigits(int n) {<br>
+    // Base case: if n is 0, return 0<br>
+    if (n == 0) {<br>
+        return 0;<br>
+    } else {<br>
+        // Recursive case: add the last digit to the sum of the remaining digits<br>
+        return (n % 10) + sumOfDigits(n / 10);<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    int num;<br>
+<br>
+    printf(&quot;Enter a number: &quot;);<br>
+    scanf(&quot;%d&quot;, &num);<br>
+<br>
+    // Check if the number is negative<br>
+    if (num &lt; 0) {<br>
+        num = -num; // Convert to positive for summing digits<br>
+    }<br>
+<br>
+    int result = sumOfDigits(num);<br>
+    printf(&quot;The sum of the digits of %d is: %d\n&quot;, num, result);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a number: 12345<br>
+The sum of the digits of 12345 is: 15<br>
+</h3>
+</body>
+</html>

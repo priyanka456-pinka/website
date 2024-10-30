@@ -1,0 +1,42 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+&lt;#include &lt;stdio.h&gt;<br>
+
+int main() {<br>
+    char str[100]; // Array to hold the string<br>
+    int count = 0; // Variable to count vowels<br>
+    int i; // Loop counter<br>
+
+    // Input: string from the user<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin); // Use fgets to read a line of text<br>
+
+    // Count the number of vowels in the string<br>
+    for (i = 0; str[i] != '\0'; i++) {<br>
+        // Check if the character is a vowel<br>
+        if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || <br>
+            str[i] == 'o' || str[i] == 'u' || <br>
+            str[i] == 'A' || str[i] == 'E' || <br>
+            str[i] == 'I' || str[i] == 'O' || <br>
+            str[i] == 'U') {<br>
+            count++; // Increment the vowel count<br>
+        }<br>
+    }<br>
+
+    // Output the result<br>
+    printf("Number of vowels in the string: %d\n", count);<br>
+
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: Icecream<br>
+Number of vowels in the string: 4<br>
+</h3>
+</body>
+</html>

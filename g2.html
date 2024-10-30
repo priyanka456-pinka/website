@@ -1,0 +1,167 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+
+typedef struct Node {<br>
+    int vertex;<br>
+    struct Node* next;<br>
+} Node;<br>
+
+typedef struct Graph {<br>
+    int numVertices;<br>
+    Node** adjLists;<br>
+} Graph;<br>
+
+
+Node* createNode(int vertex) {<br>
+    Node* newNode = (Node*)malloc(sizeof(Node));<br>
+    newNode->vertex = vertex;<br>
+    newNode->next = NULL;<br>
+    return newNode;<br>
+}
+<br>
+
+Graph* createGraph(int vertices) {<br>
+    Graph* graph = (Graph*)malloc(sizeof(Graph));<br>
+    graph->numVertices = vertices;<br>
+
+
+    graph->adjLists = (Node**)malloc(vertices * sizeof(Node*));<br>
+
+   
+    for (int i = 0; i < vertices; i++) {<br>
+        graph->adjLists[i] = NULL;<br>
+    }<br>
+
+    return graph;<br>
+}<br>
+
+void addEdge(Graph* graph, int src, int dest) {<br>
+
+    Node* newNode = createNode(dest);<br>
+    newNode->next = graph->adjLists[src];<br>
+    graph->adjLists[src] = newNode;<br>
+
+   
+    newNode = createNode(src);<br>
+    newNode->next = graph->adjLists[dest];<br>
+    graph->adjLists[dest] = newNode;<br>
+}<br>
+
+
+void deleteEdge(Graph* graph, int src, int dest) {<br>
+    Node* temp = graph->adjLists[src];<br>
+    Node* prev = NULL;<br>
+
+    
+    while (temp != NULL && temp->vertex != dest) {<br>
+        prev = temp;<br>
+        temp = temp->next;<br>
+    }<br>
+
+    if (temp != NULL) {<br>
+        if (prev != NULL) {<br>
+            prev->next = temp->next;<br>
+        } else {<br>
+            graph->adjLists[src] = temp->next;<br>
+        }<br>
+        free(temp);<br>
+    }<br>
+
+   
+    temp = graph->adjLists[dest];<br>
+    prev = NULL;<br>
+
+    while (temp != NULL && temp->vertex != src) {<br>
+        prev = temp;<br>
+        temp = temp->next;<br>
+    }<br>
+
+    if (temp != NULL) {<br>
+        if (prev != NULL) {<br>
+            prev->next = temp->next;<br>
+        } else {<br>
+            graph->adjLists[dest] = temp->next;<br>
+        }<br>
+        free(temp);<br>
+    }<br>
+}
+<br>
+
+void printGraph(Graph* graph) {<br>
+    for (int v = 0; v < graph->numVertices; v++) {<br>
+        Node* temp = graph->adjLists[v];<br>
+        printf("Vertex %d:", v);<br>
+        while (temp) {<br>
+            printf(" -> %d", temp->vertex);<br>
+            temp = temp->next;<br>
+        }<br>
+        printf("\n");<br>
+    }<br>
+}<br>
+
+
+void freeGraph(Graph* graph) {<br>
+    for (int i = 0; i < graph->numVertices; i++) {<br>
+        Node* temp = graph->adjLists[i];<br>
+        while (temp) {<br>
+            Node* next = temp->next;<br>
+            free(temp);<br>
+            temp = next;<br>
+        }<br>
+    }<br>
+    free(graph->adjLists);<br>
+    free(graph);<br>
+}<br>
+
+int main() {<br>
+    int vertices = 5;<br>
+    Graph* graph = createGraph(vertices);<br>
+
+    
+    addEdge(graph, 0, 1);<br>
+    addEdge(graph, 0, 4);<br>
+    addEdge(graph, 1, 2);<br>
+    addEdge(graph, 1, 3);<br>
+    addEdge(graph, 1, 4);<br>
+    addEdge(graph, 2, 3);<br>
+    addEdge(graph, 3, 4);<br>
+
+  
+    printf("Graph adjacency list:\n");<br>
+    printGraph(graph);<br>
+
+    // Delete an edge<br>
+    printf("\nDeleting the edge between 1 and 4:\n");<br>
+    deleteEdge(graph, 1, 4);<br>
+    printGraph(graph);<br>
+
+    // Free the graph<br>
+    freeGraph(graph);<br>
+
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Graph adjacency list:<br>
+Vertex 0: -> 4 -> 1<br>
+Vertex 1: -> 4 -> 3 -> 2 -> 0<br>
+Vertex 2: -> 3 -> 1<br>
+Vertex 3: -> 4 -> 2 -> 1<br>
+Vertex 4: -> 3 -> 1 -> 0<br>
+<br>
+Deleting the edge between 1 and 4:<br>
+Vertex 0: -> 4 -> 1<br>
+Vertex 1: -> 3 -> 2 -> 0<br>
+Vertex 2: -> 3 -> 1<br>
+Vertex 3: -> 4 -> 2 -> 1<br>
+Vertex 4: -> 3 -> 0<br>
+
+</h3>
+</body>
+</html>

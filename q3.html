@@ -1,0 +1,120 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+typedef struct {<br>
+    int *items;<br>
+    int front;<br>
+    int rear;<br>
+    int size;<br>
+    int capacity;<br>
+} Queue;<br>
+<br>
+void initQueue(Queue *q, int capacity) {<br>
+    q-&gt;capacity = capacity;<br>
+    q-&gt;front = 0;<br>
+    q-&gt;rear = -1;<br>
+    q-&gt;size = 0;<br>
+    q-&gt;items = (int *)malloc(capacity * sizeof(int));<br>
+}<br>
+<br>
+int isEmpty(Queue *q) {<br>
+    return q-&gt;size == 0;<br>
+}<br>
+<br>
+int isFull(Queue *q) {<br>
+    return q-&gt;size == q-&gt;capacity;<br>
+}<br>
+<br>
+void enqueue(Queue *q, int value) {<br>
+    if (isFull(q)) {<br>
+        printf("Queue is full. Cannot enqueue %d.\n", value);<br>
+        return;<br>
+    }<br>
+    q-&gt;rear = (q-&gt;rear + 1) % q-&gt;capacity;<br>
+    q-&gt;items[q-&gt;rear] = value;<br>
+    q-&gt;size++;<br>
+    printf("Enqueued: %d\n", value);<br>
+}<br>
+<br>
+int dequeue(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. Cannot dequeue.\n");<br>
+        return -1;<br>
+    }<br>
+    int value = q-&gt;items[q-&gt;front];<br>
+    q-&gt;front = (q-&gt;front + 1) % q-&gt;capacity;<br>
+    q-&gt;size--;<br>
+    printf("Dequeued: %d\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+int peek(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. No front item.\n");<br>
+        return -1;<br>
+    }<br>
+    return q-&gt;items[q-&gt;front];<br>
+}<br>
+<br>
+void display(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty.\n");<br>
+        return;<br>
+    }<br>
+    printf("Queue elements: ");<br>
+    for (int i = 0; i &lt; q-&gt;size; i++) {<br>
+        int index = (q-&gt;front + i) % q-&gt;capacity;<br>
+        printf("%d ", q-&gt;items[index]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+void freeQueue(Queue *q) {<br>
+    free(q-&gt;items);<br>
+}<br>
+<br>
+int main() {<br>
+    Queue q;<br>
+    initQueue(&amp;q, 5);<br>
+<br>
+    enqueue(&amp;q, 10);<br>
+    enqueue(&amp;q, 20);<br>
+    enqueue(&amp;q, 30);<br>
+    display(&amp;q);<br>
+<br>
+    dequeue(&amp;q);<br>
+    display(&amp;q);<br>
+<br>
+    printf("Front element: %d\n", peek(&amp;q));<br>
+<br>
+    enqueue(&amp;q, 40);<br>
+    enqueue(&amp;q, 50);<br>
+    enqueue(&amp;q, 60);<br>
+    display(&amp;q);<br>
+<br>
+    freeQueue(&amp;q);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enqueued: 10<br>
+Enqueued: 20<br>
+Enqueued: 30<br>
+Queue elements: 10 20 30<br>
+Dequeued: 10<br>
+Queue elements: 20 30<br>
+Front element: 20<br>
+Enqueued: 40<br>
+Enqueued: 50<br>
+Enqueued: 60<br>
+Queue elements: 20 30 40 50 60<br>
+</h3>
+</body>
+</html>

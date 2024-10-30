@@ -1,0 +1,134 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2> 
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+
+struct TreeNode* insert(struct TreeNode* root, int val) {<br>
+    if (root == NULL) {<br>
+        return createNode(val);<br>
+    }<br>
+    if (val &lt; root-&gt;val) {<br>
+        root-&gt;left = insert(root-&gt;left, val);<br>
+    } else if (val &gt; root-&gt;val) {<br>
+        root-&gt;right = insert(root-&gt;right, val);<br>
+    }<br>
+    return root;<br>
+}<br>
+
+struct TreeNode* findInorderPredecessor(struct TreeNode* root, struct TreeNode* node) {<br>
+    struct TreeNode* predecessor = NULL;<br>
+    if (node-&gt;left != NULL) {<br>
+        predecessor = node-&gt;left;<br>
+        while (predecessor-&gt;right != NULL) {<br>
+            predecessor = predecessor-&gt;right;<br>
+        }<br>
+        return predecessor;<br>
+    }<br>
+    while (root != NULL) {<br>
+        if (node-&gt;val &gt; root-&gt;val) {<br>
+            predecessor = root;<br>
+            root = root-&gt;right;<br>
+        } else if (node-&gt;val &lt; root-&gt;val) {<br>
+            root = root-&gt;left;<br>
+        } else {<br>
+            break;<br>
+        }<br>
+    }<br>
+    return predecessor;<br>
+}<br>
+
+struct TreeNode* findInorderSuccessor(struct TreeNode* root, struct TreeNode* node) {<br>
+    struct TreeNode* successor = NULL;<br>
+    if (node-&gt;right != NULL) {<br>
+        successor = node-&gt;right;<br>
+        while (successor-&gt;left != NULL) {<br>
+            successor = successor-&gt;left;<br>
+        }<br>
+        return successor;<br>
+    }<br>
+    while (root != NULL) {<br>
+        if (node-&gt;val &lt; root-&gt;val) {<br>
+            successor = root;<br>
+            root = root-&gt;left;<br>
+        } else if (node-&gt;val &gt; root-&gt;val) {<br>
+            root = root-&gt;right;<br>
+        } else {<br>
+            break;<br>
+        }<br>
+    }<br>
+    return successor;<br>
+}<br>
+
+struct TreeNode* search(struct TreeNode* root, int val) {<br>
+    if (root == NULL || root-&gt;val == val) {<br>
+        return root;<br>
+    }<br>
+    if (val &lt; root-&gt;val) {<br>
+        return search(root-&gt;left, val);<br>
+    }<br>
+    return search(root-&gt;right, val);<br>
+}<br>
+
+int main() {<br>
+    struct TreeNode* root = NULL;<br>
+    int choice, value;<br>
+    struct TreeNode* node;<br>
+    struct TreeNode* predecessor;<br>
+    struct TreeNode* successor;<br>
+
+    root = insert(root, 20);<br>
+    root = insert(root, 10);<br>
+    root = insert(root, 30);<br>
+    root = insert(root, 5);<br>
+    root = insert(root, 15);<br>
+    root = insert(root, 25);<br>
+    root = insert(root, 35);<br>
+
+    printf("Enter the value to find its inorder predecessor and successor: ");<br>
+    scanf("%d", &amp;value);<br>
+
+    node = search(root, value);<br>
+    if (node == NULL) {<br>
+        printf("Node with value %d not found in the tree.\n", value);<br>
+    } else {<br>
+        predecessor = findInorderPredecessor(root, node);<br>
+        if (predecessor != NULL) {<br>
+            printf("Inorder Predecessor of %d is: %d\n", value, predecessor-&gt;val);<br>
+        } else {<br>
+            printf("Inorder Predecessor of %d does not exist.\n", value);<br>
+        }<br>
+        successor = findInorderSuccessor(root, node);<br>
+        if (successor != NULL) {<br>
+            printf("Inorder Successor of %d is: %d\n", value, successor-&gt;val);<br>
+        } else {<br>
+            printf("Inorder Successor of %d does not exist.\n", value);<br>
+        }<br>
+    }<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the value to find its inorder predecessor and successor: 15<br>
+Inorder Predecessor of 15 is: 10<br>
+Inorder Successor of 15 is: 20<br>
+</h3>
+</body>
+</html>

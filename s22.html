@@ -1,0 +1,51 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+
+void sortString(char str[]) {<br>
+    int n = strlen(str);<br>
+    char temp;<br>
+
+    // Sort the string using bubble sort<br>
+    for (int i = 0; i < n - 1; i++) {<br>
+        for (int j = i + 1; j < n; j++) {<br>
+            if (str[i] > str[j]) {<br>
+                // Swap the characters<br>
+                temp = str[i];<br>
+                str[i] = str[j];<br>
+                str[j] = temp;<br>
+            }<br>
+        }<br>
+    }<br>
+}<br>
+
+int main() {<br>
+    char str[100];<br>
+
+    // Get input from the user<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin);<br>
+
+    // Remove the newline character if present<br>
+    str[strcspn(str, "\n")] = 0;<br>
+
+    // Sort the string<br>
+    sortString(str);<br>
+
+    // Print the sorted string<br>
+    printf("Sorted string: %s\n", str);<br>
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: data structures<br>
+Sorted string:  aacderrsstttuu<br>
+</h3>
+</body>
+</html>

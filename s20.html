@@ -1,0 +1,68 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+
+int main() {<br>
+    char str[1000]; // Array to hold the input string<br>
+    int charCount = 0; // Count of characters<br>
+    int wordCount = 0; // Count of words<br>
+    int spaceCount = 0; // Count of spaces<br>
+    int lineCount = 0; // Count of lines<br>
+    int i = 0; // Loop counter<br>
+
+    // Input: string from the user<br>
+    printf("Enter a string (max 1000 characters, press Enter to finish): \n");<br>
+    fgets(str, sizeof(str), stdin); // Use fgets to read a line of text<br>
+
+    // Count characters, words, spaces, and lines<br>
+    for (i = 0; str[i] != '\0'; i++) {<br>
+        // Count characters<br>
+        if (str[i] != '\n') {<br>
+            charCount++;<br>
+        }<br>
+
+        // Count spaces<br>
+        if (str[i] == ' ') {<br>
+            spaceCount++;<br>
+        }<br>
+
+        // Count lines<br>
+        if (str[i] == '\n') {<br>
+            lineCount++;<br>
+        }<br>
+
+        // Count words (a word is defined as a sequence of characters separated by spaces)<br>
+        if ((i == 0 && str[i] != ' ') || (str[i] != ' ' && str[i - 1] == ' ')) {<br>
+            wordCount++;<br>
+        }<br>
+    }<br>
+
+    // If the string does not end with a newline, count the last line<br>
+    if (charCount > 0 && str[i - 1] != '\n') {<br>
+        lineCount++;<br>
+    }<br>
+
+    // Output the results<br>
+    printf("Number of characters: %d\n", charCount);<br>
+    printf("Number of words: %d\n", wordCount);<br>
+    printf("Number of spaces: %d\n", spaceCount);<br>
+    printf("Number of lines: %d\n", lineCount);<br>
+
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string (max 1000 characters, press Enter to finish): <br>
+Stacks works on the principle of Last In First Out (LIFO).<br>
+Number of characters: 58<br>
+Number of words: 11<br>
+Number of spaces: 10<br>
+Number of lines: 1<br>
+</h3>
+</body>
+</html>

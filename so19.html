@@ -1,0 +1,102 @@
+<html> <br>
+<head> <br>
+</head> <br>
+<body> <br>
+<h2> <b> CODE </b> </h2> <br>
+<h3> <br>
+#include &lt;stdio.h&gt; <br>
+#include &lt;string.h&gt; <br>
+#include &lt;time.h&gt; <br>
+#define MAX_STRING_LENGTH 100 <br>
+#define MAX_ARRAY_SIZE 100 <br>
+void swap(char *str1, char *str2) { <br>
+    char temp[MAX_STRING_LENGTH]; <br>
+    strcpy(temp, str1); <br>
+    strcpy(str1, str2); <br>
+    strcpy(str2, temp); <br>
+} <br>
+int partition(char arr[][MAX_STRING_LENGTH], int low, int high) { <br>
+    char *pivot = arr[high]; <br>
+    int i = (low - 1); <br>
+    for (int j = low; j &lt; high; j++) { <br>
+        if (strcmp(arr[j], pivot) &lt;= 0) { <br>
+            i++; <br>
+            swap(arr[i], arr[j]); <br>
+        } <br>
+    } <br>
+    swap(arr[i + 1], arr[high]); <br>
+    return (i + 1); <br>
+} <br>
+void quickSortIterative(char arr[][MAX_STRING_LENGTH], int n) { <br>
+    int stack[n]; <br>
+    int top = -1; <br>
+    stack[++top] = 0; <br>
+    stack[++top] = n - 1; <br>
+    while (top >= 0) { <br>
+        int high = stack[top--]; <br>
+        int low = stack[top--]; <br>
+        int pivotIndex = partition(arr, low, high); <br>
+        if (pivotIndex - 1 &gt; low) { <br>
+            stack[++top] = low; <br>
+            stack[++top] = pivotIndex - 1; <br>
+        } <br>
+        if (pivotIndex + 1 &lt; high) { <br>
+            stack[++top] = pivotIndex + 1; <br>
+            stack[++top] = high; <br>
+        } <br>
+    } <br>
+} <br>
+void printArray(char arr[][MAX_STRING_LENGTH], int n) { <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        printf("%s ", arr[i]); <br>
+    } <br>
+    printf("\n"); <br>
+} <br>
+int main() { <br>
+    char arr[MAX_ARRAY_SIZE][MAX_STRING_LENGTH]; <br>
+    int n; <br>
+    printf("Enter the number of strings: "); <br>
+    scanf("%d", &amp;n); <br>
+    getchar(); <br>
+    printf("Enter the strings:\n"); <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        fgets(arr[i], sizeof(arr[i]), stdin); <br>
+        arr[i][strcspn(arr[i], "\n")] = '\0'; <br>
+    } <br>
+    clock_t start, end; <br>
+    double cpu_time_used; <br>
+    start = clock(); <br>
+    quickSortIterative(arr, n); <br>
+    end = clock(); <br>
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC; <br>
+    printf("Sorted array of strings:\n"); <br>
+    printArray(arr, n); <br>
+    printf("Time taken for sorting: %f seconds\n", cpu_time_used); <br>
+    printf("\nComplexity Analysis:\n"); <br>
+    printf("Worst Case Complexity: O(n^2)\n"); <br>
+    printf("Best Case Complexity: O(n log n)\n"); <br>
+    return 0; <br>
+} <br>
+</h3> <br>
+<h2> <b> OUTPUT </b> </h2> <br>
+<h3> <br>
+Enter the number of names: 5 <br>
+Enter the names: <br>
+Amit <br>
+Priya <br>
+Ravi <br>
+Neha <br>
+Karan <br>
+Sorted array of names: <br>
+Amit <br>
+Karan <br>
+Neha <br>
+Priya <br>
+Ravi <br>
+Time taken for sorting: 0.000001 seconds <br>
+Complexity Analysis: <br>
+Worst Case Complexity: O(n^2) <br>
+Best Case Complexity: O(n log n) <br>
+</h3> <br>
+</body> <br>
+</html>

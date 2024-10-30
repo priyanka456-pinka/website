@@ -1,0 +1,75 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+int compare(const void *a, const void *b) {<br>
+    return (*(int *)a - *(int *)b);<br>
+}<br>
+<br>
+int binarySearch(int arr[], int target, int left, int right) {<br>
+    if (left &gt; right) {<br>
+        return -1;<br>
+    }<br>
+<br>
+    int mid = left + (right - left) / 2;<br>
+<br>
+    if (arr[mid] == target) {<br>
+        return mid;<br>
+    } else if (arr[mid] &lt; target) {<br>
+        return binarySearch(arr, target, mid + 1, right);<br>
+    } else {<br>
+        return binarySearch(arr, target, left, mid - 1);<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    int n;<br>
+<br>
+    printf("Enter the number of elements in the array: ");<br>
+    scanf("%d", &amp;n);<br>
+<br>
+    if (n &lt;= 0) {<br>
+        printf("Please enter a positive integer for the array size.\n");<br>
+        return 1;<br>
+    }<br>
+<br>
+    int arr[n];<br>
+    printf("Enter %d integers:\n", n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf("%d", &amp;arr[i]);<br>
+    }<br>
+<br>
+    qsort(arr, n, sizeof(int), compare);<br>
+<br>
+    int target;<br>
+    printf("Enter an integer value to search for: ");<br>
+    scanf("%d", &amp;target);<br>
+<br>
+    int index = binarySearch(arr, target, 0, n - 1);<br>
+<br>
+    if (index != -1) {<br>
+        printf("Element %d found at index: %d\n", target, index);<br>
+    } else {<br>
+        printf("Element %d not found in the array.\n", target);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 5<br>
+Enter 5 integers:<br>
+40<br>
+10<br>
+30<br>
+20<br>
+50<br>
+Enter an integer value to search for: 30<br>
+Element 30 found at index: 2<br>
+</h3>
+</body>
+</html>

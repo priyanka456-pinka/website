@@ -1,0 +1,68 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b>  </h2>
+<h3>
+ #include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    int rows, cols;<br>
+<br>
+    // Ask for the size of the matrix<br>
+    printf("Enter the number of rows: ");<br>
+    scanf("%d", &rows);<br>
+    printf("Enter the number of columns: ");<br>
+    scanf("%d", &cols);<br>
+<br>
+    int matrix[rows][cols]; // Declare the original matrix<br>
+    int copy[rows][cols];    // Declare the copy matrix<br>
+    int i, j;<br>
+
+    // Input the matrix elements<br>
+    printf("Enter the elements of the matrix:\n");<br>
+    for (i = 0; i < rows; i++) {<br>
+        for (j = 0; j < cols; j++) {<br>
+            printf("Element [%d][%d]: ", i, j);<br>
+            scanf("%d", &matrix[i][j]);<br>
+        }<br>
+    }<br>
+<br>
+    // Copy the matrix to another matrix<br>
+    for (i = 0; i < rows; i++) {<br>
+        for (j = 0; j < cols; j++) {<br>
+            copy[i][j] = matrix[i][j];<br>
+        }<br>
+    }<br>
+<br>
+    // Display the copied matrix<br>
+    printf("\nThe copied matrix is:\n");<br>
+    for (i = 0; i < rows; i++) {<br>
+        for (j = 0; j < cols; j++) {<br>
+            printf("%d ", copy[i][j]);<br>
+        }<br>
+        printf("\n"); <br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+<h2>
+<b>
+Output: </b>
+</h2><br><h3>
+Enter the number of rows: 2<br>
+Enter the number of columns: 3<br>
+Enter the elements of the matrix:<br>
+Element [0][0]: 2<br>
+Element [0][1]: 4<br>
+Element [0][2]: 5<br>
+Element [1][0]: 6<br>
+Element [1][1]: 7<br>
+Element [1][2]: 8<br>
+<br>
+The copied matrix is:<br>
+2 4 5 <br>
+6 7 8<br>
+</h3>
+</body>
+</html>

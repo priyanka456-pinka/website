@@ -1,0 +1,67 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+void mergeSortedArrays(int arr1[], int n1, int arr2[], int n2, int merged[]) {<br>
+    int i = 0, j = 0, k = 0;<br>
+    while (i &lt; n1 && j &lt; n2) {<br>
+        if (arr1[i] &lt; arr2[j]) {<br>
+            merged[k++] = arr1[i++];<br>
+        } else {<br>
+            merged[k++] = arr2[j++];<br>
+        }<br>
+    }<br>
+    while (i &lt; n1) {<br>
+        merged[k++] = arr1[i++];<br>
+    }<br>
+    while (j &lt; n2) {<br>
+        merged[k++] = arr2[j++];<br>
+    }<br>
+}<br>
+int main() {<br>
+    int n1, n2;<br>
+    printf(&quot;Enter the number of elements in the first sorted array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n1);<br>
+    int arr1[n1];<br>
+    printf(&quot;Enter %d sorted elements for the first array:\n&quot;, n1);<br>
+    for (int i = 0; i &lt; n1; i++) {<br>
+        scanf(&quot;%d&quot;, &arr1[i]);<br>
+    }<br>
+    printf(&quot;Enter the number of elements in the second sorted array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n2);<br>
+    int arr2[n2];<br>
+    printf(&quot;Enter %d sorted elements for the second array:\n&quot;, n2);<br>
+    for (int i = 0; i &lt; n2; i++) {<br>
+        scanf(&quot;%d&quot;, &arr2[i]);<br>
+    }<br>
+    int merged[n1 + n2];<br>
+    mergeSortedArrays(arr1, n1, arr2, n2, merged);<br>
+    printf(&quot;Merged sorted array:\n&quot;);<br>
+    for (int i = 0; i &lt; n1 + n2; i++) {<br>
+        printf(&quot;%d &quot;, merged[i]);<br>
+    }<br>
+    printf(&quot;\n&quot;);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the first sorted array: 4<br>
+Enter 4 sorted elements for the first array:<br>
+1<br>
+3<br>
+5<br>
+7<br>
+Enter the number of elements in the second sorted array: 3<br>
+Enter 3 sorted elements for the second array:<br>
+2<br>
+4<br>
+6<br>
+Merged sorted array:<br>
+1 2 3 4 5 6 7 <br>
+</h3>
+</body>
+</html>

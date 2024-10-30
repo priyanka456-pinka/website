@@ -1,0 +1,37 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+// Function to calculate factorial using recursion<br>
+int factorial(int n) {<br>
+    if (n &lt;= 1) {<br>
+        return 1; // Base case: factorial of 0 or 1 is 1<br>
+    } else {<br>
+        return n * factorial(n - 1); // Recursive case<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    int num;<br>
+    printf(&quot;Enter a number to calculate its factorial: &quot;);<br>
+    scanf(&quot;%d&quot;, &amp;num);<br>
+<br>
+    if (num &lt; 0) {<br>
+        printf(&quot;Factorial of a negative number is not defined.\n&quot;);<br>
+    } else {<br>
+        int result = factorial(num);<br>
+        printf(&quot;Factorial of %d is: %d\n&quot;, num, result);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a number to calculate its factorial: 5<br>
+Factorial of 5 is: 120<br>
+</h3>
+</body>
+</html>

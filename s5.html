@@ -1,0 +1,40 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    int i;<br>
+<br>
+    // Taking input from the user<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    // Traverse through the string and toggle the case<br>
+    for (i = 0; str[i] != &#39;\0&#39;; i++) {<br>
+        // If the character is lowercase, convert to uppercase<br>
+        if (str[i] &gt;= &#39;a&#39; &amp;&amp; str[i] &lt;= &#39;z&#39;) {<br>
+            str[i] = str[i] - 32;<br>
+        }<br>
+        // If the character is uppercase, convert to lowercase<br>
+        else if (str[i] &gt;= &#39;A&#39; &amp;&amp; str[i] &lt;= &#39;Z&#39;) {<br>
+            str[i] = str[i] + 32;<br>
+        }<br>
+    }<br>
+<br>
+    // Output the converted string<br>
+    printf(&quot;Toggle case string: %s&quot;, str);<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: hIIi.. my NAme IS pRIYAnka <br>
+Toggle case string: HiiI.. MY naME is PriyaNKA <br>
+</h3>
+</body>
+</html>

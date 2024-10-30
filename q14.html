@@ -1,0 +1,105 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+<br>
+#define MAX_QUEUE_SIZE 100<br>
+<br>
+// Structure for a simple queue<br>
+typedef struct {<br>
+    int data[MAX_QUEUE_SIZE];<br>
+    int front;<br>
+    int rear;<br>
+} Queue;<br>
+<br>
+// Function to initialize the queue<br>
+void initQueue(Queue *q) {<br>
+    q-&gt;front = -1;<br>
+    q-&gt;rear = -1;<br>
+}<br>
+<br>
+// Function to check if the queue is empty<br>
+int isEmpty(Queue *q) {<br>
+    return (q-&gt;front == -1);<br>
+}<br>
+<br>
+// Function to enqueue an element<br>
+void enqueue(Queue *q, int value) {<br>
+    if (q-&gt;rear == MAX_QUEUE_SIZE - 1) {<br>
+        printf(&quot;Queue overflow\n&quot;);<br>
+        return;<br>
+    }<br>
+    if (q-&gt;front == -1) {<br>
+        q-&gt;front = 0;<br>
+    }<br>
+    q-&gt;rear++;<br>
+    q-&gt;data[q-&gt;rear] = value;<br>
+}<br>
+<br>
+// Function to dequeue an element<br>
+int dequeue(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf(&quot;Queue underflow\n&quot;);<br>
+        return -1;<br>
+    }<br>
+    int value = q-&gt;data[q-&gt;front];<br>
+    if (q-&gt;front == q-&gt;rear) {<br>
+        q-&gt;front = q-&gt;rear = -1;<br>
+    } else {<br>
+        q-&gt;front++;<br>
+    }<br>
+    return value;<br>
+}<br>
+<br>
+// Function to get the front element of the queue<br>
+int front(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        return -1;<br>
+    }<br>
+    return q-&gt;data[q-&gt;front];<br>
+}<br>
+<br>
+// Function to find the length of the longest valid parentheses substring<br>
+int longestValidParentheses(const char *str) {<br>
+    int maxLength = 0;<br>
+    int lastInvalidIndex = -1;<br>
+    Queue q;<br>
+    initQueue(&amp;q);<br>
+<br>
+    for (int i = 0; i &lt; strlen(str); i++) {<br>
+        if (str[i] == &#39;(&#39;) {<br>
+            enqueue(&amp;q, i);<br>
+        } else {<br>
+            if (!isEmpty(&amp;q)) {<br>
+                dequeue(&amp;q);<br>
+                if (isEmpty(&amp;q)) {<br>
+                    maxLength = (i - lastInvalidIndex &gt; maxLength) ? i - lastInvalidIndex : maxLength;<br>
+                } else {<br>
+                    maxLength = (i - front(&amp;q) &gt; maxLength) ? i - front(&amp;q) : maxLength;<br>
+                }<br>
+            } else {<br>
+                lastInvalidIndex = i;<br>
+            }<br>
+        }<br>
+    }<br>
+    return maxLength;<br>
+}<br>
+<br>
+// Main function to test the solution<br>
+int main() {<br>
+    const char *str = &quot;(()))())(&quot;;<br>
+    int result = longestValidParentheses(str);<br>
+    printf(&quot;Length of the longest valid parentheses substring: %d\n&quot;, result);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Length of the longest valid parentheses substring: 4<br>
+</h3>
+</body>
+</html>
+s

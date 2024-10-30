@@ -1,0 +1,349 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3> 
+#include &lt;stdio.h&gt;<br>
+
+#include &lt;stdlib.h&gt;<br>
+
+<br>
+// Node structure<br>
+
+struct Node {<br>
+
+    int data;<br>
+
+    struct Node* next;<br>
+
+};<br>
+<br>
+
+// to check if the list is empty<br>
+
+int isEmpty(struct Node* head) {<br>
+
+    return head == NULL;<br>
+
+}<br>
+
+<br>
+// Function to insert at the beginning<br>
+
+void insertAtBegin(struct Node** head, int value) {<br>
+
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));<br>
+
+    newNode->data = value;<br>
+
+    newNode->next = *head;<br>
+
+    *head = newNode;<br>
+
+    printf("Inserted %d at the beginning.\n", value);<br>
+
+}
+<br>
+
+// Function to insert at the end<br>
+
+void insertAtEnd(struct Node** head, int value) {<br>
+
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));<br>
+
+    newNode->data = value;<br>
+
+    newNode->next = NULL;<br>
+
+    if (*head == NULL) {<br>
+
+        *head = newNode;<br>
+
+    } else {<br>
+
+        struct Node* temp = *head;<br>
+
+        while (temp->next != NULL) {<br>
+
+            temp = temp->next;<br>
+
+        }<br>
+
+        temp->next = newNode;<br>
+
+    }<br>
+
+    printf("Inserted %d at the end.\n", value);<br>
+
+}<br>
+
+<br>
+// Function to delete from the beginning<br>
+
+void deleteAtBegin(struct Node** head) {<br>
+
+    if (isEmpty(*head)) {<br>
+
+        printf("List is empty.\n");<br>
+
+        return;<br>
+
+    }<br>
+
+    struct Node* temp = *head;<br>
+
+    *head = (*head)->next;<br>
+
+    printf("Deleted %d from the beginning.\n", temp->data);<br>
+
+    free(temp);<br>
+
+}<br>
+
+<br>
+// Function to delete from the end<br>
+
+void deleteAtEnd(struct Node** head) {<br>
+
+    if (isEmpty(*head)) {<br>
+
+        printf("List is empty.\n");<br>
+
+        return;<br>
+
+    }<br>
+
+    struct Node* temp = *head;<br>
+
+    if (temp->next == NULL) {<br>
+
+        *head = NULL;<br>
+
+    } else {<br>
+
+        struct Node* prev = NULL;<br>
+
+        while (temp->next != NULL) {<br>
+
+            prev = temp;<br><br>
+
+
+            temp = temp->next;<br>
+
+        }<br>
+
+        prev->next = NULL;<br>
+
+    }<br>
+
+    printf("Deleted %d from the end.\n", temp->data);<br>
+
+    free(temp);<br>
+
+}<br>
+<br>
+
+// Function to display the linked list<br>
+
+void display(struct Node* head) {<br>
+
+    if (isEmpty(head)) {<br>
+
+        printf("List is empty.\n");<br>
+
+        return;<br>
+
+    }<br>
+
+    struct Node* temp = head;<br>
+
+    printf("Linked list: ");<br>
+
+    while (temp != NULL) {<br>
+
+        printf("%d -> ", temp->data);<br>
+
+        temp = temp->next;<br>
+
+    }<br>
+
+    printf("NULL\n");<br>
+
+}<br>
+
+
+
+
+int main() {<br>
+
+    struct Node* head = NULL;<br>
+
+    int choice, value;<br>
+
+
+    do {<br>
+
+        printf("\nMenu:\n1. Insert at beginning\n2. Insert at end\n3. Delete at beginning\n4. Delete at end\n5. Display\n0. Exit\nEnter your choice: ");<br>
+
+        scanf("%d", &choice);<br>
+
+
+        switch (choice) {<br>
+
+            case 1:<br>
+
+                printf("Enter value to insert: ");<br>
+
+                scanf("%d", &value);<br>
+
+                insertAtBegin(&head, value);<br>
+
+                break;<br>
+
+            case 2:<br>
+
+                printf("Enter value to insert: ");<br>
+
+                scanf("%d", &value);<br>
+
+                insertAtEnd(&head, value);<br>
+
+                break;<br>
+
+            case 3:<br>
+
+                deleteAtBegin(&head);<br>
+
+                break;<br>
+
+            case 4:<br>
+
+                deleteAtEnd(&head);<br>
+
+                break;<br>
+
+            case 5:<br>
+
+                display(head);<br>
+
+                break;<br>
+
+            case 0:<br>
+
+                printf("Exiting program.\n");<br>
+
+                break;<br>
+
+            default:<br>
+
+                printf("Invalid choice. Please try again.\n");<br>
+
+        }<br>
+
+    } while (choice != 0);<br>
+
+<br>
+
+    return 0;<br>
+
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </B> </h2>
+<h3>
+Menu:<br>
+
+1. Insert at beginning<br>
+
+2. Insert at end<br>
+
+3. Delete at beginning<br>
+
+4. Delete at end<br>
+5. Display<br>
+0. Exit<br>
+Enter your choice: 1<br>
+Enter value to insert: 56<br>
+Inserted 56 at the beginning.<br>
+
+
+Menu:<br>
+
+1. Insert at beginning<br>
+
+2. Insert at end<br>
+
+3. Delete at beginning<br>
+
+4. Delete at end<br>
+
+5. Display<br>
+
+0. Exit<br>
+
+Enter your choice: 4<br>
+
+Deleted 56 from the end.<br>
+
+
+Menu:<br>
+
+1. Insert at beginning<br>
+
+2. Insert at end<br>
+
+3. Delete at beginning<br>
+
+4. Delete at end<br>
+
+5. Display<br>
+
+0. Exit<br>
+
+Enter your choice: <br>
+
+List is empty.<br>
+
+
+Menu:<br>
+
+1. Insert at beginning<br>
+
+2. Insert at end<br>
+
+3. Delete at beginning<br>
+
+4. Delete at end<br>
+
+5. Display<br>
+
+0. Exit<br>
+
+Enter your choice: 2<br>
+
+Enter value to insert: 2356<br>
+
+Inserted 2356 at the end.<br>
+
+
+Menu:<br>
+
+1. Insert at beginning<br>
+
+2. Insert at end<br>
+
+3. Delete at beginning<br>
+
+4. Delete at end<br>
+
+5. Display<br>
+
+0. Exit<br>
+
+Enter your choice: 5<br>
+
+Linked list: 2356 -> NULL<br>
+ </h3>
+</body>
+</html>

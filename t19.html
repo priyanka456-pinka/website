@@ -1,0 +1,129 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2> 
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode *left, *right;<br>
+};<br>
+
+struct TreeNode* createNode(int value) {<br>
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    newNode-&gt;val = value;<br>
+    newNode-&gt;left = newNode-&gt;right = NULL;<br>
+    return newNode;<br>
+}<br>
+
+struct QueueNode {<br>
+    struct TreeNode* treeNode;<br>
+    struct QueueNode* next;<br>
+};<br>
+
+struct QueueNode *front = NULL, *rear = NULL;<br>
+
+void enqueue(struct TreeNode* node) {<br>
+    struct QueueNode* newQueueNode = (struct QueueNode*)malloc(sizeof(struct QueueNode));<br>
+    newQueueNode-&gt;treeNode = node;<br>
+    newQueueNode-&gt;next = NULL;<br>
+    if (rear == NULL) {<br>
+        front = rear = newQueueNode;<br>
+    } else {<br>
+        rear-&gt;next = newQueueNode;<br>
+        rear = newQueueNode;<br>
+    }<br>
+}<br>
+
+struct TreeNode* dequeue() {<br>
+    if (front == NULL) return NULL;<br>
+    struct QueueNode* temp = front;<br>
+    struct TreeNode* node = temp-&gt;treeNode;<br>
+    front = front-&gt;next;<br>
+    if (front == NULL) rear = NULL;<br>
+    free(temp);<br>
+    return node;<br>
+}<br>
+
+int isQueueEmpty() {<br>
+    return front == NULL;<br>
+}<br>
+
+struct TreeNode* createCompleteBinaryTree() {<br>
+    int value;<br>
+    int nodeCount = 0;<br>
+
+    printf("Enter value for the root node: ");<br>
+    scanf("%d", &value);<br>
+
+    struct TreeNode* root = createNode(value);<br>
+    enqueue(root);<br>
+    nodeCount++;<br>
+
+    while (1) {<br>
+        struct TreeNode* current = dequeue();<br>
+        if (current == NULL) break;<br>
+
+        printf("Enter value for the left child of node with value %d (-1 for no child): ", current-&gt;val);<br>
+        scanf("%d", &value);<br>
+        if (value != -1) {<br>
+            current-&gt;left = createNode(value);<br>
+            enqueue(current-&gt;left);<br>
+            nodeCount++;<br>
+        }<br>
+
+        printf("Enter value for the right child of node with value %d (-1 for no child): ", current-&gt;val);<br>
+        scanf("%d", &value);<br>
+        if (value != -1) {<br>
+            current-&gt;right = createNode(value);<br>
+            enqueue(current-&gt;right);<br>
+            nodeCount++;<br>
+        }<br>
+    }<br>
+
+    return root;<br>
+}<br>
+
+void levelOrderTraversal(struct TreeNode* root) {<br>
+    if (!root) return;<br>
+
+    enqueue(root);<br>
+    while (!isQueueEmpty()) {<br>
+        struct TreeNode* current = dequeue();<br>
+        printf("%d ", current-&gt;val);<br>
+
+        if (current-&gt;left) enqueue(current-&gt;left);<br>
+        if (current-&gt;right) enqueue(current-&gt;right);<br>
+    }<br>
+}<br>
+
+int main() {<br>
+    printf("Create a complete binary tree.\n");<br>
+    struct TreeNode* root = createCompleteBinaryTree();<br>
+
+    printf("Level order traversal of the created complete binary tree: ");<br>
+    levelOrderTraversal(root);<br>
+    printf("\n");<br>
+
+    return 0;<br>
+}
+</h3>
+<h2>
+<b> OUTPUT </b> </h2>
+<h3>
+Create a complete binary tree.<br>
+Enter value for the root node: 58<br>
+Enter value for the left child of node with value 58 (-1 for no child): 63<br>
+Enter value for the right child of node with value 58 (-1 for no child): 12<br>
+Enter value for the left child of node with value 63 (-1 for no child): 45<br>
+Enter value for the right child of node with value 63 (-1 for no child): 85<br>
+Enter value for the left child of node with value 12 (-1 for no child): 47<br>
+Enter value for the right child of node with value 12 (-1 for no child): -1<br>
+Enter value for the left child of node with value 45 (-1 for no child): -1<br>
+Level order traversal of the created complete binary tree: 58 63 12 45 85 47  
+</h3>
+</body>
+</html>

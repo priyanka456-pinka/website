@@ -1,0 +1,45 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100], reversed[100];<br>
+    int length = 0, i;<br>
+<br>
+    // Taking input for the string<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    // Calculate the length of the string manually<br>
+    while (str[length] != &apos;\0&apos;) {<br>
+        // Stop counting if we hit a newline character<br>
+        if (str[length] == &apos;\n&apos;) {<br>
+            break;<br>
+        }<br>
+        length++;<br>
+    }<br>
+<br>
+    // Copy the reverse of the string into the &apos;reversed&apos; array<br>
+    for (i = 0; i &lt; length; i++) {<br>
+        reversed[i] = str[length - 1 - i];<br>
+    }<br>
+<br>
+    // Add the null terminator at the end of the reversed string<br>
+    reversed[length] = &apos;\0&apos;;<br>
+<br>
+    // Output the reversed string<br>
+    printf(&quot;Reversed string: %s\n&quot;, reversed);<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: data structures<br>
+Reversed string: serutcurts atad<br>
+</h3>
+</body>
+</html>

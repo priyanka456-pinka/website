@@ -1,0 +1,39 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+// Function to calculate Fibonacci using recursion<br>
+int fibonacci(int n) {<br>
+    if (n &lt;= 0) {<br>
+        return 0; // Fibonacci of 0 is 0<br>
+    } else if (n == 1) {<br>
+        return 1; // Fibonacci of 1 is 1<br>
+    } else {<br>
+        return fibonacci(n - 1) + fibonacci(n - 2); // Recursive case<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    int num;<br>
+    printf(&quot;Enter the position (n) to calculate the Fibonacci number: &quot;);<br>
+    scanf(&quot;%d&quot;, &amp;num);<br>
+<br>
+    if (num &lt; 0) {<br>
+        printf(&quot;Fibonacci of a negative position is not defined.\n&quot;);<br>
+    } else {<br>
+        int result = fibonacci(num);<br>
+        printf(&quot;Fibonacci number at position %d is: %d\n&quot;, num, result);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the position (n) to calculate the Fibonacci number: 6<br>
+Fibonacci number at position 6 is: 8<br>
+</h3>
+</body>
+</html>

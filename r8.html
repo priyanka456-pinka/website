@@ -1,0 +1,62 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+// Function to calculate the sum of elements in the array using recursion<br>
+int sumOfArray(int arr[], int n) {<br>
+    // Base case: if there are no elements, return 0<br>
+    if (n &lt;= 0) {<br>
+        return 0;<br>
+    } else {<br>
+        // Recursive case: add the last element to the sum of the remaining elements<br>
+        return arr[n - 1] + sumOfArray(arr, n - 1);<br>
+    }<br>
+}<br>
+<br>
+// Function to calculate the arithmetic mean<br>
+float arithmeticMean(int arr[], int n) {<br>
+    // Calculate sum using the sumOfArray function<br>
+    int sum = sumOfArray(arr, n);<br>
+    <br>
+    // Return mean (handle case where n is 0 to avoid division by zero)<br>
+    return (n &gt; 0) ? (float)sum / n : 0;<br>
+}<br>
+<br>
+int main() {<br>
+    int n;<br>
+<br>
+    printf(&quot;Enter the number of elements in the array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+<br>
+    if (n &lt;= 0) {<br>
+        printf(&quot;Please enter a positive integer.&quot;);<br>
+        return 1; // Exit if the input is invalid<br>
+    }<br>
+<br>
+    int arr[n];<br>
+    printf(&quot;Enter %d integers:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &arr[i]);<br>
+    }<br>
+<br>
+    float mean = arithmeticMean(arr, n);<br>
+    printf(&quot;The arithmetic mean of the array is: %.2f\n&quot;, mean);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 5<br>
+Enter 5 integers:<br>
+10<br>
+20<br>
+30<br>
+40<br>
+50<br>
+The arithmetic mean of the array is: 30.00<br>
+</h3>
+</body>
+</html>

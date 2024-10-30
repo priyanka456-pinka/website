@@ -1,0 +1,28 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+// Function to calculate the sum of natural numbers using recursion<br>
+int sumOfNaturalNumbers(int n) {<br>
+    if (n == 0) {<br>
+        return 0; // Base case: sum of natural numbers up to 0 is 0<br>
+    } else {<br>
+        return n + sumOfNaturalNumbers(n - 1); // Recursive case<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    int num = 10; // Calculate the sum of natural numbers up to 10<br>
+    int result = sumOfNaturalNumbers(num);<br>
+    printf(&quot;The sum of natural numbers till %d is: %d\n&quot;, num, result);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>The sum of natural numbers till 10 is: 55<br>
+</h3>
+</body>
+</html>

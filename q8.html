@@ -1,0 +1,133 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+<br>
+#define MAX 5  // Define the maximum size of the priority queue<br>
+#define STRING_LENGTH 100  // Define the maximum length for each string<br>
+<br>
+typedef struct {<br>
+    char items[MAX][STRING_LENGTH];<br>
+    int size;<br>
+} PriorityQueue;<br>
+<br>
+void initQueue(PriorityQueue *pq) {<br>
+    pq-&gt;size = 0;<br>
+}<br>
+<br>
+int isEmpty(PriorityQueue *pq) {<br>
+    return pq-&gt;size == 0;<br>
+}<br>
+<br>
+int isFull(PriorityQueue *pq) {<br>
+    return pq-&gt;size == MAX;<br>
+}<br>
+<br>
+void insert(PriorityQueue *pq, const char *value) {<br>
+    if (isFull(pq)) {<br>
+        printf("Priority Queue is full. Cannot insert '%s'.\n", value);<br>
+        return;<br>
+    }<br>
+    int i;<br>
+    // Find the correct position for the new value<br>
+    for (i = pq-&gt;size - 1; (i &gt;= 0 &amp;&amp; strcmp(pq-&gt;items[i], value) &gt; 0); i--) {<br>
+        strcpy(pq-&gt;items[i + 1], pq-&gt;items[i]);  // Shift elements to the right<br>
+    }<br>
+    strcpy(pq-&gt;items[i + 1], value);  // Insert the new value<br>
+    pq-&gt;size++;<br>
+    printf("Inserted: '%s'\n", value);<br>
+}<br>
+<br>
+char* delete(PriorityQueue *pq) {<br>
+    if (isEmpty(pq)) {<br>
+        printf("Priority Queue is empty. Cannot delete.\n");<br>
+        return NULL;  // Return NULL to indicate the queue is empty<br>
+    }<br>
+    char *value = pq-&gt;items[0];  // The highest priority element (lexicographically smallest)<br>
+    for (int i = 0; i &lt; pq-&gt;size - 1; i++) {<br>
+        strcpy(pq-&gt;items[i], pq-&gt;items[i + 1]);  // Shift elements to the left<br>
+    }<br>
+    pq-&gt;size--;<br>
+    printf("Deleted: '%s'\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+char* peek(PriorityQueue *pq) {<br>
+    if (isEmpty(pq)) {<br>
+        printf("Priority Queue is empty. No front item.\n");<br>
+        return NULL;  // Return NULL to indicate the queue is empty<br>
+    }<br>
+    return pq-&gt;items[0];  // Return the highest priority element<br>
+}<br>
+<br>
+void display(PriorityQueue *pq) {<br>
+    if (isEmpty(pq)) {<br>
+        printf("Priority Queue is empty.\n");<br>
+        return;<br>
+    }<br>
+    printf("Priority Queue elements: ");<br>
+    for (int i = 0; i &lt; pq-&gt;size; i++) {<br>
+        printf("'%s' ", pq-&gt;items[i]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+int main() {<br>
+    PriorityQueue pq;<br>
+    initQueue(&amp;pq);<br>
+<br>
+    // Insert different strings<br>
+    insert(&amp;pq, "Banana");<br>
+    insert(&amp;pq, "Apple");<br>
+    insert(&amp;pq, "Cherry");<br>
+    insert(&amp;pq, "Date");<br>
+    insert(&amp;pq, "Elderberry");<br>
+    display(&amp;pq);<br>
+<br>
+    // Attempt to insert another string, which should fail<br>
+    insert(&amp;pq, "Fig");<br>
+<br>
+    // Delete two strings<br>
+    delete(&amp;pq);<br>
+    delete(&amp;pq);<br>
+    display(&amp;pq);<br>
+<br>
+    // Peek at the front element<br>
+    printf("Front element: '%s'\n", peek(&amp;pq));<br>
+<br>
+    // Insert more strings<br>
+    insert(&amp;pq, "Grape");<br>
+    insert(&amp;pq, "Apricot");<br>
+    display(&amp;pq);<br>
+<br>
+    // Attempt to insert yet another string, which should fail again<br>
+    insert(&amp;pq, "Kiwi");<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Inserted: 'Banana'<br>
+Inserted: 'Apple'<br>
+Inserted: 'Cherry'<br>
+Inserted: 'Date'<br>
+Inserted: 'Elderberry'<br>
+Priority Queue elements: 'Apple' 'Banana' 'Cherry' 'Date' 'Elderberry' <br>
+Priority Queue is full. Cannot insert 'Fig'.<br>
+Deleted: 'Apple'<br>
+Deleted: 'Banana'<br>
+Priority Queue elements: 'Cherry' 'Date' 'Elderberry' <br>
+Front element: 'Cherry'<br>
+Inserted: 'Grape'<br>
+Inserted: 'Apricot'<br>
+Priority Queue elements: 'Apricot' 'Cherry' 'Date' 'Elderberry' 'Grape' <br>
+Priority Queue is full. Cannot insert 'Kiwi'.<br>
+</h3>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str1[100], str2[100];<br>
+    int i, isEqual = 1;<br>
+<br>
+    // Taking input for the first string<br>
+    printf(&quot;Enter the first string: &quot;);<br>
+    fgets(str1, sizeof(str1), stdin);<br>
+<br>
+    // Taking input for the second string<br>
+    printf(&quot;Enter the second string: &quot;);<br>
+    fgets(str2, sizeof(str2), stdin);<br>
+<br>
+    // Comparing the two strings character by character<br>
+    for (i = 0; str1[i] != &apos;\0&apos; || str2[i] != &apos;\0&apos;; i++) {<br>
+        // If characters are different, set isEqual to 0 and break the loop<br>
+        if (str1[i] != str2[i]) {<br>
+            isEqual = 0;<br>
+            break;<br>
+        }<br>
+    }<br>
+<br>
+    // Adjust for newline character at the end (fgets includes it)<br>
+    if (isEqual &amp;&amp; str1[i-1] == &apos;\n&apos; &amp;&amp; str2[i-1] == &apos;\n&apos;) {<br>
+        isEqual = 1;<br>
+    } else {<br>
+        isEqual = 0;<br>
+    }<br>
+<br>
+    // Output the result<br>
+    if (isEqual) {<br>
+        printf(&quot;The strings are equal.\n&quot;);<br>
+    } else {<br>
+        printf(&quot;The strings are not equal.\n&quot;);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the first string: trees<br>
+Enter the second string: strings<br>
+The strings are not equal.<br>
+</h3>
+</body>
+</html>

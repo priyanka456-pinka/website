@@ -1,0 +1,60 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;time.h&gt;<br>
+void insertionSort(int arr[], int n) {<br>
+    int i, key, j;<br>
+    for (i = 1; i &lt; n; i++) {<br>
+        key = arr[i];<br>
+        j = i - 1;<br>
+        while (j &gt;= 0 &amp;&amp; arr[j] &gt; key) {<br>
+            arr[j + 1] = arr[j];<br>
+            j = j - 1;<br>
+        }<br>
+        arr[j + 1] = key;<br>
+    }<br>
+}<br>
+void printArray(int arr[], int n) {<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf(&quot;%d &quot;, arr[i]);<br>
+    }<br>
+    printf(&quot;\n&quot;);<br>
+}<br>
+int main() {<br>
+    int n;<br>
+    printf(&quot;Enter the number of elements in the array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+    int arr[n];<br>
+    printf(&quot;Enter %d integers:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &arr[i]);<br>
+    }<br>
+    clock_t start_time = clock();<br>
+    insertionSort(arr, n);<br>
+    clock_t end_time = clock();<br>
+    double time_taken = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;<br>
+    printf(&quot;Sorted array:\n&quot;);<br>
+    printArray(arr, n);<br>
+    printf(&quot;Time taken for sorting: %f seconds\n&quot;, time_taken);<br>
+    printf(&quot;Best case time complexity: O(n) (when the array is already sorted)\n&quot;);<br>
+    printf(&quot;Worst case time complexity: O(n^2) (when the array is sorted in reverse order)\n&quot;);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the array: 5<br>
+Enter 5 integers:<br>
+5 4 3 2 1<br>
+Sorted array:<br>
+1 2 3 4 5<br>
+Time taken for sorting: 0.000002 seconds<br>
+Best case time complexity: O(n) (when the array is already sorted)<br>
+Worst case time complexity: O(n^2) (when the array is sorted in reverse order)<br>
+</h3>
+</body>
+</html>

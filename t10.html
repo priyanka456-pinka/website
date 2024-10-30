@@ -1,0 +1,81 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2> 
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+#include <limits.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+
+struct TreeNode* insert(struct TreeNode* root, int val) {<br>
+    if (root == NULL) {<br>
+        return createNode(val);<br>
+    }<br>
+    if (val &lt; root-&gt;val) {<br>
+        root-&gt;left = insert(root-&gt;left, val);<br>
+    } else if (val &gt; root-&gt;val) {<br>
+        root-&gt;right = insert(root-&gt;right, val);<br>
+    }<br>
+    return root;<br>
+}<br>
+
+int hasDeadEnd(struct TreeNode* root, int minVal, int maxVal) {<br>
+    if (root == NULL) {<br>
+        return 0;<br>
+    }<br>
+    if (root-&gt;left == NULL && root-&gt;right == NULL && (minVal == root-&gt;val - 1) && (maxVal == root-&gt;val + 1)) {<br>
+        return 1;<br>
+    }<br>
+    return hasDeadEnd(root-&gt;left, minVal, root-&gt;val) || hasDeadEnd(root-&gt;right, root-&gt;val, maxVal);<br>
+}<br>
+
+int containsDeadEnd(struct TreeNode* root) {<br>
+    return hasDeadEnd(root, INT_MIN, INT_MAX);<br>
+}<br>
+
+void freeTree(struct TreeNode* root) {<br>
+    if (root != NULL) {<br>
+        freeTree(root-&gt;left);<br>
+        freeTree(root-&gt;right);<br>
+        free(root);<br>
+    }<br>
+}<br>
+
+int main() {<br>
+    struct TreeNode* root = NULL;<br>
+    root = insert(root, 10);<br>
+    root = insert(root, 5);<br>
+    root = insert(root, 1);<br>
+    root = insert(root, 7);<br>
+    root = insert(root, 14);<br>
+    root = insert(root, 13);<br>
+
+    if (containsDeadEnd(root)) {<br>
+        printf("The binary search tree contains dead ends.\n");<br>
+    } else {<br>
+        printf("The binary search tree does not contain dead ends.\n");<br>
+    }<br>
+
+    freeTree(root);<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>The binary search tree contains dead ends.</h3>
+</body>
+</html>

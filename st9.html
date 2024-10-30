@@ -1,0 +1,125 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;ctype.h&gt;<br>
+#define MAX_SIZE 100<br>
+typedef struct Stack {<br>
+    char arr[MAX_SIZE];<br>
+    int top;<br>
+} Stack;<br>
+void initialize(Stack* stack) {<br>
+    stack-&gt;top = -1;<br>
+}<br>
+int isFull(Stack* stack) {<br>
+    return stack-&gt;top == MAX_SIZE - 1;<br>
+}<br>
+int isEmpty(Stack* stack) {<br>
+    return stack-&gt;top == -1;<br>
+}<br>
+void push(Stack* stack, char item) {<br>
+    if (!isFull(stack)) {<br>
+        stack-&gt;arr[++stack-&gt;top] = item;<br>
+    }<br>
+}<br>
+char pop(Stack* stack) {<br>
+    if (!isEmpty(stack)) {<br>
+        return stack-&gt;arr[stack-&gt;top--];<br>
+    }<br>
+    return '\0';<br>
+}<br>
+char peek(Stack* stack) {<br>
+    if (!isEmpty(stack)) {<br>
+        return stack-&gt;arr[stack-&gt;top];<br>
+    }<br>
+    return '\0';<br>
+}<br>
+int precedence(char op) {<br>
+    switch (op) {<br>
+        case '+':<br>
+        case '-':<br>
+            return 1;<br>
+        case '*':<br>
+        case '/':<br>
+            return 2;<br>
+        case '^':<br>
+            return 3;<br>
+        default:<br>
+            return 0;<br>
+    }<br>
+}<br>
+int isOperator(char c) {<br>
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';<br>
+}<br>
+void reverse(char* exp) {<br>
+    int n = strlen(exp);<br>
+    for (int i = 0; i &lt; n / 2; i++) {<br>
+        char temp = exp[i];<br>
+        exp[i] = exp[n - i - 1];<br>
+        exp[n - i - 1] = temp;<br>
+    }<br>
+}<br>
+void infixToPostfix(char* infix, char* postfix) {<br>
+    Stack stack;<br>
+    initialize(&amp;stack);<br>
+    int j = 0;<br>
+    for (int i = 0; infix[i]; i++) {<br>
+        char token = infix[i];<br>
+        if (isalnum(token)) {<br>
+            postfix[j++] = token;<br>
+        } else if (token == '(') {<br>
+            push(&amp;stack, token);<br>
+        } else if (token == ')') {<br>
+            while (!isEmpty(&amp;stack) &amp;&amp; peek(&amp;stack) != '(') {<br>
+                postfix[j++] = pop(&amp;stack);<br>
+            }<br>
+            pop(&amp;stack);<br>
+        } else if (isOperator(token)) {<br>
+            while (!isEmpty(&amp;stack) &amp;&amp; precedence(peek(&amp;stack)) >= precedence(token)) {<br>
+                postfix[j++] = pop(&amp;stack);<br>
+            }<br>
+            push(&amp;stack, token);<br>
+        }<br>
+    }<br>
+    while (!isEmpty(&amp;stack)) {<br>
+        postfix[j++] = pop(&amp;stack);<br>
+    }<br>
+    postfix[j] = '\0';<br>
+}<br>
+void infixToPrefix(char* infix, char* prefix) {<br>
+    reverse(infix);<br>
+    for (int i = 0; infix[i]; i++) {<br>
+        if (infix[i] == '(') {<br>
+            infix[i] = ')';<br>
+        } else if (infix[i] == ')') {<br>
+            infix[i] = '(';<br>
+        }<br>
+    }<br>
+    char postfix[MAX_SIZE];<br>
+    infixToPostfix(infix, postfix);<br>
+    reverse(postfix);<br>
+    strcpy(prefix, postfix);<br>
+}<br>
+int main() {<br>
+    char infix[MAX_SIZE];<br>
+    char prefix[MAX_SIZE];<br>
+    printf("Enter the infix expression: ");<br>
+    fgets(infix, sizeof(infix), stdin);<br>
+    infix[strcspn(infix, "\n")] = 0;<br>
+    infixToPrefix(infix, prefix);<br>
+    printf("Prefix expression: %s\n", prefix);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the infix expression: (A + B) * C<br>
+Prefix expression: * + A B C<br>
+</h3>
+</body>
+</html>

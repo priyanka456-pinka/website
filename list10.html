@@ -1,0 +1,176 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+// Define the structure for a polynomial term<br>
+struct Term {<br>
+    int coeff;     // Coefficient of the term<br>
+    int exp;       // Exponent of the term<br>
+    struct Term* next;<br>
+};<br>
+<br>
+// Function to create a new term<br>
+struct Term* createTerm(int coeff, int exp) {<br>
+    struct Term* newTerm = (struct Term*)malloc(sizeof(struct Term));<br>
+    if (!newTerm) {<br>
+        printf("Memory allocation failed\n");<br>
+        return NULL;<br>
+    }<br>
+    newTerm-&gt;coeff = coeff;<br>
+    newTerm-&gt;exp = exp;<br>
+    newTerm-&gt;next = NULL;<br>
+    return newTerm;<br>
+}<br>
+<br>
+// Function to insert a term in the polynomial list in sorted order of exponent<br>
+void insertTerm(struct Term** poly, int coeff, int exp) {<br>
+    struct Term* newTerm = createTerm(coeff, exp);<br>
+    if (!newTerm) return;<br>
+<br>
+    if (*poly == NULL || (*poly)-&gt;exp &lt; exp) {<br>
+        newTerm-&gt;next = *poly;<br>
+        *poly = newTerm;<br>
+    } else {<br>
+        struct Term* temp = *poly;<br>
+        while (temp-&gt;next != NULL && temp-&gt;next-&gt;exp &gt;= exp) {<br>
+            temp = temp-&gt;next;<br>
+        }<br>
+        if (temp-&gt;exp == exp) {<br>
+            temp-&gt;coeff += coeff; // Combine like terms<br>
+            free(newTerm);<br>
+        } else {<br>
+            newTerm-&gt;next = temp-&gt;next;<br>
+            temp-&gt;next = newTerm;<br>
+        }<br>
+    }<br>
+}<br>
+<br>
+// Function to subtract two polynomials<br>
+struct Term* subtractPolynomials(struct Term* poly1, struct Term* poly2) {<br>
+    struct Term* result = NULL;<br>
+<br>
+    while (poly1 != NULL || poly2 != NULL) {<br>
+        int coeff, exp;<br>
+        if (poly1 == NULL) {<br>
+            coeff = -poly2-&gt;coeff;<br>
+            exp = poly2-&gt;exp;<br>
+            poly2 = poly2-&gt;next;<br>
+        } else if (poly2 == NULL) {<br>
+            coeff = poly1-&gt;coeff;<br>
+            exp = poly1-&gt;exp;<br>
+            poly1 = poly1-&gt;next;<br>
+        } else if (poly1-&gt;exp &gt; poly2-&gt;exp) {<br>
+            coeff = poly1-&gt;coeff;<br>
+            exp = poly1-&gt;exp;<br>
+            poly1 = poly1-&gt;next;<br>
+        } else if (poly1-&gt;exp &lt; poly2-&gt;exp) {<br>
+            coeff = -poly2-&gt;coeff;<br>
+            exp = poly2-&gt;exp;<br>
+            poly2 = poly2-&gt;next;<br>
+        } else {<br>
+            coeff = poly1-&gt;coeff - poly2-&gt;coeff;<br>
+            exp = poly1-&gt;exp;<br>
+            poly1 = poly1-&gt;next;<br>
+            poly2 = poly2-&gt;next;<br>
+        }<br>
+<br>
+        if (coeff != 0) {<br>
+            insertTerm(&amp;result, coeff, exp);<br>
+        }<br>
+    }<br>
+    return result;<br>
+}<br>
+<br>
+// Function to display the polynomial<br>
+void displayPolynomial(struct Term* poly) {<br>
+    if (poly == NULL) {<br>
+        printf("0\n");<br>
+        return;<br>
+    }<br>
+<br>
+    while (poly != NULL) {<br>
+        printf("%d*x^%d", poly-&gt;coeff, poly-&gt;exp);<br>
+        poly = poly-&gt;next;<br>
+        if (poly != NULL) {<br>
+            if (poly-&gt;coeff &gt; 0) {<br>
+                printf(" + ");<br>
+            } else {<br>
+                printf(" ");<br>
+            }<br>
+        }<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+// Function to free the memory allocated for a polynomial<br>
+void freePolynomial(struct Term* poly) {<br>
+    struct Term* temp;<br>
+    while (poly != NULL) {<br>
+        temp = poly;<br>
+        poly = poly-&gt;next;<br>
+        free(temp);<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    struct Term *poly1 = NULL, *poly2 = NULL, *result = NULL;<br>
+    int n, coeff, exp, i;<br>
+<br>
+    // Input for the first polynomial<br>
+    printf("Enter the number of terms for the first polynomial: ");<br>
+    scanf("%d", &amp;n);<br>
+    printf("Enter the terms (coefficient and exponent):\n");<br>
+    for (i = 0; i &lt; n; i++) {<br>
+        printf("Term %d: ", i + 1);<br>
+        scanf("%d %d", &amp;coeff, &amp;exp);<br>
+        insertTerm(&amp;poly1, coeff, exp);<br>
+    }<br>
+<br>
+    // Input for the second polynomial<br>
+    printf("Enter the number of terms for the second polynomial: ");<br>
+    scanf("%d", &amp;n);<br>
+    printf("Enter the terms (coefficient and exponent):\n");<br>
+    for (i = 0; i &lt; n; i++) {<br>
+        printf("Term %d: ", i + 1);<br>
+        scanf("%d %d", &amp;coeff, &amp;exp);<br>
+        insertTerm(&amp;poly2, coeff, exp);<br>
+    }<br>
+<br>
+    // Perform subtraction<br>
+    result = subtractPolynomials(poly1, poly2);<br>
+<br>
+    // Display the result<br>
+    printf("Resultant polynomial after subtraction:\n");<br>
+    displayPolynomial(result);<br>
+<br>
+    // Free allocated memory<br>
+    freePolynomial(poly1);<br>
+    freePolynomial(poly2);<br>
+    freePolynomial(result);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of terms for the first polynomial: 3<br>
+Enter the terms (coefficient and exponent):<br>
+Term 1: 4 3<br>
+Term 2: 3 2<br>
+Term 3: 5 0<br>
+<br>
+Enter the number of terms for the second polynomial: 2<br>
+Enter the terms (coefficient and exponent):<br>
+Term 1: 2 2<br>
+Term 2: 5 0<br>
+<br>
+Resultant polynomial after subtraction:<br>
+4*x^3 + 1*x^2 + 0<br>
+</h3>
+</body>
+</html>

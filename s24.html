@@ -1,0 +1,117 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+
+<br>
+// Function to compare two strings<br>
+int compareStrings(char *str1, char *str2) {<br>
+    int i = 0;<br>
+    while (str1[i] != '\0' && str2[i] != '\0') {<br>
+        if (str1[i] != str2[i]) {<br>
+            return 0; // Strings are not equal<br>
+        }<br>
+        i++;<br>
+    }<br>
+    // If both strings reached the end, they are equal<br>
+    return (str1[i] == '\0' && str2[i] == '\0');<br>
+}<br>
+
+<br>
+// Function to replace a word in a sentence<br>
+void replaceWord(char *sentence, char *target, char *replacement, char *result) {<br>
+    int i = 0, j = 0, k = 0;<br>
+    char temp[100]; // Temporary array to store each word<br>
+
+    while (sentence[i] != '\0') {<br>
+        // Extract each word from the sentence<br>
+        j = 0;<br>
+        while (sentence[i] != ' ' && sentence[i] != '\n' && sentence[i] != '\0') {<br>
+            temp[j++] = sentence[i++];<br>
+        }<br>
+        temp[j] = '\0'; // Null-terminate the word<br>
+
+        // Compare the extracted word with the target word<br>
+        if (compareStrings(temp, target)) {<br>
+            // If the word matches the target, add the replacement word to the result<br>
+            j = 0;<br>
+            while (replacement[j] != '\0') {<br>
+                result[k++] = replacement[j++];<br>
+            }<br>
+        } else {<br>
+            // Otherwise, add the original word to the result<br>
+            j = 0;<br>
+            while (temp[j] != '\0') {<br>
+                result[k++] = temp[j++];<br>
+            }<br>
+        }<br>
+
+        // Add a space after the word (if there is a space in the original sentence)<br>
+        if (sentence[i] == ' ') {<br>
+            result[k++] = ' ';<br>
+            i++;<br>
+        }<br>
+    }<br>
+    result[k] = '\0'; // Null-terminate the result string<br>
+}<br>
+
+<br>int main() {<br>
+    char sentence[1000];   // Array to hold the input sentence<br>
+    char target[100];      // Array to hold the word to be replaced<br>
+    char replacement[100]; // Array to hold the replacement word<br>
+    char result[1000];     // Array to hold the final result<br>
+
+    // Input: Get the sentence from the user<br>
+    printf("Enter a sentence: ");<br>
+    fgets(sentence, sizeof(sentence), stdin); // Read the input sentence<br>
+
+    // Input: Get the word to be replaced<br>
+    printf("Enter the word to be replaced: ");<br>
+    fgets(target, sizeof(target), stdin); // Read the target word<br>
+
+    // Remove the newline character from the target if it exists<br>
+    int i = 0;<br>
+    while (target[i] != '\0') {<br>
+        if (target[i] == '\n') {<br>
+            target[i] = '\0';<br>
+            break;<br>
+        }<br>
+        i++;<br>
+    }<br>
+
+    // Input: Get the replacement word<br>
+    printf("Enter the replacement word: ");<br>
+    fgets(replacement, sizeof(replacement), stdin); // Read the replacement word<br>
+
+    // Remove the newline character from the replacement if it exists<br>
+    i = 0;<br>
+    while (replacement[i] != '\0') {<br>
+        if (replacement[i] == '\n') {<br>
+            replacement[i] = '\0';<br>
+            break;<br>
+        }<br>
+        i++;<br>
+    }<br>
+
+    // Replace the target word with the replacement word in the sentence<br>
+    replaceWord(sentence, target, replacement, result);<br>
+
+    // Output the final result<br>
+    printf("The modified sentence is: %s\n", result);<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a sentence: hello world.<br>
+Enter the word to be replaced: world.<br>
+Enter the replacement word: everyone.<br>
+The modified sentence is: hello everyone.<br>
+</h3>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+void findLocalMinima(int arr[], int size) {<br>
+    if (size &lt; 3) {<br>
+        printf(&quot;Array should have at least 3 elements to find local minima.\n&quot;);<br>
+        return;<br>
+    }<br>
+    printf(&quot;Local minima are at the following indices and values:\n&quot;);<br>
+    for (int i = 1; i &lt; size - 1; i++) {<br>
+        if (arr[i] &lt; arr[i - 1] && arr[i] &lt; arr[i + 1]) {<br>
+            printf(&quot;Index: %d, Value: %d\n&quot;, i, arr[i]);<br>
+        }<br>
+    }<br>
+}<br>
+int main() {<br>
+    int n;<br>
+    printf(&quot;Enter the number of elements in the array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+    int arr[n];<br>
+    printf(&quot;Enter %d elements:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &arr[i]);<br>
+    }<br>
+    findLocalMinima(arr, n);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the array: 7<br>
+Enter 7 elements:<br>
+9<br>
+5<br>
+7<br>
+3<br>
+8<br>
+6<br>
+4<br>
+Local minima are at the following indices and values:<br>
+Index: 3, Value: 3<br>
+Index: 6, Value: 4<br>
+</h3>
+</body>
+</html>

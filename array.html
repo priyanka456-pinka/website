@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Arrays</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background-color: #e6e6fa; /* Lavender background for the whole page */
+        }
+
+        .header {
+            background-color: #d8bfd8; /* Light purple for the header */
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .left-pane {
+            width: 30%;
+            height: 100vh;
+            background-color: #f3e6ff; /* Light lavender for left pane */
+            overflow-y: auto;
+            border-right: 1px solid #d8bfd8; /* Light purple border */
+        }
+
+        .right-pane {
+            width: 70%;
+            height: 100vh;
+            background-color: #e6e6fa; /* Lavender color for right pane */
+            overflow-y: auto;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Arrays</div>
+    <div class="container">
+        <div class="left-pane">
+            <iframe src="frame1.html"></iframe>
+        </div>
+        <div class="right-pane">
+            <iframe src="frame2.html" name="second"></iframe>
+        </div>
+    </div>
+</body>
+</html>

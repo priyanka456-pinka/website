@@ -1,0 +1,81 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+struct QueueNode {<br>
+    struct TreeNode* treeNode;<br>
+    int level;<br>
+    struct QueueNode* next;<br>
+};<br>
+void enqueue(struct QueueNode** front, struct QueueNode** rear, struct TreeNode* treeNode, int level) {<br>
+    struct QueueNode* newNode = (struct QueueNode*)malloc(sizeof(struct QueueNode));<br>
+    newNode-&gt;treeNode = treeNode;<br>
+    newNode-&gt;level = level;<br>
+    newNode-&gt;next = NULL;<br>
+    if (*rear) {<br>
+        (*rear)-&gt;next = newNode;<br>
+    } else {<br>
+        *front = newNode;<br>
+    }<br>
+    *rear = newNode;<br>
+}<br>
+struct TreeNode* dequeue(struct QueueNode** front, struct QueueNode** rear, int* level) {<br>
+    if (!*front) return NULL;<br>
+    struct QueueNode* temp = *front;<br>
+    struct TreeNode* treeNode = temp-&gt;treeNode;<br>
+    *level = temp-&gt;level;<br>
+    *front = (*front)-&gt;next;<br>
+    if (!*front) *rear = NULL;<br>
+    free(temp);<br>
+    return treeNode;<br>
+}<br>
+void printLeftView(struct TreeNode* root) {<br>
+    if (!root) return;<br>
+    struct QueueNode* front = NULL, *rear = NULL;<br>
+    enqueue(&front, &rear, root, 0);<br>
+    int currentLevel = -1;<br>
+    while (front) {<br>
+        int level;<br>
+        struct TreeNode* current = dequeue(&front, &rear, &level);<br>
+        if (level &gt; currentLevel) {<br>
+            printf("%d ", current-&gt;val);<br>
+            currentLevel = level;<br>
+        }<br>
+        if (current-&gt;left) enqueue(&front, &rear, current-&gt;left, level + 1);<br>
+        if (current-&gt;right) enqueue(&front, &rear, current-&gt;right, level + 1);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+int main() {<br>
+    struct TreeNode* root = createNode(1);<br>
+    root-&gt;left = createNode(2);<br>
+    root-&gt;right = createNode(3);<br>
+    root-&gt;left-&gt;left = createNode(4);<br>
+    root-&gt;left-&gt;right = createNode(5);<br>
+    root-&gt;right-&gt;left = createNode(6);<br>
+    root-&gt;right-&gt;right = createNode(7);<br>
+    root-&gt;left-&gt;left-&gt;left = createNode(8);<br>
+    printf("Left view of the binary tree: ");<br>
+    printLeftView(root);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Left view of the binary tree: 1 2 4 8 </h3>
+</body>
+</html>

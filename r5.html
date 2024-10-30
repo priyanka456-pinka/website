@@ -1,0 +1,54 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+// Function to find the largest element in the array using recursion<br>
+int findLargest(int arr[], int n) {<br>
+    // Base case: if there's only one element, return it<br>
+    if (n == 1) {<br>
+        return arr[0];<br>
+    }<br>
+<br>
+    // Recursive case: compare the last element with the largest of the rest<br>
+    int largestOfRest = findLargest(arr, n - 1);<br>
+    return (arr[n - 1] &gt; largestOfRest) ? arr[n - 1] : largestOfRest;<br>
+}<br>
+<br>
+int main() {<br>
+    int n;<br>
+<br>
+    printf(&quot;Enter the number of elements in the array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+<br>
+    if (n &lt;= 0) {<br>
+        printf(&quot;Please enter a positive integer.\n&quot;);<br>
+        return 1; // Exit if the input is invalid<br>
+    }<br>
+<br>
+    int arr[n];<br>
+    printf(&quot;Enter %d integers:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &arr[i]);<br>
+    }<br>
+<br>
+    int largest = findLargest(arr, n);<br>
+    printf(&quot;The largest element in the array is: %d\n&quot;, largest);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 5<br>
+Enter 5 integers:<br>
+3<br>
+1<br>
+4<br>
+2<br>
+5<br>
+The largest element in the array is: 5<br>
+</h3>
+</body>
+</html>

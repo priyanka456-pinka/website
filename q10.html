@@ -1,0 +1,187 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt'stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+<br>
+#define MAX 5             // Define the maximum size of the deque<br>
+#define STRING_LENGTH 100  // Define the maximum length for each string<br>
+<br>
+typedef struct {<br>
+    char items[MAX][STRING_LENGTH]; // Array to hold the strings<br>
+    int front;                      // Index for the front of the deque<br>
+    int rear;                       // Index for the rear of the deque<br>
+} Deque;<br>
+<br>
+void initDeque(Deque *deque) {<br>
+    deque->front = -1;<br>
+    deque->rear = -1;<br>
+}<br>
+<br>
+int isEmpty(Deque *deque) {<br>
+    return deque->front == -1;<br>
+}<br>
+<br>
+int isFull(Deque *deque) {<br>
+    return (deque->front == 0 && deque->rear == MAX - 1) || (deque->front == deque->rear + 1);<br>
+}<br>
+<br>
+void insertFront(Deque *deque, const char *value) {<br>
+    if (isFull(deque)) {<br>
+        printf("Deque is full. Cannot insert '%s' at front.\n", value);<br>
+        return;<br>
+    }<br>
+    if (isEmpty(deque)) {<br>
+        deque->front = 0;<br>
+        deque->rear = 0;<br>
+    } else if (deque->front == 0) {<br>
+        deque->front = MAX - 1;  // Wrap around<br>
+    } else {<br>
+        deque->front--;<br>
+    }<br>
+    strcpy(deque->items[deque->front], value);<br>
+    printf("Inserted '%s' at front.\n", value);<br>
+}<br>
+<br>
+void insertRear(Deque *deque, const char *value) {<br>
+    if (isFull(deque)) {<br>
+        printf("Deque is full. Cannot insert '%s' at rear.\n", value);<br>
+        return;<br>
+    }<br>
+    if (isEmpty(deque)) {<br>
+        deque->front = 0;<br>
+        deque->rear = 0;<br>
+    } else if (deque->rear == MAX - 1) {<br>
+        deque->rear = 0;  // Wrap around<br>
+    } else {<br>
+        deque->rear++;<br>
+    }<br>
+    strcpy(deque->items[deque->rear], value);<br>
+    printf("Inserted '%s' at rear.\n", value);<br>
+}<br>
+<br>
+char* deleteFront(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. Cannot delete from front.\n");<br>
+        return NULL;  // Return NULL to indicate the deque is empty<br>
+    }<br>
+    char *value = deque->items[deque->front];<br>
+    if (deque->front == deque->rear) {<br>
+        deque->front = -1;  // Reset if the deque is now empty<br>
+        deque->rear = -1;<br>
+    } else if (deque->front == MAX - 1) {<br>
+        deque->front = 0;  // Wrap around<br>
+    } else {<br>
+        deque->front++;<br>
+    }<br>
+    printf("Deleted '%s' from front.\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+char* deleteRear(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. Cannot delete from rear.\n");<br>
+        return NULL;  // Return NULL to indicate the deque is empty<br>
+    }<br>
+    char *value = deque->items[deque->rear];<br>
+    if (deque->front == deque->rear) {<br>
+        deque->front = -1;  // Reset if the deque is now empty<br>
+        deque->rear = -1;<br>
+    } else if (deque->rear == 0) {<br>
+        deque->rear = MAX - 1;  // Wrap around<br>
+    } else {<br>
+        deque->rear--;<br>
+    }<br>
+    printf("Deleted '%s' from rear.\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+char* peekFront(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. No front item.\n");<br>
+        return NULL;  // Return NULL to indicate the deque is empty<br>
+    }<br>
+    return deque->items[deque->front]; // Return the front string<br>
+}<br>
+<br>
+char* peekRear(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. No rear item.\n");<br>
+        return NULL;  // Return NULL to indicate the deque is empty<br>
+    }<br>
+    return deque->items[deque->rear]; // Return the rear string<br>
+}<br>
+<br>
+void display(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty.\n");<br>
+        return;<br>
+    }<br>
+    printf("Deque elements: ");<br>
+    int i = deque->front;<br>
+    while (1) {<br>
+        printf("'%s' ", deque->items[i]);<br>
+        if (i == deque->rear) break;<br>
+        i = (i + 1) % MAX;  // Wrap around<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+int main() {<br>
+    Deque deque;<br>
+    initDeque(&deque);<br>
+<br>
+    // Insert strings at the rear<br>
+    insertRear(&deque, "Dog");<br>
+    insertRear(&deque, "Cat");<br>
+    insertRear(&deque, "Fish");<br>
+    display(&deque);<br>
+<br>
+    // Insert string at the front<br>
+    insertFront(&deque, "Elephant");<br>
+    display(&deque);<br>
+<br>
+    // Delete from front and rear<br>
+    deleteFront(&deque);<br>
+    deleteRear(&deque);<br>
+    display(&deque);<br>
+<br>
+    // Peek at front and rear<br>
+    printf("Front element: '%s'\n", peekFront(&deque));<br>
+    printf("Rear element: '%s'\n", peekRear(&deque));<br>
+<br>
+    // Attempt to insert more strings<br>
+    insertRear(&deque, "Rabbit");<br>
+    insertFront(&deque, "Turtle");<br>
+    display(&deque);<br>
+<br>
+    // Attempt to insert when deque is full<br>
+    insertRear(&deque, "Parrot");<br>
+    insertFront(&deque, "Lizard");<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Inserted 'Dog' at rear.<br>
+Inserted 'Cat' at rear.<br>
+Inserted 'Fish' at rear.<br>
+Deque elements: 'Dog' 'Cat' 'Fish' <br>
+Inserted 'Elephant' at front.<br>
+Deque elements: 'Elephant' 'Dog' 'Cat' 'Fish' <br>
+Deleted 'Elephant' from front.<br>
+Deleted 'Fish' from rear.<br>
+Deque elements: 'Dog' 'Cat' <br>
+Front element: 'Dog'<br>
+Rear element: 'Cat'<br>
+Inserted 'Rabbit' at rear.<br>
+Inserted 'Turtle' at front.<br>
+Deque elements: 'Turtle' 'Dog' 'Cat' 'Rabbit' <br>
+Deque is full. Cannot insert 'Parrot' at rear.<br>
+Deque is full. Cannot insert 'Lizard' at front.<br>
+</h3>
+</body>
+</html>

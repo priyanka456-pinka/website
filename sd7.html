@@ -1,0 +1,47 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    int n;<br>
+    <br>
+    printf("Enter the number of elements in the array: ");<br>
+    scanf("%d", &n);<br>
+    <br>
+    int arr[n];<br>
+    <br>
+    printf("Enter %d elements:\n", n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf("Element %d: ", i + 1);<br>
+        scanf("%d", &arr[i]);<br>
+    }<br>
+    <br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        arr[i] = arr[i] * arr[i];<br>
+    }<br>
+    <br>
+    printf("Squared values of the array:\n");<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf("%d ", arr[i]);<br>
+    }<br>
+    printf("\n");<br>
+    <br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 5<br>
+Enter 5 elements:<br>
+Element 1: 2<br>
+Element 2: 3<br>
+Element 3: 4<br>
+Element 4: 5<br>
+Element 5: 6<br>
+Squared values of the array:<br>
+4 9 16 25 36<br>
+</h3>
+</body>
+</html>

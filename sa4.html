@@ -1,0 +1,47 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+<br>
+int linearSearch(char str[], char target) {<br>
+    for (int i = 0; i &lt; strlen(str); i++) {<br>
+        if (str[i] == target) {<br>
+            return i;<br>
+        }<br>
+    }<br>
+    return -1;<br>
+}<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    char target;<br>
+<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    str[strcspn(str, "\n")] = 0;<br>
+<br>
+    printf("Enter a character to search for: ");<br>
+    scanf(" %c", &amp;target);<br>
+<br>
+    int index = linearSearch(str, target);<br>
+<br>
+    if (index != -1) {<br>
+        printf("Character '%c' found at index: %d\n", target, index);<br>
+    } else {<br>
+        printf("Character '%c' not found in the string.\n", target);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: Programming is fun!<br>
+Enter a character to search for: g<br>
+Character 'g' found at index: 3<br>
+</h3>
+</body>
+</html>

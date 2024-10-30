@@ -1,0 +1,71 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+typedef struct Node {<br>
+    char data;<br>
+    struct Node* next;<br>
+} Node;<br>
+typedef struct Stack {<br>
+    Node* top;<br>
+} Stack;<br>
+void initialize(Stack* stack) {<br>
+    stack-&gt;top = NULL;<br>
+}<br>
+int isEmpty(Stack* stack) {<br>
+    return stack-&gt;top == NULL;<br>
+}<br>
+void push(Stack* stack, char item) {<br>
+    Node* newNode = (Node*)malloc(sizeof(Node));<br>
+    if (newNode == NULL) {<br>
+        printf("Memory allocation failed! Cannot push '%c'\n", item);<br>
+        return;<br>
+    }<br>
+    newNode-&gt;data = item;<br>
+    newNode-&gt;next = stack-&gt;top;<br>
+    stack-&gt;top = newNode;<br>
+}<br>
+char pop(Stack* stack) {<br>
+    if (isEmpty(stack)) {<br>
+        return '\0';<br>
+    }<br>
+    Node* temp = stack-&gt;top;<br>
+    char poppedValue = temp-&gt;data;<br>
+    stack-&gt;top = stack-&gt;top-&gt;next;<br>
+    free(temp);<br>
+    return poppedValue;<br>
+}<br>
+void reverseString(char* str) {<br>
+    Stack stack;<br>
+    initialize(&amp;stack);<br>
+    for (int i = 0; str[i] != '\0'; i++) {<br>
+        push(&amp;stack, str[i]);<br>
+    }<br>
+    int index = 0;<br>
+    while (!isEmpty(&amp;stack)) {<br>
+        str[index++] = pop(&amp;stack);<br>
+    }<br>
+    str[index] = '\0';<br>
+}<br>
+int main() {<br>
+    char str[100];<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin);<br>
+    str[strcspn(str, "\n")] = '\0';<br>
+    reverseString(str);<br>
+    printf("Reversed string: %s\n", str);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a string: Hello, World!<br>
+Reversed string: !dlroW ,olleH<br>
+</h3>
+</body>
+</html>

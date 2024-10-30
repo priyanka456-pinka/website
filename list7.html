@@ -1,0 +1,351 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+<br>
+#define MAX_LEN 100
+<br><br>
+struct Node {
+    char data[MAX_LEN];<br>
+    struct Node* prev;<br>
+    struct Node* next;<br>
+};
+<br>
+struct Node* head = NULL;<br>
+<br>
+// Function to create a new node<br>
+struct Node* createNode(char* data) {<br>
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));<br>
+    if (!newNode) {<br>
+        printf("Memory allocation failed\n");<br>
+        return NULL;<br>
+    }<br>
+    strcpy(newNode->data, data);<br>
+    newNode->prev = NULL;<br>
+    newNode->next = NULL;<br>
+    return newNode;<br>
+}<br>
+
+<br>
+void insertAtBegin(char* data) {<br>
+    struct Node* newNode = createNode(data);<br>
+    if (!newNode) return;<br>
+    if (head == NULL) {<br>
+        head = newNode;<br>
+    } else {<br>
+        newNode->next = head;<br>
+        head->prev = newNode;<br>
+        head = newNode;<br>
+    }<br>
+}<br>
+
+<br>
+void insertAtPos(char* data, int pos) {<br>
+    struct Node* newNode = createNode(data);<br>
+    if (!newNode) return;<br>
+    if (pos == 1) {<br>
+        insertAtBegin(data);<br>
+        return;<br>
+    }<br>
+    struct Node* temp = head;<br>
+    for (int i = 1; i < pos - 1 && temp != NULL; i++) {<br>
+        temp = temp->next;<br>
+    }<br>
+    if (temp == NULL) {<br>
+        printf("Position out of range\n");<br>
+        free(newNode);<br>
+    } else {<br>
+        newNode->next = temp->next;<br>
+        newNode->prev = temp;<br>
+        if (temp->next != NULL) {<br>
+            temp->next->prev = newNode;<br>
+        }<br>
+        temp->next = newNode;<br>
+    }<br>
+}<br>
+
+<br>
+void insertAtEnd(char* data) {<br>
+    struct Node* newNode = createNode(data);<br>
+    if (!newNode) return;<br>
+    if (head == NULL) {<br>
+        head = newNode;<br>
+    } else {<br>
+        struct Node* temp = head;<br>
+        while (temp->next != NULL) {<br>
+            temp = temp->next;<br>
+        }<br>
+        temp->next = newNode;<br>
+        newNode->prev = temp;<br>
+    }<br>
+}<br>
+
+<br>
+void deleteAtBegin() {<br>
+    if (head == NULL) {<br>
+        printf("List is empty\n");<br>
+        return;<br>
+    }<br>
+    struct Node* temp = head;<br>
+    head = head->next;<br>
+    if (head != NULL) {<br><br>
+        head->prev = NULL;<br>
+    }<br>
+    free(temp);<br>
+}<br>
+<br>
+
+void deleteAtEnd() {<br>
+    if (head == NULL) {<br>
+        printf("List is empty\n");<br>
+        return;<br>
+    }<br>
+    struct Node* temp = head;<br>
+    if (head->next == NULL) {<br>
+        head = NULL;<br>
+        free(temp);<br>
+        return;<br>
+    }<br>
+    while (temp->next != NULL) {v
+        temp = temp->next;<br>
+    }<br>    temp->prev->next = NULL;<br>
+    free(temp);<br>
+}<br>
+
+<br>
+void deleteAtPos(int pos) {<br>
+    if (head == NULL) {<br>
+        printf("List is empty\n");<br>
+        return;<br>
+    }<br>
+    if (pos == 1) {<br>
+        deleteAtBegin();<br>
+        return;<br>
+    }<br>
+    struct Node* temp = head;<br>
+    for (int i = 1; i < pos && temp != NULL; i++) {<br>
+        temp = temp->next;<br>
+    }<br>
+    if (temp == NULL) {<br>
+        printf("Position out of range\n");<br>
+    } else {<br>
+        temp->prev->next = temp->next;<br>
+        if (temp->next != NULL) {<br>
+            temp->next->prev = temp->prev;<br>
+        }<br>
+        free(temp);<br>
+    }<br>
+}<br>
+<br>
+// Check if the list is empty<br>
+int isEmpty() {<br>
+    return head == NULL;<br<br>>
+}<br>
+
+int isFull() {<br>
+    return 0;<br>
+}<br>
+<br>
+
+void display() {<br>
+    if (head == NULL) {<br>
+        printf("List is empty\n");<br>
+        return;<br>
+    }<br>
+    struct Node* temp = head;<br>
+    while (temp != NULL) {<br>
+        printf("%s <-> ", temp->data);<br>
+        temp = temp->next;<br>
+    }<br>
+    printf("NULL\n");<br>
+}<br>
+<br>
+// Search for a string in the list<br>
+int search(char* key) {<br>
+    struct Node* temp = head;<br>
+    int pos = 1;<br>
+    while (temp != NULL) {<br>
+        if (strcmp(temp->data, key) == 0) {<br>
+            return pos;<br>
+        }<br>
+        temp = temp->next;<br>
+        pos++;<br>
+    }<br>
+    return -1; // Not found
+}<br>
+<br>
+int main() {<br>
+    int choice, pos;<br>
+    char data[MAX_LEN];<br>
+    while (1) {<br>
+        printf("\n1. Insert at Begin\n2. Insert at Position\n3. Insert at End\n");<br>
+        printf("4. Delete at Begin\n5. Delete at Position\n6. Delete at End\n");<br>
+        printf("7. Display\n8. Search\n9. Check if Empty\n10. Check if Full\n0. Exit\n");<br>
+        printf("Enter your choice: ");<br>
+        scanf("%d", &choice);<br>
+        <br>
+        switch (choice) {<br>
+            case 1:<br>
+                printf("Enter string to insert at beginning: ");<br>
+                scanf("%s", data);<br>
+                insertAtBegin(data);<br>
+                break;<br>
+            case 2:<br>
+                printf("Enter string to insert and position: ");<br>
+                scanf("%s %d", data, &pos);<br>
+                insertAtPos(data, pos);<br>
+                break;<br>
+            case 3:<br>
+                printf("Enter string to insert at end: ");<br>
+                scanf("%s", data);<br>
+                insertAtEnd(data);<br>
+                break;<br>
+            case 4:<br>
+                deleteAtBegin();<br>
+                break;<br>
+            case 5:<br>
+                printf("Enter position to delete: ");<br>
+                scanf("%d", &pos);<br>
+                deleteAtPos(pos);<br>
+                break;<br>
+            case 6:<br>
+                deleteAtEnd();<br>
+                break;<br>
+            case 7:<br>
+                display();<br>
+                break;<br>
+            case 8:<br>
+                printf("Enter string to search: ");<br>
+                scanf("%s", data);<br>
+                pos = search(data);<br>
+                if (pos == -1)<br>
+                    printf("String not found\n");<br>
+                else<br>
+                    printf("String found at position %d\n", pos);<br>                break;<br>
+            case 9:<br>
+                if (isEmpty())<br>
+                    printf("List is empty\n");<br>
+                else<br>
+                    printf("List is not empty\n");<br>
+                break;<br>
+            case 10:<br>
+                if (isFull())<br>
+                    printf("List is full\n");<br>
+                else<br>
+                    printf("List is not full\n");<br>
+                break;<br>
+            case 0:<br>
+                exit(0);<br>
+            default:<br>
+                printf("Invalid choice, please try again\n");<br>
+        }<br>
+    }<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> output </b> </h2>
+<h3>1. Insert at Begin<br>
+2. Insert at Position<br>
+3. Insert at End<br>
+4. Delete at Begin<br>
+5. Delete at Position<br>
+6. Delete at End<br>
+7. Display<br>
+8. Search<br>
+9. Check if Empty<br>
+10. Check if Full<br>
+0. Exit<br>
+Enter your choice: 1<br>
+Enter string to insert at beginning: arrays<br>
+<br>
+1. Insert at Begin<br>
+2. Insert at Position<br>
+3. Insert at End<br>
+4. Delete at Begin<br>
+5. Delete at Position<br>
+6. Delete at End<br>
+7. Display<br>
+8. Search<br>
+9. Check if Empty<br>
+10. Check if Full<br>
+0. Exit<br>
+Enter your choice: 3<br>
+Enter string to insert at end: trees<br>
+<br>
+1. Insert at Begin<br>
+2. Insert at Position<br>
+3. Insert at End<br>
+4. Delete at Begin<br>
+5. Delete at Position<br>
+6. Delete at End<br>
+7. Display<br>
+8. Search<br>
+9. Check if Empty<br>
+10. Check if Full<br>
+0. Exit<br>
+Enter your choice: 7<br>
+arrays <-> trees <-> NULL<br>
+<br>
+1. Insert at Begin<br>
+2. Insert at Position<br>
+3. Insert at End<br>
+4. Delete at Begin<br>
+5. Delete at Position<br>
+6. Delete at End<br>
+7. Display<br>
+8. Search<br>
+9. Check if Empty<br>
+10. Check if Full<br>
+0. Exit<br>
+Enter your choice: 8<br>
+Enter string to search: il<br>
+String not found<br>
+<br>
+1. Insert at Begin<br>
+2. Insert at Position<br>
+3. Insert at End<br>
+4. Delete at Begin<br>
+5. Delete at Position<br>
+6. Delete at End<br>
+7. Display<br>
+8. Search<br>
+9. Check if Empty<br>
+10. Check if Full<br>
+0. Exit<br>
+Enter your choice: 10<br>
+List is not full<br>
+<br>
+1. Insert at Begin<br>
+2. Insert at Position<br>
+3. Insert at End<br>
+4. Delete at Begin<br>
+5. Delete at Position<br>
+6. Delete at End<br>
+7. Display<br>
+8. Search<br>
+9. Check if Empty<br>
+10. Check if Full<br>
+0. Exit<br>
+Enter your choice: 9<br>
+List is not empty<br>
+<br>
+1. Insert at Begin<br>
+2. Insert at Position<br>
+3. Insert at End<br>
+4. Delete at Begin<br>
+5. Delete at Position<br>
+6. Delete at End<br>
+7. Display<br>
+8. Search<br>
+9. Check if Empty<br>
+10. Check if Full<br>
+0. Exit<br>
+Enter your choice: 0<br><br>
+</h3>
+</body>
+</html>

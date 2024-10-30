@@ -1,0 +1,57 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+
+int main() {<br>
+    char str[100]; // Array to hold the input string<br>
+    int number = 0; // Variable to hold the converted integer<br>
+    int i = 0; // Loop counter<br>
+    int sign = 1; // Variable to store the sign of the number (1 for positive, -1 for negative)<br>
+
+    // Input: string from the user<br>
+    printf("Enter a string to convert to an integer: ");<br>
+    fgets(str, sizeof(str), stdin); // Use fgets to read a line of text<br>
+
+    // Check for a negative sign<br>
+    if (str[0] == '-') {<br>
+        sign = -1; // Set sign to -1 for negative numbers<br>
+        i++; // Start from the next character<br>
+    } else if (str[0] == '+') {<br>
+        i++; // Ignore the plus sign and start from the next character<br>
+    }<br>
+
+    // Convert each character to an integer<br>
+    for (; str[i] != '\0'; i++) {<br>
+        // Check if the character is a digit<br>
+        if (str[i] >= '0' && str[i] <= '9') {<br>
+            number = number * 10 + (str[i] - '0'); // Build the integer value<br>
+        } else if (str[i] == '\n') {<br>
+            // Stop at newline character (if using fgets)<br>
+            break;<br>
+        } else {<br>
+            // Handle non-numeric characters<br>
+            printf("Error: Invalid character '%c' in input.\n", str[i]);<br>
+            return 1; // Exit with error code<br>
+        }<br>
+    }<br>
+
+    // Apply the sign to the number<br>
+    number *= sign;<br>
+
+    // Output the result<br>
+    printf("The integer value is: %d\n", number);<br>
+
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string to convert to an integer: 125<br>
+The integer value is: 125<br>
+</h3>
+</body>
+</html>

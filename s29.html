@@ -1,0 +1,53 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+
+<br>#define MAX_LENGTH 10 // Maximum length of the input string<br>
+
+<br>int main() {<br>
+    char str[MAX_LENGTH + 1]; // Array to hold the input string (including the null terminator)<br>
+    int asciiValues[MAX_LENGTH]; // Array to store the ASCII values<br>
+
+    <br>// Input: Get the string from the user<br>
+    printf("Enter a string (up to 10 characters): ");<br>
+    fgets(str, sizeof(str), stdin);<br>
+
+    <br>// Remove the newline character if present<br>
+    str[strcspn(str, "\n")] = '\0';<br>
+
+    int length = strlen(str); // Get the actual length of the input string<br>
+
+    <br>// Convert each character to its ASCII value and store in the integer array<br>
+    for (int i = 0; i &lt; length; i++) {<br>
+        asciiValues[i] = (int)str[i];<br>
+    }<br>
+
+    <br>// Output: Display the ASCII values<br>
+    printf("The ASCII values of the characters are:\n");<br>
+    for (int i = 0; i &lt; length; i++) {<br>
+        printf("Character: %c, ASCII Value: %d\n", str[i], asciiValues[i]);<br>
+    }<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a string (up to 10 characters): priyanka<br>
+The ASCII values of the characters are:<br>
+Character: p, ASCII Value: 112<br>
+Character: r, ASCII Value: 114<br>
+Character: i, ASCII Value: 105<br>
+Character: y, ASCII Value: 121<br>
+Character: a, ASCII Value: 97<br>
+Character: n, ASCII Value: 110<br>
+Character: k, ASCII Value: 107<br>
+Character: a, ASCII Value: 97<br>
+</h3>
+</body>
+</html>

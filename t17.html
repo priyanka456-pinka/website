@@ -1,0 +1,86 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode *left, *right;<br>
+};<br>
+
+struct TreeNode* createNode(int value) {<br>
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    newNode-&gt;val = value;<br>
+    newNode-&gt;left = newNode-&gt;right = NULL;<br>
+    return newNode;<br>
+}<br>
+
+struct TreeNode* createStrictlyBinaryTree() {<br>
+    int value;<br>
+    char choice;<br>
+
+    printf("Enter value for the node: ");<br>
+    scanf("%d", &value);<br>
+
+    struct TreeNode* root = createNode(value);<br>
+
+    printf("Does the node with value %d have left and right children? (y/n): ", value);<br>
+    scanf(" %c", &choice);<br>
+
+    if (choice == 'y' || choice == 'Y') {<br>
+        printf("Creating left child of node with value %d.\n", value);<br>
+        root-&gt;left = createStrictlyBinaryTree();<br>
+
+        printf("Creating right child of node with value %d.\n", value);<br>
+        root-&gt;right = createStrictlyBinaryTree();<br>
+    }<br>
+
+    return root;<br>
+}<br>
+
+void inorderTraversal(struct TreeNode* root) {<br>
+    if (!root) return;<br>
+    inorderTraversal(root-&gt;left);<br>
+    printf("%d ", root-&gt;val);<br>
+    inorderTraversal(root-&gt;right);<br>
+}<br>
+
+int main() {<br>
+    printf("Create a strictly binary tree.\n");<br>
+    struct TreeNode* root = createStrictlyBinaryTree();<br>
+
+    printf("Inorder traversal of the created strictly binary tree: ");<br>
+    inorderTraversal(root);<br>
+    printf("\n");<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Create a strictly binary tree.<br>
+Enter value for the node: 100 <br>
+Does the node with value 100 have left and right children? (y/n): y<br>
+Creating left child of node with value 100.<br>
+Enter value for the node: 56<br>
+Does the node with value 56 have left and right children? (y/n): y<br>
+Creating left child of node with value 56.<br>
+Enter value for the node: 36<br>
+Does the node with value 36 have left and right children? (y/n): n<br>
+Creating right child of node with value 56.<br>
+Enter value for the node: 78<br>
+Does the node with value 78 have left and right children? (y/n): n<br>
+Creating right child of node with value 100.<br>
+Enter value for the node: 25<br>
+Does the node with value 25 have left and right children? (y/n): y<br>
+Creating left child of node with value 25.<br>
+Enter value for the node: 79<br>
+Does the node with value 79 have left and right children? (y/n): n<br>
+Inorder traversal of the created strictly binary tree: 36 56 78 100 79 25 
+</h3>
+</body>
+</html>

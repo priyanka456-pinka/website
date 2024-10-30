@@ -1,0 +1,153 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+#define MAX_ROWS 10<br>
+#define MAX_COLS 10<br>
+<br>
+// Structure to represent a cell in the grid<br>
+typedef struct {<br>
+    int x, y;<br>
+} Cell;<br>
+<br>
+// Queue structure to perform BFS<br>
+typedef struct {<br>
+    Cell data[MAX_ROWS * MAX_COLS];<br>
+    int front, rear;<br>
+} Queue;<br>
+<br>
+// Initialize the queue<br>
+void initQueue(Queue* q) {<br>
+    q-&gt;front = -1;<br>
+    q-&gt;rear = -1;<br>
+}<br>
+<br>
+// Check if the queue is empty<br>
+int isEmpty(Queue* q) {<br>
+    return q-&gt;front == -1;<br>
+}<br>
+<br>
+// Enqueue a cell<br>
+void enqueue(Queue* q, Cell value) {<br>
+    if (q-&gt;rear == MAX_ROWS * MAX_COLS - 1) {<br>
+        printf(&quot;Queue overflow\n&quot;);<br>
+        return;<br>
+    }<br>
+    if (q-&gt;front == -1) {<br>
+        q-&gt;front = 0;<br>
+    }<br>
+    q-&gt;rear++;<br>
+    q-&gt;data[q-&gt;rear] = value;<br>
+}<br>
+<br>
+// Dequeue a cell<br>
+Cell dequeue(Queue* q) {<br>
+    if (isEmpty(q)) {<br>
+        printf(&quot;Queue underflow\n&quot;);<br>
+        return (Cell){-1, -1};<br>
+    }<br>
+    Cell value = q-&gt;data[q-&gt;front];<br>
+    if (q-&gt;front == q-&gt;rear) {<br>
+        q-&gt;front = q-&gt;rear = -1;<br>
+    } else {<br>
+        q-&gt;front++;<br>
+    }<br>
+    return value;<br>
+}<br>
+<br>
+// Directions for moving up, down, left, right<br>
+int rowDir[] = {-1, 1, 0, 0};<br>
+int colDir[] = {0, 0, -1, 1};<br>
+<br>
+// Function to check if a cell is within the grid bounds<br>
+int isValid(int x, int y, int rows, int cols) {<br>
+    return (x &gt;= 0 && x &lt; rows && y &gt;= 0 && y &lt; cols);<br>
+}<br>
+<br>
+// Function to find the minimum time required to rot all oranges<br>
+int minTimeToRotAllOranges(int grid[MAX_ROWS][MAX_COLS], int rows, int cols) {<br>
+    Queue q;<br>
+    initQueue(&amp;q);<br>
+    int freshCount = 0;<br>
+    int time = 0;<br>
+<br>
+    // Enqueue all initially rotten oranges and count the fresh oranges<br>
+    for (int i = 0; i &lt; rows; i++) {<br>
+        for (int j = 0; j &lt; cols; j++) {<br>
+            if (grid[i][j] == 2) {<br>
+                enqueue(&amp;q, (Cell){i, j});<br>
+            } else if (grid[i][j] == 1) {<br>
+                freshCount++;<br>
+            }<br>
+        }<br>
+    }<br>
+<br>
+    // If there are no fresh oranges, no time is needed<br>
+    if (freshCount == 0) {<br>
+        return 0;<br>
+    }<br>
+<br>
+    // BFS to rot adjacent fresh oranges<br>
+    while (!isEmpty(&amp;q)) {<br>
+        int size = q.rear - q.front + 1;<br>
+        int rottenInThisStep = 0;<br>
+<br>
+        for (int i = 0; i &lt; size; i++) {<br>
+            Cell cell = dequeue(&amp;q);<br>
+            int x = cell.x;<br>
+            int y = cell.y;<br>
+<br>
+            // Check all 4 possible directions<br>
+            for (int d = 0; d &lt; 4; d++) {<br>
+                int newX = x + rowDir[d];<br>
+                int newY = y + colDir[d];<br>
+<br>
+                // If the adjacent cell is a fresh orange, rot it<br>
+                if (isValid(newX, newY, rows, cols) && grid[newX][newY] == 1) {<br>
+                    grid[newX][newY] = 2;<br>
+                    enqueue(&amp;q, (Cell){newX, newY});<br>
+                    freshCount--;<br>
+                    rottenInThisStep = 1;<br>
+                }<br>
+            }<br>
+        }<br>
+<br>
+        // If any oranges rotted in this step, increment the time<br>
+        if (rottenInThisStep) {<br>
+            time++;<br>
+        }<br>
+    }<br>
+<br>
+    // If there are still fresh oranges left, return -1<br>
+    return (freshCount == 0) ? time : -1;<br>
+}<br>
+<br>
+// Main function to test the solution<br>
+int main() {<br>
+    int grid[MAX_ROWS][MAX_COLS] = {<br>
+        {2, 1, 0, 2, 1},<br>
+        {1, 0, 1, 2, 1},<br>
+        {1, 0, 0, 2, 1}<br>
+    };<br>
+    int rows = 3;<br>
+    int cols = 5;<br>
+<br>
+    int result = minTimeToRotAllOranges(grid, rows, cols);<br>
+    if (result == -1) {<br>
+        printf(&quot;All oranges cannot rot\n&quot;);<br>
+    } else {<br>
+        printf(&quot;Minimum time required to rot all oranges: %d\n&quot;, result);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Minimum time required to rot all oranges: 2<br>
+</h3>
+</body>
+</html>

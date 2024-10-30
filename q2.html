@@ -1,0 +1,116 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+<br>
+#define MAX 5<br>
+#define STRING_LENGTH 100<br>
+<br>
+typedef struct {<br>
+    char items[MAX][STRING_LENGTH];<br>
+    int front;<br>
+    int rear;<br>
+    int size;<br>
+} Queue;<br>
+<br>
+void initQueue(Queue *q) {<br>
+    q-&gt;front = 0;<br>
+    q-&gt;rear = -1;<br>
+    q-&gt;size = 0;<br>
+}<br>
+<br>
+int isEmpty(Queue *q) {<br>
+    return q-&gt;size == 0;<br>
+}<br>
+<br>
+int isFull(Queue *q) {<br>
+    return q-&gt;size == MAX;<br>
+}<br>
+<br>
+void enqueue(Queue *q, const char *value) {<br>
+    if (isFull(q)) {<br>
+        printf("Queue is full. Cannot enqueue %s.\n", value);<br>
+        return;<br>
+    }<br>
+    q-&gt;rear = (q-&gt;rear + 1) % MAX;<br>
+    strcpy(q-&gt;items[q-&gt;rear], value);<br>
+    q-&gt;size++;<br>
+    printf("Enqueued: %s\n", value);<br>
+}<br>
+<br>
+char* dequeue(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. Cannot dequeue.\n");<br>
+        return NULL;<br>
+    }<br>
+    char *value = q-&gt;items[q-&gt;front];<br>
+    q-&gt;front = (q-&gt;front + 1) % MAX;<br>
+    q-&gt;size--;<br>
+    printf("Dequeued: %s\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+char* peek(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. No front item.\n");<br>
+        return NULL;<br>
+    }<br>
+    return q-&gt;items[q-&gt;front];<br>
+}<br>
+<br>
+void display(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty.\n");<br>
+        return;<br>
+    }<br>
+    printf("Queue elements: ");<br>
+    for (int i = 0; i &lt; q-&gt;size; i++) {<br>
+        int index = (q-&gt;front + i) % MAX;<br>
+        printf("%s ", q-&gt;items[index]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+int main() {<br>
+    Queue q;<br>
+    initQueue(&amp;q);<br>
+<br>
+    enqueue(&amp;q, "Hello");<br>
+    enqueue(&amp;q, "World");<br>
+    enqueue(&amp;q, "Queue");<br>
+    display(&amp;q);<br>
+<br>
+    dequeue(&amp;q);<br>
+    display(&amp;q);<br>
+<br>
+    printf("Front element: %s\n", peek(&amp;q));<br>
+<br>
+    enqueue(&amp;q, "C");<br>
+    enqueue(&amp;q, "Programming");<br>
+    enqueue(&amp;q, "Language");<br>
+    display(&amp;q);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enqueued: Hello<br>
+Enqueued: World<br>
+Enqueued: Queue<br>
+Queue elements: Hello World Queue<br>
+Dequeued: Hello<br>
+Queue elements: World Queue<br>
+Front element: World<br>
+Enqueued: C<br>
+Enqueued: Programming<br>
+Enqueued: Language<br>
+Queue elements: World Queue C Programming Language<br>
+</h3>
+</body>
+</html>

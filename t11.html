@@ -1,0 +1,99 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2> 
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+
+void inOrderTraversal(struct TreeNode* root, int* arr, int* index) {<br>
+    if (root == NULL) {<br>
+        return;<br>
+    }<br>
+    inOrderTraversal(root-&gt;left, arr, index);<br>
+    arr[(*index)++] = root-&gt;val;<br>
+    inOrderTraversal(root-&gt;right, arr, index);<br>
+}<br>
+
+int compare(const void* a, const void* b) {<br>
+    return (*(int*)a - *(int*)b);<br>
+}<br>
+
+struct TreeNode* sortedArrayToBST(int* arr, int start, int end) {<br>
+    if (start > end) {<br>
+        return NULL;<br>
+    }<br>
+    int mid = (start + end) / 2;<br>
+    struct TreeNode* root = createNode(arr[mid]);<br>
+    root-&gt;left = sortedArrayToBST(arr, start, mid - 1);<br>
+    root-&gt;right = sortedArrayToBST(arr, mid + 1, end);<br>
+    return root;<br>
+}<br>
+
+struct TreeNode* binaryTreeToBST(struct TreeNode* root, int* size) {<br>
+    int* arr = (int*)malloc(*size * sizeof(int));<br>
+    int index = 0;<br>
+    inOrderTraversal(root, arr, &amp;index);<br>
+    qsort(arr, *size, sizeof(int), compare);<br>
+    struct TreeNode* bstRoot = sortedArrayToBST(arr, 0, *size - 1);<br>
+    free(arr);<br>
+    return bstRoot;<br>
+}<br>
+
+void printInOrder(struct TreeNode* root) {<br>
+    if (root == NULL) {<br>
+        return;<br>
+    }<br>
+    printInOrder(root-&gt;left);<br>
+    printf("%d ", root-&gt;val);<br>
+    printInOrder(root-&gt;right);<br>
+}<br>
+
+void freeTree(struct TreeNode* root) {<br>
+    if (root != NULL) {<br>
+        freeTree(root-&gt;left);<br>
+        freeTree(root-&gt;right);<br>
+        free(root);<br>
+    }<br>
+}<br>
+
+int main() {<br>
+    struct TreeNode* root = createNode(10);<br>
+    root-&gt;left = createNode(30);<br>
+    root-&gt;right = createNode(20);<br>
+    root-&gt;left-&gt;left = createNode(5);<br>
+    root-&gt;left-&gt;right = createNode(15);<br>
+    root-&gt;right-&gt;right = createNode(25);<br>
+
+    int size = 6;<br>
+
+    struct TreeNode* bstRoot = binaryTreeToBST(root, &amp;size);<br>
+
+    printf("In-order traversal of the constructed BST: ");<br>
+    printInOrder(bstRoot);<br>
+    printf("\n");<br>
+
+    freeTree(root);<br>
+    freeTree(bstRoot);<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>In-order traversal of the constructed BST: 5 10 15 20 25 30 </h3>
+</body>
+</html>

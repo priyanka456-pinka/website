@@ -1,0 +1,102 @@
+<html> <br>
+<head> <br>
+</head> <br>
+<body> <br>
+<h2> <b> CODE </b> </h2> <br>
+<h3> <br>
+#include &lt;stdio.h&gt; <br>
+#include &lt;string.h&gt; <br>
+#include &lt;time.h&gt; <br>
+#define MAX_STRINGS 100 <br>
+void merge(char arr[][100], int left, int mid, int right) { <br>
+    int i, j, k; <br>
+    int n1 = mid - left + 1; <br>
+    int n2 = right - mid; <br>
+    char L[MAX_STRINGS][100], R[MAX_STRINGS][100]; <br>
+    for (i = 0; i &lt; n1; i++) <br>
+        strcpy(L[i], arr[left + i]); <br>
+    for (j = 0; j &lt; n2; j++) <br>
+        strcpy(R[j], arr[mid + 1 + j]); <br>
+    i = 0; <br>
+    j = 0; <br>
+    k = left; <br>
+    while (i &lt; n1 && j &lt; n2) { <br>
+        if (strcmp(L[i], R[j]) &lt;= 0) { <br>
+            strcpy(arr[k], L[i]); <br>
+            i++; <br>
+        } else { <br>
+            strcpy(arr[k], R[j]); <br>
+            j++; <br>
+        } <br>
+        k++; <br>
+    } <br>
+    while (i &lt; n1) { <br>
+        strcpy(arr[k], L[i]); <br>
+        i++; <br>
+        k++; <br>
+    } <br>
+    while (j &lt; n2) { <br>
+        strcpy(arr[k], R[j]); <br>
+        j++; <br>
+        k++; <br>
+    } <br>
+} <br>
+void mergeSort(char arr[][100], int n) { <br>
+    int curr_size; <br>
+    int left_start; <br>
+    for (curr_size = 1; curr_size &lt;= n - 1; curr_size = 2 * curr_size) { <br>
+        for (left_start = 0; left_start &lt; n - 1; left_start += 2 * curr_size) { <br>
+            int mid = left_start + curr_size - 1; <br>
+            int right_end = left_start + 2 * curr_size - 1; <br>
+            if (right_end &gt;= n) <br>
+                right_end = n - 1; <br>
+            if (mid &lt; right_end) <br>
+                merge(arr, left_start, mid, right_end); <br>
+        } <br>
+    } <br>
+} <br>
+int main() { <br>
+    char arr[MAX_STRINGS][100]; <br>
+    int n; <br>
+    clock_t start, end; <br>
+    printf("Enter the number of strings: "); <br>
+    scanf("%d", &amp;n); <br>
+    getchar(); <br>
+    printf("Enter %d strings:\n", n); <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        fgets(arr[i], sizeof(arr[i]), stdin); <br>
+        arr[i][strcspn(arr[i], "\n")] = '\0'; <br>
+    } <br>
+    start = clock(); <br>
+    mergeSort(arr, n); <br>
+    end = clock(); <br>
+    printf("\nSorted strings:\n"); <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        printf("%s\n", arr[i]); <br>
+    } <br>
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC; <br>
+    printf("Time taken for sorting: %f seconds\n", time_taken); <br>
+    printf("Best case time complexity: O(n log n)\n"); <br>
+    printf("Worst case time complexity: O(n log n)\n"); <br>
+    return 0; <br>
+} <br>
+</h3> <br>
+<h2> <b> OUTPUT </b> </h2> <br>
+<h3> <br>
+Enter the number of strings: 4 <br>
+Enter 4 strings: <br>
+Banana <br>
+Apple <br>
+Cherry <br>
+Date <br>
+Sorted strings: <br>
+Apple <br>
+Banana <br>
+Cherry <br>
+Date <br>
+Time taken for sorting: 0.000002 seconds <br>
+Best case time complexity: O(n log n) <br>
+Worst case time complexity: O(n log n) <br>
+</h3> <br>
+</body> <br>
+</html>

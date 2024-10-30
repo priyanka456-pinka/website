@@ -1,0 +1,74 @@
+<html> <br>
+<head> <br>
+</head> <br>
+<body> <br>
+<h2> <b> CODE </b> </h2> <br>
+<h3> <br>
+#include &lt;stdio.h&gt; <br>
+#include &lt;stdlib.h&gt; <br>
+#define MAX_SIZE 100 // Define the maximum size of the stack <br>
+typedef struct { <br>
+    int items[MAX_SIZE]; <br>
+    int top; // Index of the top element <br>
+} Stack; <br>
+void initialize(Stack* stack) { <br>
+    stack-&gt;top = -1; // Stack is initially empty <br>
+} <br>
+int isEmpty(Stack* stack) { <br>
+    return stack-&gt;top == -1; <br>
+} <br>
+int isFull(Stack* stack) { <br>
+    return stack-&gt;top == MAX_SIZE - 1; <br>
+} <br>
+void push(Stack* stack, int item) { <br>
+    if (isFull(stack)) { <br>
+        printf("Stack overflow! Cannot push %d\n", item); <br>
+        return; <br>
+    } <br>
+    stack-&gt;items[++stack-&gt;top] = item; // Increment top and add item <br>
+    printf("Pushed %d onto the stack\n", item); <br>
+} <br>
+int pop(Stack* stack) { <br>
+    if (isEmpty(stack)) { <br>
+        printf("Stack underflow! Cannot pop from the stack\n"); <br>
+        return -1; <br>
+    } <br>
+    return stack-&gt;items[stack-&gt;top--]; <br>
+} <br>
+int peek(Stack* stack) { <br>
+    if (isEmpty(stack)) { <br>
+        printf("Stack is empty! Cannot peek\n"); <br>
+        return -1; <br>
+    } <br>
+    return stack-&gt;items[stack-&gt;top]; <br>
+} <br>
+int main() { <br>
+    Stack stack; <br>
+    initialize(&amp;stack); <br>
+    push(&amp;stack, 10); <br>
+    push(&amp;stack, 20); <br>
+    push(&amp;stack, 30); <br>
+    printf("Top element is: %d\n", peek(&amp;stack)); <br>
+    printf("Popped: %d\n", pop(&amp;stack)); <br>
+    printf("Top element is: %d\n", peek(&amp;stack)); <br>
+    while (!isEmpty(&amp;stack)) { <br>
+        printf("Popped: %d\n", pop(&amp;stack)); <br>
+    } <br>
+    pop(&amp;stack); <br>
+    return 0; <br>
+} <br>
+</h3> <br>
+<h2> <b> OUTPUT </b> </h2> <br>
+<h3> <br>
+Pushed 10 onto the stack <br>
+Pushed 20 onto the stack <br>
+Pushed 30 onto the stack <br>
+Top element is: 30 <br>
+Popped: 30 <br>
+Top element is: 20 <br>
+Popped: 20 <br>
+Popped: 10 <br>
+Stack underflow! Cannot pop from the stack <br>
+</h3> <br>
+</body> <br>
+</html>

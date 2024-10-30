@@ -1,0 +1,166 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+
+// Function to swap characters at position i and j<br>
+void swap(char *x, char *y) {<br>
+    char temp;<br>
+    temp = *x;<br>
+    *x = *y;<br>
+    *y = temp;<br>
+}<br>
+
+// Recursive function to generate permutations<br>
+void permute(char *str, int left, int right) {<br>
+    if (left == right) {<br>
+        printf("%s\n", str); // Print the current permutation<br>
+    } else {<br>
+        for (int i = left; i <= right; i++) {<br>
+            swap((str + left), (str + i)); // Swap the fixed character<br>
+            permute(str, left + 1, right); // Recur for the rest of the string<br>
+            swap((str + left), (str + i)); // Backtrack to the original string<br>
+        }<br>
+    }<br>
+}<br>
+
+int main() {<br>
+    char str[] = "ABCDE"; // String to permute<br>
+    int n = strlen(str); // Length of the string<br>
+
+    printf("All permutations of the string \"%s\":\n", str);<br>
+    permute(str, 0, n - 1); // Call the permutation function<br>
+
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>All permutations of the string "ABCDE":<br>
+ABCDE<br>
+ABCED<br>
+ABDCE<br>
+ABDEC<br>
+ABEDC<br>
+ABECD<br>
+ACBDE<br>
+ACBED<br>
+ACDBE<br>
+ACDEB<br>
+ACEDB<br>
+ACEBD<br>
+ADCBE<br>
+ADCEB<br>
+ADBCE<br>
+ADBEC<br>
+ADEBC<br>
+ADECB<br>
+AECDB<br>
+AECBD<br>
+AEDCB<br>
+AEDBC<br>
+AEBDC<br>
+AEBCD<br>
+BACDE<br>
+BACED<br>
+BADCE<br>
+BADEC<br>
+BAEDC<br>
+BAECD<br>
+BCADE<br>
+BCAED<br>
+BCDAE<br>
+BCDEA<br>
+BCEDA<br>
+BCEAD<br>
+BDCAE<br>
+BDCEA<br>
+BDACE<br>
+BDAEC<br>
+BDEAC<br>
+BDECA<br>
+BECDA<br>
+BECAD<br>
+BEDCA<br>
+BEDAC<br>
+BEADC<br>
+BEACD<br>
+CBADE<br>
+CBAED<br>
+CBDAE<br>
+CBDEA<br>
+CBEDA<br>
+CBEAD<br>
+CABDE<br>
+CABED<br>
+CADBE<br>
+CADEB<br>
+CAEDB<br>
+CAEBD<br>
+CDABE<br>
+CDAEB<br>
+CDBAE<br>
+CDBEA<br>
+CDEBA<br>
+CDEAB<br>
+CEADB<br>
+CEABD<br>
+CEDAB<br>
+CEDBA<br>
+CEBDA<br>
+CEBAD<br>
+DBCAE<br>
+DBCEA<br>
+DBACE<br>
+DBAEC<br>
+DBEAC<br>
+DBECA<br>
+DCBAE<br>
+DCBEA<br>
+DCABE<br>
+DCAEB<br>
+DCEAB<br>
+DCEBA<br>
+DACBE<br>
+DACEB<br>
+DABCE<br>
+DABEC<br>
+DAEBC<br>
+DAECB<br>
+DECAB<br>
+DECBA<br>
+DEACB<br>
+DEABC<br>
+DEBAC<br>
+DEBCA<br>
+EBCDA<br>
+EBCAD<br>
+EBDCA<br>
+EBDAC<br>
+EBADC<br>
+EBACD<br>
+ECBDA<br>
+ECBAD<br>
+ECDBA<br>
+ECDAB<br>
+ECADB<br>
+ECABD<br>
+EDCBA<br>
+EDCAB<br>
+EDBCA<br>
+EDBAC<br>
+EDABC<br>
+EDACB<br>
+EACDB<br>
+EACBD<br>
+EADCB<br>
+EADBC<br>
+EABDC<br>
+EABCD<br>
+</h3>
+</body>
+</html>

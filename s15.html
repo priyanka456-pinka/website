@@ -1,0 +1,47 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100]; // Array to hold the string<br>
+    char ch;      // Character to search for<br>
+    int found = 0; // Flag to check if character is found<br>
+    int i; // Loop counter<br>
+<br>
+    // Input: string from the user<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin); // Use fgets to read a line of text<br>
+<br>
+    // Input: character to search for<br>
+    printf(&quot;Enter a character to search: &quot;);<br>
+    scanf(&quot; %c&quot;, &amp;ch); // Note the space before %c to skip any newline character<br>
+<br>
+    // Search for the character in the string<br>
+    printf(&quot;Character &apos;%c&apos; found at positions: &quot;, ch);<br>
+    for (i = 0; str[i] != &apos;\0&apos;; i++) {<br>
+        if (str[i] == ch) {<br>
+            printf(&quot;%d &quot;, i); // Print the index where the character is found<br>
+            found = 1; // Set flag to 1 if found<br>
+        }<br>
+    }<br>
+<br>
+    // If the character was not found, inform the user<br>
+    if (!found) {<br>
+        printf(&quot;not found in the string.&quot;);<br>
+    }<br>
+<br>
+    printf(&quot;\n&quot;);<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: priyanka<br>
+Enter a character to search: f<br>
+Character &apos;f&apos; found at positions: not found in the string.<br>
+</h3>
+</body>
+</html>

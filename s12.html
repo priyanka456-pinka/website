@@ -1,0 +1,56 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    int i = 0;<br>
+<br>
+    // Taking input for the string<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    // Print each character in a new line<br>
+    while (str[i] != &apos;\0&apos;) {<br>
+        // Stop printing if we hit a newline character<br>
+        if (str[i] == &apos;\n&apos;) {<br>
+            break;<br>
+        }<br>
+        // Print the current character<br>
+        printf(&quot;%c\n&quot;, str[i]);<br>
+        i++;<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: linear data structures<br>
+l<br>
+i<br>
+n<br>
+e<br>
+a<br>
+r<br>
+<br>
+d<br>
+a<br>
+t<br>
+a<br>
+<br>
+s<br>
+t<br>
+r<br>
+u<br>
+c<br>
+t<br>
+u<br>
+r<br>
+e<br>
+s<br>
+</h3>
+</body>
+</html>

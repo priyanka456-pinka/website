@@ -1,0 +1,46 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    int n;<br>
+    <br>
+    printf("Enter the number of elements in the array: ");<br>
+    scanf("%d", &n);<br>
+    <br>
+    int arr[n];<br>
+    <br>
+    printf("Enter %d elements:\n", n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf("Element %d: ", i + 1);<br>
+        scanf("%d", &arr[i]);<br>
+    }<br>
+    <br>
+    printf("Positive numbers in the array:\n");<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        if (arr[i] &gt; 0) {<br>
+            printf("%d ", arr[i]);<br>
+        }<br>
+    }<br>
+    printf("\n");<br>
+    <br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 6<br>
+Enter 6 elements:<br>
+Element 1: -10<br>
+Element 2: 23<br>
+Element 3: -34<br>
+Element 4: 45<br>
+Element 5: 56<br>
+Element 6: -67<br>
+Positive numbers in the array:<br>
+23 45 56<br>
+</h3>
+</body>
+</html>

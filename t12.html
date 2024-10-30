@@ -1,0 +1,82 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode *left;<br>
+    struct TreeNode *right;<br>
+};<br>
+
+struct TreeNode* createNode(int value) {<br>
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    newNode-&gt;val = value;<br>
+    newNode-&gt;left = newNode-&gt;right = NULL;<br>
+    return newNode;<br>
+}<br>
+
+void reverseInorder(struct TreeNode* root, int* arr, int* index) {<br>
+    if (root == NULL) {<br>
+        return;<br>
+    }<br>
+
+    reverseInorder(root-&gt;right, arr, index);<br>
+    arr[(*index)++] = root-&gt;val;<br>
+    reverseInorder(root-&gt;left, arr, index);<br>
+}<br>
+
+int findKthLargest(struct TreeNode* root, int k) {<br>
+    int arr[100];<br>
+    int index = 0;<br>
+    reverseInorder(root, arr, &amp;index);<br>
+    if (k > 0 && k <= index) {<br>
+        return arr[k - 1];<br>
+    }<br>
+    return -1;<br>
+}<br>
+
+struct TreeNode* insert(struct TreeNode* root, int value) {<br>
+    if (root == NULL) {<br>
+        return createNode(value);<br>
+    }<br>
+
+    if (value < root-&gt;val) {<br>
+        root-&gt;left = insert(root-&gt;left, value);<br>
+    } else if (value > root-&gt;val) {<br>
+        root-&gt;right = insert(root-&gt;right, value);<br>
+    }<br>
+
+    return root;<br>
+}<br>
+
+int main() {<br>
+    struct TreeNode* root = NULL;<br>
+    root = insert(root, 50);<br>
+    root = insert(root, 30);<br>
+    root = insert(root, 20);<br>
+    root = insert(root, 40);<br>
+    root = insert(root, 70);<br>
+    root = insert(root, 60);<br>
+    root = insert(root, 80);<br>
+
+    int k = 3;<br>
+    int result = findKthLargest(root, k);<br>
+
+    if (result != -1) {<br>
+        printf("The %drd largest element is %d\n", k, result);<br>
+    } else {<br>
+        printf("The %drd largest element does not exist\n", k);<br>
+    }<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>The 3rd largest element is 60 </h3>
+</body>
+</html>

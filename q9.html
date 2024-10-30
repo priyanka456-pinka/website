@@ -1,0 +1,197 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+#define MAX 5  // Define the maximum size of the deque<br>
+<br>
+typedef struct {<br>
+    int items[MAX];<br>
+    int front;<br>
+    int rear;<br>
+} Deque;<br>
+<br>
+// Initialize the deque<br>
+void initDeque(Deque *deque) {<br>
+    deque-&gt;front = -1;<br>
+    deque-&gt;rear = -1;<br>
+}<br>
+<br>
+// Check if the deque is empty<br>
+int isEmpty(Deque *deque) {<br>
+    return deque-&gt;front == -1;<br>
+}<br>
+<br>
+// Check if the deque is full<br>
+int isFull(Deque *deque) {<br>
+    return (deque-&gt;front == 0 &amp;&amp; deque-&gt;rear == MAX - 1) || (deque-&gt;front == deque-&gt;rear + 1);<br>
+}<br>
+<br>
+// Insert an element at the front<br>
+void insertFront(Deque *deque, int value) {<br>
+    if (isFull(deque)) {<br>
+        printf("Deque is full. Cannot insert '%d' at front.\n", value);<br>
+        return;<br>
+    }<br>
+    if (isEmpty(deque)) {<br>
+        deque-&gt;front = 0;<br>
+        deque-&gt;rear = 0;<br>
+    } else if (deque-&gt;front == 0) {<br>
+        deque-&gt;front = MAX - 1;  // Wrap around<br>
+    } else {<br>
+        deque-&gt;front--;<br>
+    }<br>
+    deque-&gt;items[deque-&gt;front] = value;<br>
+    printf("Inserted '%d' at front.\n", value);<br>
+}<br>
+<br>
+// Insert an element at the rear<br>
+void insertRear(Deque *deque, int value) {<br>
+    if (isFull(deque)) {<br>
+        printf("Deque is full. Cannot insert '%d' at rear.\n", value);<br>
+        return;<br>
+    }<br>
+    if (isEmpty(deque)) {<br>
+        deque-&gt;front = 0;<br>
+        deque-&gt;rear = 0;<br>
+    } else if (deque-&gt;rear == MAX - 1) {<br>
+        deque-&gt;rear = 0;  // Wrap around<br>
+    } else {<br>
+        deque-&gt;rear++;<br>
+    }<br>
+    deque-&gt;items[deque-&gt;rear] = value;<br>
+    printf("Inserted '%d' at rear.\n", value);<br>
+}<br>
+<br>
+// Delete an element from the front<br>
+int deleteFront(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. Cannot delete from front.\n");<br>
+        return -1;  // Return -1 to indicate the deque is empty<br>
+    }<br>
+    int value = deque-&gt;items[deque-&gt;front];<br>
+    if (deque-&gt;front == deque-&gt;rear) {<br>
+        deque-&gt;front = -1;  // Reset if the deque is now empty<br>
+        deque-&gt;rear = -1;<br>
+    } else if (deque-&gt;front == MAX - 1) {<br>
+        deque-&gt;front = 0;  // Wrap around<br>
+    } else {<br>
+        deque-&gt;front++;<br>
+    }<br>
+    printf("Deleted '%d' from front.\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+// Delete an element from the rear<br>
+int deleteRear(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. Cannot delete from rear.\n");<br>
+        return -1;  // Return -1 to indicate the deque is empty<br>
+    }<br>
+    int value = deque-&gt;items[deque-&gt;rear];<br>
+    if (deque-&gt;front == deque-&gt;rear) {<br>
+        deque-&gt;front = -1;  // Reset if the deque is now empty<br>
+        deque-&gt;rear = -1;<br>
+    } else if (deque-&gt;rear == 0) {<br>
+        deque-&gt;rear = MAX - 1;  // Wrap around<br>
+    } else {<br>
+        deque-&gt;rear--;<br>
+    }<br>
+    printf("Deleted '%d' from rear.\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+// Peek at the front element<br>
+int peekFront(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. No front item.\n");<br>
+        return -1;  // Return -1 to indicate the deque is empty<br>
+    }<br>
+    return deque-&gt;items[deque-&gt;front];<br>
+}<br>
+<br>
+// Peek at the rear element<br>
+int peekRear(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty. No rear item.\n");<br>
+        return -1;  // Return -1 to indicate the deque is empty<br>
+    }<br>
+    return deque-&gt;items[deque-&gt;rear];<br>
+}<br>
+<br>
+// Display the contents of the deque<br>
+void display(Deque *deque) {<br>
+    if (isEmpty(deque)) {<br>
+        printf("Deque is empty.\n");<br>
+        return;<br>
+    }<br>
+    printf("Deque elements: ");<br>
+    int i = deque-&gt;front;<br>
+    while (1) {<br>
+        printf("%d ", deque-&gt;items[i]);<br>
+        if (i == deque-&gt;rear) break;<br>
+        i = (i + 1) % MAX;  // Wrap around<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+int main() {<br>
+    Deque deque;<br>
+    initDeque(&amp;deque);<br>
+<br>
+    // Insert elements at the rear<br>
+    insertRear(&amp;deque, 10);<br>
+    insertRear(&amp;deque, 20);<br>
+    insertRear(&amp;deque, 30);<br>
+    display(&amp;deque);<br>
+<br>
+    // Insert element at the front<br>
+    insertFront(&amp;deque, 5);<br>
+    display(&amp;deque);<br>
+<br>
+    // Delete from front and rear<br>
+    deleteFront(&amp;deque);<br>
+    deleteRear(&amp;deque);<br>
+    display(&amp;deque);<br>
+<br>
+    // Peek at front and rear<br>
+    printf("Front element: '%d'\n", peekFront(&amp;deque));<br>
+    printf("Rear element: '%d'\n", peekRear(&amp;deque));<br>
+<br>
+    // Attempt to insert more elements<br>
+    insertRear(&amp;deque, 40);<br>
+    insertFront(&amp;deque, 1);<br>
+    display(&amp;deque);<br>
+<br>
+    // Attempt to insert when deque is full<br>
+    insertRear(&amp;deque, 50);<br>
+    insertFront(&amp;deque, 0);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Inserted '10' at rear.<br>
+Inserted '20' at rear.<br>
+Inserted '30' at rear.<br>
+Deque elements: 10 20 30 <br>
+Inserted '5' at front.<br>
+Deque elements: 5 10 20 30 <br>
+Deleted '5' from front.<br>
+Deleted '30' from rear.<br>
+Deque elements: 10 20 <br>
+Front element: '10'<br>
+Rear element: '20'<br>
+Inserted '40' at rear.<br>
+Inserted '1' at front.<br>
+Deque elements: 1 10 20 40 <br>
+Deque is full. Cannot insert '50' at rear.<br>
+Deque is full. Cannot insert '0' at front.<br>
+</h3>
+</body>
+</html>

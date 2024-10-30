@@ -1,0 +1,122 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+#define MAX 5  // Define the maximum size of the queue<br>
+<br>
+typedef struct {<br>
+    int items[MAX];<br>
+    int front;<br>
+    int rear;<br>
+    int size;<br>
+} Queue;<br>
+<br>
+// Function to initialize the queue<br>
+void initQueue(Queue *q) {<br>
+    q-&gt;front = 0;<br>
+    q-&gt;rear = -1;<br>
+    q-&gt;size = 0;<br>
+}<br>
+<br>
+// Function to check if the queue is empty<br>
+int isEmpty(Queue *q) {<br>
+    return q-&gt;size == 0;<br>
+}<br>
+<br>
+// Function to check if the queue is full<br>
+int isFull(Queue *q) {<br>
+    return q-&gt;size == MAX;<br>
+}<br>
+<br>
+// Function to add an item to the queue<br>
+void enqueue(Queue *q, int value) {<br>
+    if (isFull(q)) {<br>
+        printf("Queue is full. Cannot enqueue %d.\n", value);<br>
+        return;<br>
+    }<br>
+    q-&gt;rear = (q-&gt;rear + 1) % MAX;  // Circular increment<br>
+    q-&gt;items[q-&gt;rear] = value;<br>
+    q-&gt;size++;<br>
+    printf("Enqueued: %d\n", value);<br>
+}<br>
+<br>
+// Function to remove an item from the queue<br>
+int dequeue(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. Cannot dequeue.\n");<br>
+        return -1;  // Return -1 to indicate the queue is empty<br>
+    }<br>
+    int value = q-&gt;items[q-&gt;front];<br>
+    q-&gt;front = (q-&gt;front + 1) % MAX;  // Circular increment<br>
+    q-&gt;size--;<br>
+    printf("Dequeued: %d\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+// Function to get the front item of the queue<br>
+int getFront(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. No front item.\n");<br>
+        return -1;  // Return -1 to indicate the queue is empty<br>
+    }<br>
+    return q-&gt;items[q-&gt;front];<br>
+}<br>
+<br>
+// Function to display the elements of the queue<br>
+void display(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty.\n");<br>
+        return;<br>
+    }<br>
+    printf("Queue elements: ");<br>
+    for (int i = 0; i &lt; q-&gt;size; i++) {<br>
+        int index = (q-&gt;front + i) % MAX;<br>
+        printf("%d ", q-&gt;items[index]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+// Main function to demonstrate queue operations<br>
+int main() {<br>
+    Queue q;<br>
+    initQueue(&amp;q);<br>
+<br>
+    enqueue(&amp;q, 10);<br>
+    enqueue(&amp;q, 20);<br>
+    enqueue(&amp;q, 30);<br>
+    display(&amp;q);  // Output: Queue elements: 10 20 30<br>
+<br>
+    dequeue(&amp;q);<br>
+    display(&amp;q);  // Output: Queue elements: 20 30<br>
+<br>
+    printf("Front element: %d\n", getFront(&amp;q));  // Output: Front element: 20<br>
+<br>
+    enqueue(&amp;q, 40);<br>
+    enqueue(&amp;q, 50);<br>
+    enqueue(&amp;q, 60);  // This should print "Queue is full. Cannot enqueue."<br>
+    display(&amp;q);  // Output: Queue elements: 20 30 40 50<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enqueued: 10<br>
+Enqueued: 20<br>
+Enqueued: 30<br>
+Queue elements: 10 20 30<br>
+Dequeued: 10<br>
+Queue elements: 20 30<br>
+Front element: 20<br>
+Enqueued: 40<br>
+Enqueued: 50<br>
+Enqueued: 60<br>
+Queue elements: 20 30 40 50<br>
+</h3>
+</body>
+</html>

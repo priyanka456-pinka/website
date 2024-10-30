@@ -1,0 +1,88 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+#define MAX 100<br>
+<br>
+int queue[MAX], front = -1, rear = -1;<br>
+int visited[MAX];<br>
+<br>
+void enqueue(int vertex) {<br>
+    if (rear == MAX - 1)<br>
+        printf("Queue is full\n");<br>
+    else {<br>
+        if (front == -1)<br>
+            front = 0;<br>
+        rear++;<br>
+        queue[rear] = vertex;<br>
+    }<br>
+}<br>
+
+int dequeue() {<br>
+    int vertex;<br>
+    if (front == -1)<br>
+        return -1;<br>
+    else {<br>
+        vertex = queue[front];<br>
+        if (front == rear)<br>
+            front = rear = -1;<br><br>
+        else<br>
+            front++;<br>
+        return vertex;<br>
+    }<br>
+}<br>
+
+void bfs(int graph[MAX][MAX], int n, int startVertex) {<br>
+    int i;<br>
+    for (i = 0; i < n; i++)<br>
+        visited[i] = 0;<br>
+    visited[startVertex] = 1;<br>
+    enqueue(startVertex);<br>
+    printf("BFS traversal starting from vertex %d: ", startVertex);<br><br>
+    while (front != -1) {<br>
+        int currentVertex = dequeue();<br>
+        printf("%d ", currentVertex);<br>
+        for (i = 0; i < n; i++) {<br>
+            if (graph[currentVertex][i] == 1 && !visited[i]) {<br>
+                visited[i] = 1;<br>
+                enqueue(i);<br>
+            }<br>
+        }<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+
+int main() {<br>
+    int n, i, j, startVertex;<br>
+    int graph[MAX][MAX];<br>
+    printf("Enter the number of vertices in the graph: ");<br>
+    scanf("%d", &n);<br>
+    printf("Enter the adjacency matrix of the graph:\n");<br>
+    for (i = 0; i < n; i++) {<br>
+        for (j = 0; j < n; j++) {<br>
+            scanf("%d", &graph[i][j]);<br>
+        }<br>
+    }<br>
+    printf("Enter the starting vertex for BFS: ");<br>
+    scanf("%d", &startVertex);<br>
+    bfs(graph, n, startVertex);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of vertices in the graph: 4<br>
+Enter the adjacency matrix of the graph:<br>
+1 0 0 1<br>
+1 1 0 0<br>
+1 0 1 0<br>
+1 0 0 1<br>
+
+Enter the starting vertex for BFS: 1<br>
+BFS traversal starting from vertex 1: 1 0 3 2 <br>
+</h3>
+</body>
+</html>

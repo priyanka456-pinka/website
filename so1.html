@@ -1,0 +1,58 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;time.h&gt;<br>
+void selectionSort(int arr[], int n) {<br>
+    for (int i = 0; i &lt; n - 1; i++) {<br>
+        int minIndex = i;<br>
+        for (int j = i + 1; j &lt; n; j++) {<br>
+            if (arr[j] &lt; arr[minIndex]) {<br>
+                minIndex = j;<br>
+            }<br>
+        }<br>
+        int temp = arr[minIndex];<br>
+        arr[minIndex] = arr[i];<br>
+        arr[i] = temp;<br>
+    }<br>
+}<br>
+void printArray(int arr[], int n) {<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf(&quot;%d &quot;, arr[i]);<br>
+    }<br>
+    printf(&quot;\n&quot;);<br>
+}<br>
+int main() {<br>
+    int n;<br>
+    printf(&quot;Enter the number of elements in the array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+    int arr[n];<br>
+    printf(&quot;Enter %d integers:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &arr[i]);<br>
+    }<br>
+    clock_t start, end;<br>
+    start = clock();<br>
+    selectionSort(arr, n);<br>
+    end = clock();<br>
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;<br>
+    printf(&quot;Sorted array: \n&quot;);<br>
+    printArray(arr, n);<br>
+    printf(&quot;Time taken for sorting: %f seconds\n&quot;, time_taken);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the array: 5<br>
+Enter 5 integers:<br>
+64 25 12 22 11<br>
+Sorted array:<br>
+11 12 22 25 64<br>
+Time taken for sorting: 0.000002 seconds<br>
+</h3>
+</body>
+</html>

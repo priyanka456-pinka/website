@@ -1,0 +1,44 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+int maxDepth(struct TreeNode* root) {<br>
+    if (root == NULL) {<br>
+        return 0;<br>
+    }<br>
+    int leftDepth = maxDepth(root-&gt;left);<br>
+    int rightDepth = maxDepth(root-&gt;right);<br>
+    return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;<br>
+}<br>
+int main() {<br>
+    struct TreeNode* root = createNode(1);<br>
+    root-&gt;left = createNode(2);<br>
+    root-&gt;right = createNode(3);<br>
+    root-&gt;left-&gt;left = createNode(4);<br>
+    root-&gt;left-&gt;right = createNode(5);<br>
+    root-&gt;right-&gt;right = createNode(6);<br>
+    root-&gt;left-&gt;left-&gt;left = createNode(7);<br>
+    int depth = maxDepth(root);<br>
+    printf("The maximum depth of the binary tree is: %d\n", depth);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>The maximum depth of the binary tree is: 4 </h3>
+</body>
+</html>

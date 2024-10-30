@@ -1,0 +1,55 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+int isPalindrome(int num) {<br>
+    int reversed = 0, original = num;<br>
+    while (num &gt; 0) {<br>
+        int digit = num % 10;<br>
+        reversed = reversed * 10 + digit;<br>
+        num /= 10;<br>
+    }<br>
+    return original == reversed;<br>
+}<br>
+int main() {<br>
+    int n;<br>
+    printf(&quot;Enter the number of elements in the array: &quot;);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+    int arr[n];<br>
+    printf(&quot;Enter %d elements:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &arr[i]);<br>
+    }<br>
+    printf(&quot;Palindrome numbers in the array are:\n&quot;);<br>
+    int foundPalindrome = 0;<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        if (isPalindrome(arr[i])) {<br>
+            printf(&quot;%d &quot;, arr[i]);<br>
+            foundPalindrome = 1;<br>
+        }<br>
+    }<br>
+    if (!foundPalindrome) {<br>
+        printf(&quot;No palindrome numbers found in the array.\n&quot;);<br>
+    } else {<br>
+        printf(&quot;\n&quot;);<br>
+    }<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the array: 5<br>
+Enter 5 elements:<br>
+121<br>
+123<br>
+131<br>
+456<br>
+78987<br>
+Palindrome numbers in the array are:<br>
+121 131 78987 <br>
+</h3>
+</body>
+</html>

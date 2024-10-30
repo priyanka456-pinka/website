@@ -1,0 +1,84 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;time.h&gt;<br>
+void swap(int* a, int* b) {<br>
+    int temp = *a;<br>
+    *a = *b;<br>
+    *b = temp;<br>
+}<br>
+int partition(int arr[], int low, int high) {<br>
+    int pivot = arr[high];<br>
+    int i = low - 1;<br>
+    for (int j = low; j &lt; high; j++) {<br>
+        if (arr[j] &lt;= pivot) {<br>
+            i++;<br>
+            swap(&amp;arr[i], &amp;arr[j]);<br>
+        }<br>
+    }<br>
+    swap(&amp;arr[i + 1], &amp;arr[high]);<br>
+    return (i + 1);<br>
+}<br>
+void quickSortIterative(int arr[], int n) {<br>
+    int stack[n];<br>
+    int top = -1;<br>
+    stack[++top] = 0;<br>
+    stack[++top] = n - 1;<br>
+    while (top &gt;= 0) {<br>
+        int high = stack[top--];<br>
+        int low = stack[top--];<br>
+        int p = partition(arr, low, high);<br>
+        if (p - 1 &gt; low) {<br>
+            stack[++top] = low;<br>
+            stack[++top] = p - 1;<br>
+        }<br>
+        if (p + 1 &lt; high) {<br>
+            stack[++top] = p + 1;<br>
+            stack[++top] = high;<br>
+        }<br>
+    }<br>
+}<br>
+int main() {<br>
+    int n;<br>
+    clock_t start, end;<br>
+    double timeTaken;<br>
+    printf(&quot;Enter the number of elements in the array: &quot;);<br>
+    scanf(&quot;%d&quot;, &amp;n);<br>
+    int arr[n];<br>
+    printf(&quot;Enter %d integers:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &amp;arr[i]);<br>
+    }<br>
+    start = clock();<br>
+    quickSortIterative(arr, n);<br>
+    end = clock();<br>
+    timeTaken = ((double)(end - start)) / CLOCKS_PER_SEC;<br>
+    printf(&quot;Sorted array:\n&quot;);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf(&quot;%d &quot;, arr[i]);<br>
+    }<br>
+    printf(&quot;\n&quot;);<br>
+    printf(&quot;Time taken for sorting: %f seconds\n&quot;, timeTaken);<br>
+    printf(&quot;Best case time complexity: O(n log n)\n&quot;);<br>
+    printf(&quot;Worst case time complexity: O(n^2)\n&quot;);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the array: 6<br>
+Enter 6 integers:<br>
+5 2 9 1 5 6<br>
+Sorted array:<br>
+1 2 5 5 6 9<br>
+Time taken for sorting: 0.000005 seconds<br>
+Best case time complexity: O(n log n)<br>
+Worst case time complexity: O(n^2)<br>
+</h3>
+</body>
+</html>

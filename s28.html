@@ -1,0 +1,213 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+
+<br>#define MAX_ENTRIES 10<br>
+#define MAX_WORD_LENGTH 50<br>
+#define MAX_MEANING_LENGTH 100<br>
+
+<br>// Structure to represent a dictionary entry<br>
+typedef struct {<br>
+    char word[MAX_WORD_LENGTH];<br>
+    char meaning[MAX_MEANING_LENGTH];<br>
+} DictionaryEntry;<br>
+
+<br>// Global array to hold dictionary entries<br>
+DictionaryEntry dictionary[MAX_ENTRIES] = {<br>
+    {"Apple", "A fruit that is usually red, green, or yellow."},<br>
+    {"Book", "A set of written or printed pages, bound together."},<br>
+    {"Car", "A road vehicle, typically with four wheels, powered by an engine."},<br>
+    {"Dog", "A domesticated carnivorous mammal that typically has a long snout."},<br>
+    {"Elephant", "A large mammal with a trunk, native to Africa and Asia."},<br>
+    {"Forest", "A large area covered chiefly with trees and undergrowth."},<br>
+    {"Guitar", "A musical instrument with six strings played by strumming or plucking."},<br>
+    {"House", "A building for human habitation."},<br>
+    {"Internet", "A global network connecting millions of computers for communication."},<br>
+    {"Jacket", "An outer garment extending to the waist or hips."}<br>
+};<br>
+
+<br>int currentEntries = MAX_ENTRIES; // Current number of entries<br>
+
+<br>// Function to create a new dictionary entry<br>
+void createEntry() {<br>
+    if (currentEntries >= MAX_ENTRIES) {<br>
+        printf("Dictionary is full! Cannot add more entries.\n");<br>
+        return;<br>
+    }<br>
+
+    printf("Enter the word: ");<br>
+    scanf("%s", dictionary[currentEntries].word);<br>
+    getchar(); // Clear the newline character from input buffer<br>
+
+    printf("Enter the meaning: ");<br>
+    fgets(dictionary[currentEntries].meaning, MAX_MEANING_LENGTH, stdin);<br>
+    // Remove newline character from meaning<br>
+    dictionary[currentEntries].meaning[strcspn(dictionary[currentEntries].meaning, "\n")] = '\0';<br>
+
+    currentEntries++;<br>
+    printf("Entry added successfully!\n");<br>
+}<br>
+
+<br>// Function to delete a dictionary entry<br>
+void deleteEntry() {<br>
+    char word[MAX_WORD_LENGTH];<br>
+    printf("Enter the word to delete: ");<br>
+    scanf("%s", word);<br>
+
+    int found = -1;<br>
+    for (int i = 0; i &lt; currentEntries; i++) {<br>
+        if (strcmp(dictionary[i].word, word) == 0) {<br>
+            found = i;<br>
+            break;<br>
+        }<br>
+    }<br>
+
+    if (found == -1) {<br>
+        printf("Word not found in the dictionary!\n");<br>
+        return;<br>
+    }<br>
+
+    // Shift entries to remove the deleted word<br>
+    for (int i = found; i &lt; currentEntries - 1; i++) {<br>
+        dictionary[i] = dictionary[i + 1];<br>
+    }<br>
+
+    currentEntries--;<br>
+    printf("Entry deleted successfully!\n");<br>
+}<br>
+
+<br>// Function to search for a word in the dictionary<br>
+void searchEntry() {<br>
+    char word[MAX_WORD_LENGTH];<br>
+    printf("Enter the word to search: ");<br>
+    scanf("%s", word);<br>
+
+    for (int i = 0; i &lt; currentEntries; i++) {<br>
+        if (strcmp(dictionary[i].word, word) == 0) {<br>
+            printf("Meaning of '%s': %s\n", word, dictionary[i].meaning);<br>
+            return;<br>
+        }<br>
+    }<br>
+
+    printf("Word not found in the dictionary!\n");<br>
+}<br>
+
+<br>// Function to display all dictionary entries<br>
+void displayDictionary() {<br>
+    if (currentEntries == 0) {<br>
+        printf("The dictionary is empty!\n");<br>
+        return;<br>
+    }<br>
+
+    printf("Dictionary entries:\n");<br>
+    for (int i = 0; i &lt; currentEntries; i++) {<br>
+        printf("%d. %s: %s\n", i + 1, dictionary[i].word, dictionary[i].meaning);<br>
+    }<br>
+}<br>
+
+<br>int main() {<br>
+    int choice;<br>
+
+    while (1) {<br>
+        // Menu options<br>
+        printf("\nDictionary Operations:\n");<br>
+        printf("1. Create a new entry\n");<br>
+        printf("2. Delete an entry\n");<br>
+        printf("3. Search for a word\n");<br>
+        printf("4. Display all entries\n");<br>
+        printf("5. Exit\n");<br>
+        printf("Enter your choice: ");<br>
+        scanf("%d", &choice);<br>
+
+        switch (choice) {<br>
+            case 1:<br>
+                createEntry();<br>
+                break;<br>
+            case 2:<br>
+                deleteEntry();<br>
+                break;<br>
+            case 3:<br>
+                searchEntry();<br>
+                break;<br>
+            case 4:<br>
+                displayDictionary();<br>
+                break;<br>
+            case 5:<br>
+                printf("Exiting the program. Goodbye!\n");<br>
+                return 0;<br>
+            default:<br>
+                printf("Invalid choice. Please try again.\n");<br>
+        }<br>
+    }<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Dictionary Operations:<br>
+1. Create a new entry<br>
+2. Delete an entry<br>
+3. Search for a word<br>
+4. Display all entries<br>
+5. Exit<br>
+Enter your choice: 2<br>
+Enter the word to delete: Apple<br>
+Entry deleted successfully!<br>
+
+Dictionary Operations:<br>
+1. Create a new entry<br>
+2. Delete an entry<br>
+3. Search for a word<br>
+4. Display all entries<br>
+5. Exit<br>
+Enter your choice: 1<br>
+Enter the word: array<br>
+Enter the meaning: collection of homogeneous data<br>
+Entry added successfully!<br>
+
+Dictionary Operations:<br>
+1. Create a new entry<br>
+2. Delete an entry<br>
+3. Search for a word<br>
+4. Display all entries<br>
+5. Exit<br>
+Enter your choice: 3<br>
+Enter the word to search: forest<br>
+Word not found in the dictionary!<br>
+
+Dictionary Operations:<br>
+1. Create a new entry<br>
+2. Delete an entry<br>
+3. Search for a word<br>
+4. Display all entries<br>
+5. Exit<br>
+Enter your choice: 4<br>
+Dictionary entries:<br>
+1. Book: A set of written or printed pages, bound together.<br>
+2. Car: A road vehicle, typically with four wheels, powered by an engine.<br>
+3. Dog: A domesticated carnivorous mammal that typically has a long snout.<br>
+4. Elephant: A large mammal with a trunk, native to Africa and Asia.<br>
+5. Forest: A large area covered chiefly with trees and undergrowth.<br>
+6. Guitar: A musical instrument with six strings played by strumming or plucking.<br>
+7. House: A building for human habitation.<br>
+8. Internet: A global network connecting millions of computers for communication.<br>
+9. Jacket: An outer garment extending to the waist or hips.<br>
+10. array: collection of homogeneous data<br>
+
+Dictionary Operations:<br>
+1. Create a new entry<br>
+2. Delete an entry<br>
+3. Search for a word<br>
+4. Display all entries<br>
+5. Exit<br>
+Enter your choice: 5<br>
+Exiting the program. Goodbye!<br>
+</h3>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+
+<br>#define SCREEN_WIDTH 80 // Assume a screen width of 80 characters<br>
+
+<br>// Function to display the string with specified alignment<br>
+void displayAlignedText(char *str, int alignment) {<br>
+    int length = strlen(str); // Get the length of the string<br>
+
+    // Remove the newline character at the end, if any<br>
+    if (str[length - 1] == '\n') {<br>
+        str[length - 1] = '\0';<br>
+        length--; <br>
+    }<br>
+
+    // Display the string based on the chosen alignment<br>
+    switch (alignment) {<br>
+        case 1: // Left alignment<br>
+            printf("%s\n", str);<br>
+            break;<br>
+        case 2: // Center alignment<br>
+            {<br>
+                int padding = (SCREEN_WIDTH - length) / 2;<br>
+                if (padding > 0) {<br>
+                    printf("%*s%s\n", padding, "", str); // Add padding spaces before the string<br>
+                } else {<br>
+                    printf("%s\n", str); // If string is longer than screen width, print as is<br>
+                }<br>
+            }<br>
+            break;<br>
+        case 3: // Right alignment<br>
+            {<br>
+                int padding = SCREEN_WIDTH - length;<br>
+                if (padding > 0) {<br>
+                    printf("%*s%s\n", padding, "", str); // Add padding spaces before the string<br>
+                } else {<br>
+                    printf("%s\n", str); // If string is longer than screen width, print as is<br>
+                }<br>
+            }<br>
+            break;<br>
+        default:<br>
+            printf("Invalid alignment option. Please choose 1, 2, or 3.\n");<br>
+            break;<br>
+    }<br>
+}<br>
+
+<br>int main() {<br>
+    char str[1000]; // Array to hold the input string<br>
+    int alignment;  // Variable to hold the alignment option<br>
+
+    // Input: Get the string from the user<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin); // Read the input string<br>
+
+    // Input: Get the alignment option from the user<br>
+    printf("Choose the alignment option (1 for Left, 2 for Center, 3 for Right): ");<br>
+    scanf("%d", &alignment);<br>
+
+    // Display the aligned text<br>
+    displayAlignedText(str, alignment);<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a string: hii.. everyone.<br>
+Choose the alignment option (1 for Left, 2 for Center, 3 for Right): 2<br>
+                                hii.. everyone.<br>
+</h3>
+</body>
+</html>

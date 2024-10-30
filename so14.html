@@ -1,0 +1,71 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;time.h&gt;<br>
+#define MAX_STRINGS 100<br>
+#define MAX_LENGTH 50<br>
+void bubbleSort(char arr[][MAX_LENGTH], int n) {<br>
+    if (n == 1) {<br>
+        return;<br>
+    }<br>
+    for (int i = 0; i &lt; n - 1; i++) {<br>
+        if (strcmp(arr[i], arr[i + 1]) &gt; 0) {<br>
+            char temp[MAX_LENGTH];<br>
+            strcpy(temp, arr[i]);<br>
+            strcpy(arr[i], arr[i + 1]);<br>
+            strcpy(arr[i + 1], temp);<br>
+        }<br>
+    }<br>
+    bubbleSort(arr, n - 1);<br>
+}<br>
+int main() {<br>
+    char arr[MAX_STRINGS][MAX_LENGTH];<br>
+    int n;<br>
+    printf(&quot;Enter the number of strings: &quot;);<br>
+    scanf(&quot;%d&quot;, &amp;n);<br>
+    getchar();<br>
+    printf(&quot;Enter %d strings:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        fgets(arr[i], sizeof(arr[i]), stdin);<br>
+        arr[i][strcspn(arr[i], &quot;\n&quot;)] = 0;<br>
+    }<br>
+    clock_t start = clock();<br>
+    bubbleSort(arr, n);<br>
+    clock_t end = clock();<br>
+    printf(&quot;\nSorted array:\n&quot;);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf(&quot;%s\n&quot;, arr[i]);<br>
+    }<br>
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;<br>
+    printf(&quot;Time taken for sorting: %f seconds\n&quot;, time_taken);<br>
+    printf(&quot;Best case time complexity: O(n)\n&quot;);<br>
+    printf(&quot;Worst case time complexity: O(n^2)\n&quot;);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of strings: 5<br>
+Enter 5 strings:<br>
+banana<br>
+apple<br>
+grape<br>
+cherry<br>
+mango<br>
+Sorted array:<br>
+apple<br>
+banana<br>
+cherry<br>
+grape<br>
+mango<br>
+Time taken for sorting: 0.000015 seconds<br>
+Best case time complexity: O(n)<br>
+Worst case time complexity: O(n^2)<br>
+</h3>
+</body>
+</html>

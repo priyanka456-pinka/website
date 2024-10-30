@@ -1,0 +1,66 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+#include <limits.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode *left, *right;<br>
+};<br>
+
+struct TreeNode* createNode(int value) {<br>
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    newNode-&gt;val = value;<br>
+    newNode-&gt;left = newNode-&gt;right = NULL;<br>
+    return newNode;<br>
+}<br>
+
+struct TreeNode* constructBST(int* preorder, int* index, int min, int max, int size) {<br>
+    if (*index &gt;= size) return NULL;<br>
+
+    int val = preorder[*index];<br>
+    if (val &lt; min || val &gt; max) return NULL;<br>
+
+    struct TreeNode* root = createNode(val);<br>
+    (*index)++;<br>
+
+    root-&gt;left = constructBST(preorder, index, min, val, size);<br>
+    root-&gt;right = constructBST(preorder, index, val, max, size);<br>
+
+    return root;<br>
+}<br>
+
+struct TreeNode* buildBSTFromPreorder(int* preorder, int size) {<br>
+    int index = 0;<br>
+    return constructBST(preorder, &index, INT_MIN, INT_MAX, size);<br>
+}<br>
+
+void inorderTraversal(struct TreeNode* root) {<br>
+    if (!root) return;<br>
+    inorderTraversal(root-&gt;left);<br>
+    printf("%d ", root-&gt;val);<br>
+    inorderTraversal(root-&gt;right);<br>
+}<br>
+
+int main() {<br>
+    int preorder[] = {50, 30, 20, 40, 70, 60, 80};<br>
+    int size = sizeof(preorder) / sizeof(preorder[0]);<br>
+
+    struct TreeNode* root = buildBSTFromPreorder(preorder, size);<br>
+
+    printf("Inorder traversal of the constructed BST: ");<br>
+    inorderTraversal(root);<br>
+    printf("\n");<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3> Inorder traversal of the constructed BST: 20 30 40 50 60 70 80 </h3>
+</body>
+</html>

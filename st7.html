@@ -1,0 +1,109 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#define MAX_SIZE 100<br>
+typedef struct TwoStacks {<br>
+    int arr[MAX_SIZE];<br>
+    int top1;<br>
+    int top2;<br>
+} TwoStacks;<br>
+void initialize(TwoStacks* stacks) {<br>
+    stacks-&gt;top1 = -1;<br>
+    stacks-&gt;top2 = MAX_SIZE;<br>
+}<br>
+int isFull1(TwoStacks* stacks) {<br>
+    return stacks-&gt;top1 + 1 == stacks-&gt;top2;<br>
+}<br>
+int isEmpty1(TwoStacks* stacks) {<br>
+    return stacks-&gt;top1 == -1;<br>
+}<br>
+void push1(TwoStacks* stacks, int item) {<br>
+    if (isFull1(stacks)) {<br>
+        printf("Stack 1 is full! Cannot push %d\n", item);<br>
+        return;<br>
+    }<br>
+    stacks-&gt;arr[++stacks-&gt;top1] = item;<br>
+}<br>
+int pop1(TwoStacks* stacks) {<br>
+    if (isEmpty1(stacks)) {<br>
+        printf("Stack 1 is empty! Cannot pop\n");<br>
+        return -1;<br>
+    }<br>
+    return stacks-&gt;arr[stacks-&gt;top1--];<br>
+}<br>
+int isFull2(TwoStacks* stacks) {<br>
+    return stacks-&gt;top2 - 1 == stacks-&gt;top1;<br>
+}<br>
+int isEmpty2(TwoStacks* stacks) {<br>
+    return stacks-&gt;top2 == MAX_SIZE;<br>
+}<br>
+void push2(TwoStacks* stacks, int item) {<br>
+    if (isFull2(stacks)) {<br>
+        printf("Stack 2 is full! Cannot push %d\n", item);<br>
+        return;<br>
+    }<br>
+    stacks-&gt;arr[--stacks-&gt;top2] = item;<br>
+}<br>
+int pop2(TwoStacks* stacks) {<br>
+    if (isEmpty2(stacks)) {<br>
+        printf("Stack 2 is empty! Cannot pop\n");<br>
+        return -1;<br>
+    }<br>
+    return stacks-&gt;arr[stacks-&gt;top2++];<br>
+}<br>
+void displayStack1(TwoStacks* stacks) {<br>
+    if (isEmpty1(stacks)) {<br>
+        printf("Stack 1 is empty\n");<br>
+        return;<br>
+    }<br>
+    printf("Stack 1 elements: ");<br>
+    for (int i = 0; i &lt;= stacks-&gt;top1; i++) {<br>
+        printf("%d ", stacks-&gt;arr[i]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+void displayStack2(TwoStacks* stacks) {<br>
+    if (isEmpty2(stacks)) {<br>
+        printf("Stack 2 is empty\n");<br>
+        return;<br>
+    }<br>
+    printf("Stack 2 elements: ");<br>
+    for (int i = MAX_SIZE - 1; i &gt;= stacks-&gt;top2; i--) {<br>
+        printf("%d ", stacks-&gt;arr[i]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+int main() {<br>
+    TwoStacks stacks;<br>
+    initialize(&amp;stacks);<br>
+    push1(&amp;stacks, 10);<br>
+    push1(&amp;stacks, 20);<br>
+    push1(&amp;stacks, 30);<br>
+    displayStack1(&amp;stacks);<br>
+    push2(&amp;stacks, 40);<br>
+    push2(&amp;stacks, 50);<br>
+    push2(&amp;stacks, 60);<br>
+    displayStack2(&amp;stacks);<br>
+    printf("Popped from Stack 1: %d\n", pop1(&amp;stacks));<br>
+    printf("Popped from Stack 2: %d\n", pop2(&amp;stacks));<br>
+    displayStack1(&amp;stacks);<br>
+    displayStack2(&amp;stacks);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Stack 1 elements: 10 20 30<br>
+Stack 2 elements: 60 50 40<br>
+Popped from Stack 1: 30<br>
+Popped from Stack 2: 60<br>
+Stack 1 elements: 10 20<br>
+Stack 2 elements: 50 40<br>
+</h3>
+</body>
+</html>

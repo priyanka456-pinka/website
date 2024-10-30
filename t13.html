@@ -1,0 +1,69 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode *left, *right;<br>
+};<br>
+
+struct TreeNode* createNode(int value) {<br>
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    newNode-&gt;val = value;<br>
+    newNode-&gt;left = newNode-&gt;right = NULL;<br>
+    return newNode;<br>
+}<br>
+
+void inorder(struct TreeNode* root, int* arr, int* index) {<br>
+    if (root == NULL) return;<br>
+    inorder(root-&gt;left, arr, index);<br>
+    arr[(*index)++] = root-&gt;val;<br>
+    inorder(root-&gt;right, arr, index);<br>
+}<br>
+
+int findKthSmallest(struct TreeNode* root, int k) {<br>
+    int arr[100];<br>
+    int index = 0;<br>
+    inorder(root, arr, &amp;index);<br>
+    if (k > 0 && k <= index) {<br>
+        return arr[k - 1];<br>
+    }<br>
+    return -1;<br>
+}<br>
+
+struct TreeNode* insert(struct TreeNode* root, int value) {<br>
+    if (root == NULL) return createNode(value);<br>
+    if (value < root-&gt;val) root-&gt;left = insert(root-&gt;left, value);<br>
+    else root-&gt;right = insert(root-&gt;right, value);<br>
+    return root;<br>
+}<br>
+
+int main() {<br>
+    struct TreeNode* root = NULL;<br>
+    int values[] = {50, 30, 20, 40, 70, 60, 80};<br>
+    int n = sizeof(values) / sizeof(values[0]);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        root = insert(root, values[i]);<br>
+    }<br>
+
+    int k = 3;<br>
+    int result = findKthSmallest(root, k);<br>
+
+    if (result != -1) {<br>
+        printf("The %dth smallest element is %d\n", k, result);<br>
+    } else {<br>
+        printf("The %dth smallest element does not exist\n", k);<br>
+    }<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>The 3rd smallest element is 40 </h3>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;time.h&gt;<br>
+#define MAX_STRINGS 100<br>
+#define MAX_LENGTH 50<br>
+void insertionSort(char arr[][MAX_LENGTH], int n) {<br>
+    for (int i = 1; i &lt; n; i++) {<br>
+        char key[MAX_LENGTH];<br>
+        strcpy(key, arr[i]);<br>
+        int j = i - 1;<br>
+        while (j &gt;= 0 && strcmp(arr[j], key) &gt; 0) {<br>
+            strcpy(arr[j + 1], arr[j]);<br>
+            j--;<br>
+        }<br>
+        strcpy(arr[j + 1], key);<br>
+    }<br>
+}<br>
+int main() {<br>
+    char arr[MAX_STRINGS][MAX_LENGTH];<br>
+    int n;<br>
+    printf(&quot;Enter the number of strings: &quot;);<br>
+    scanf(&quot;%d&quot;, &amp;n);<br>
+    getchar();<br>
+    printf(&quot;Enter %d strings:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        fgets(arr[i], sizeof(arr[i]), stdin);<br>
+        arr[i][strcspn(arr[i], &quot;\n&quot;)] = 0;<br>
+    }<br>
+    clock_t start = clock();<br>
+    insertionSort(arr, n);<br>
+    clock_t end = clock();<br>
+    printf(&quot;\nSorted strings:\n&quot;);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf(&quot;%s\n&quot;, arr[i]);<br>
+    }<br>
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;<br>
+    printf(&quot;Time taken for sorting: %f seconds\n&quot;, time_taken);<br>
+    printf(&quot;Best case time complexity: O(n)\n&quot;);<br>
+    printf(&quot;Worst case time complexity: O(n^2)\n&quot;);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of strings: 5<br>
+Enter 5 names:<br>
+Sophia<br>
+Liam<br>
+Olivia<br>
+Noah<br>
+Emma<br>
+Sorted names:<br>
+Emma<br>
+Liam<br>
+Noah<br>
+Olivia<br>
+Sophia<br>
+Time taken for sorting: 0.000015 seconds<br>
+Best case time complexity: O(n)<br>
+Worst case time complexity: O(n^2)<br>
+</h3>
+</body>
+</html>

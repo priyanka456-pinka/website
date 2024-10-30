@@ -1,0 +1,52 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    int n;<br>
+    <br>
+    printf("Enter the number of elements in the array: ");<br>
+    scanf("%d", &n);<br>
+    <br>
+    int arr[n];<br>
+    <br>
+    printf("Enter %d elements:\n", n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf("Element %d: ", i + 1);<br>
+        scanf("%d", &arr[i]);<br>
+    }<br>
+    <br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        for (int j = i + 1; j &lt; n; j++) {<br>
+            if (arr[i] == arr[j]) {<br>
+                arr[j] = 0;<br>
+            }<br>
+        }<br>
+    }<br>
+    <br>
+    printf("Array after removing duplicates and replacing with zeros:\n");<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf("%d ", arr[i]);<br>
+    }<br>
+    printf("\n");<br>
+    <br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 6<br>
+Enter 6 elements:<br>
+Element 1: 5<br>
+Element 2: 3<br>
+Element 3: 8<br>
+Element 4: 5<br>
+Element 5: 3<br>
+Element 6: 10<br>
+Array after removing duplicates and replacing with zeros:<br>
+5 3 8 0 0 10<br>
+</h3>
+</body>
+</html>

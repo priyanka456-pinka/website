@@ -1,0 +1,37 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+// Function to convert decimal to binary using recursion<br>
+void decimalToBinary(int n) {<br>
+    if (n > 1) {<br>
+        decimalToBinary(n / 2); // Recursive call with n divided by 2<br>
+    }<br>
+    printf(&quot;%d&quot;, n % 2); // Print the remainder (0 or 1)<br>
+}<br>
+<br>
+int main() {<br>
+    int num;<br>
+    printf(&quot;Enter a decimal number to convert to binary: &quot;);<br>
+    scanf(&quot;%d&quot;, &num);<br>
+<br>
+    if (num &lt; 0) {<br>
+        printf(&quot;Please enter a non-negative integer.\n&quot;);<br>
+    } else {<br>
+        printf(&quot;Binary representation of %d is: &quot;, num);<br>
+        decimalToBinary(num);<br>
+        printf(&quot;\n&quot;);<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a decimal number to convert to binary: 18<br>
+Binary representation of 18 is: 10010<br>
+</h3>
+</body>
+</html>

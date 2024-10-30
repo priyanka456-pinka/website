@@ -1,0 +1,72 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+struct QueueNode {<br>
+    struct TreeNode* treeNode;<br>
+    struct QueueNode* next;<br>
+};<br>
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+void enqueue(struct QueueNode** front, struct QueueNode** rear, struct TreeNode* treeNode) {<br>
+    struct QueueNode* newNode = (struct QueueNode*)malloc(sizeof(struct QueueNode));<br>
+    newNode-&gt;treeNode = treeNode;<br>
+    newNode-&gt;next = NULL;<br>
+    if (*rear) {<br>
+        (*rear)-&gt;next = newNode;<br>
+    } else {<br>
+        *front = newNode;<br>
+    }<br>
+    *rear = newNode;<br>
+}<br>
+struct TreeNode* dequeue(struct QueueNode** front, struct QueueNode** rear) {<br>
+    if (!*front) return NULL;<br>
+    struct QueueNode* temp = *front;<br>
+    struct TreeNode* treeNode = temp-&gt;treeNode;<br>
+    *front = (*front)-&gt;next;<br>
+    if (!*front) *rear = NULL;<br>
+    free(temp);<br>
+    return treeNode;<br>
+}<br>
+void levelOrderTraversal(struct TreeNode* root) {<br>
+    if (!root) return;<br>
+    struct QueueNode* front = NULL, *rear = NULL;<br>
+    enqueue(&front, &rear, root);<br>
+    while (front) {<br>
+        struct TreeNode* current = dequeue(&front, &rear);<br>
+        printf("%d ", current-&gt;val);<br>
+        if (current-&gt;left) enqueue(&front, &rear, current-&gt;left);<br>
+        if (current-&gt;right) enqueue(&front, &rear, current-&gt;right);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+int main() {<br>
+    struct TreeNode* root = createNode(1);<br>
+    root-&gt;left = createNode(2);<br>
+    root-&gt;right = createNode(3);<br>
+    root-&gt;left-&gt;left = createNode(4);<br>
+    root-&gt;left-&gt;right = createNode(5);<br>
+    root-&gt;right-&gt;left = createNode(6);<br>
+    root-&gt;right-&gt;right = createNode(7);<br>
+    printf("Level-order traversal of the binary tree: ");<br>
+    levelOrderTraversal(root);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Level-order traversal of the binary tree: 1 2 3 4 5 6 7 </h3>
+</body>
+</html>

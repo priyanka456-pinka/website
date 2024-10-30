@@ -1,0 +1,231 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2> <h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+
+<br><br>
+struct Node {<br>
+    char data[100];<br>
+    struct Node* next;<br>
+};<br>
+<br>
+int isEmpty(struct Node* head) { return head == NULL; }<br>
+<br>
+void display(struct Node* head) {<br>
+    if (isEmpty(head)) { printf("List is empty.\n"); return; }<br>
+    struct Node* temp = head;<br>
+    printf("List: ");<br>
+    do {<br>
+        printf("%s -> ", temp->data);<br>
+        temp = temp->next;<br>
+    } while (temp != head);<br>
+    printf("(head)\n");<br>
+}<br><br>
+
+struct Node* createNode(char* value) {<br>
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));<br>
+    strcpy(newNode->data, value);<br>
+    newNode->next = newNode;<br>
+    return newNode;<br>
+}<br>
+<br>
+void insertAtBegin(struct Node** head, char* value) {<br>
+    struct Node* newNode = createNode(value);<br>
+    if (isEmpty(*head)) *head = newNode;<br>
+    else {<br>
+        struct Node* temp = *head;<br>
+        while (temp->next != *head) temp = temp->next;<br>
+        newNode->next = *head;<br><br>
+        temp->next = *head = newNode;<br>
+    }<br>
+}
+<br><br>
+void insertAtEnd(struct Node** head, char* value) {<br>
+    struct Node* newNode = createNode(value);<br>
+    if (isEmpty(*head)) *head = newNode;<br>
+    else {<br>
+        struct Node* temp = *head;<br>
+        while (temp->next != *head) temp = temp->next;<br>
+        temp->next = newNode;<br>
+        newNode->next = *head;<br>
+    }<br>
+}
+<br><br>
+void insertAtPos(struct Node** head, char* value, int pos) {<br>
+    if (pos == 1) { insertAtBegin(head, value); return; }<br>
+    struct Node *newNode = createNode(value), *temp = *head;<br>
+    for (int i = 1; i < pos - 1 && temp->next != *head; i++) temp = temp->next;<br>
+    if (temp->next == *head && pos != 1) { free(newNode); return; }<br>
+    newNode->next = temp->next;<br>
+    temp->next = newNode;<br>
+}<br>
+<br>
+void deleteAtBegin(struct Node** head) {<br>
+    if (isEmpty(*head)) return;<br>
+    struct Node* temp = *head;<br>
+    if (temp->next == *head) *head = NULL;<br>
+    else {<br>
+        struct Node* last = *head;<br>
+        while (last->next != *head) last = last->next;<br>
+        last->next = (*head)->next;<br>
+        *head = (*head)->next;<br>
+    }<br>
+    free(temp);<br>
+}<br>
+<br>
+void deleteAtEnd(struct Node** head) {<br>
+    if (isEmpty(*head)) return;<br>
+    struct Node *temp = *head, *prev = NULL;<br>
+    if (temp->next == *head) *head = NULL;<br>
+    else {<br>
+        while (temp->next != *head) { prev = temp; temp = temp->next; }<br>
+        prev->next = *head;<br>
+    }<br>
+    free(temp);<br>
+}
+<br><br>
+void deleteAtPos(struct Node** head, int pos) {<br>
+    if (isEmpty(*head)) return;<br>
+    struct Node *temp = *head, *prev = NULL;<br>
+    if (pos == 1) { deleteAtBegin(head); return; }<br>
+    for (int i = 1; i < pos && temp->next != *head; i++) { prev = temp; temp = temp->next; }<br>
+    if (temp->next == *head) return;<br>
+    prev->next = temp->next;<br>
+    free(temp);<br>
+}
+<br><br>
+void search(struct Node* head, char* value) {<br>
+    if (isEmpty(head)) { printf("List is empty.\n"); return; }<br>
+    struct Node* temp = head; int pos = 1;<br>
+    do {<br>
+        if (strcmp(temp->data, value) == 0) {<br>
+            printf("Found \"%s\" at position %d.\n", value, pos);<br>
+            return;
+        }<br>
+        temp = temp->next;<br>
+        pos++;<br>
+    } while (temp != head);<br>
+    printf("\"%s\" not found in the list.\n", value);<br>
+}
+<br><br>
+int main() {<br>
+    struct Node* head = NULL;<br>
+    int choice, pos;<br>
+    char value[100];<br>
+    do {<br>
+        printf("\nMenu:\n1. Insert at beginning\n2. Insert at end\n3. Insert at position\n");<br>
+        printf("4. Delete at beginning\n5. Delete at end\n6. Delete at position\n7. Display\n8. Search\n");<br>
+        printf("9. Check if empty\n0. Exit\nEnter choice: ");<br>
+        scanf("%d", &choice);<br>
+        switch (choice) {<br>
+            case 1: printf("Enter value: "); scanf("%s", value); insertAtBegin(&head, value); <br>break;<br>
+            case 2: printf("Enter value: "); scanf("%s", value); insertAtEnd(&head, value); break;<br>
+            case 3: printf("Enter value: "); scanf("%s", value); printf("Enter position: "); scanf("%d", &pos); insertAtPos(&head, value, pos);<br><br> break;<br>
+            case 4: deleteAtBegin(&head);<br> break;<br>
+            case 5: deleteAtEnd(&head);<br> break;<br>
+            case 6: printf("Enter position: "); scanf("%d", &pos); deleteAtPos(&head, pos);<br> break;<br>
+            case 7: display(head); break;<br>
+            case 8: printf("Enter value: "); scanf("%s", value); search(head, value); <br>break;<br>
+            case 9: printf(isEmpty(head) ? "List is empty.\n" : "List is not empty.\n"); <br>break;<br>
+            case 0: printf("Exiting program.\n"); <br>break;<br>
+            default: printf("Invalid choice. Try again.\n");<br>
+        }<br>    } while (choice != 0);<br>
+    return 0;<br>
+}<br>
+<h/h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Menu:
+<br>
+1. Insert at beginning<br>
+2. Insert at end<br>
+3. Insert at position<br>
+4. Delete at beginning<br>
+5. Delete at end<br>
+6. Delete at position<br>
+7. Display<br>
+8. Search<br>
+9. Check if empty<br>
+0. Exit<br>
+Enter choice: 1<br>
+Enter value: 85<br>
+<br>
+Menu:
+<br>
+1. Insert at beginning<br>
+2. Insert at end<br>
+3. Insert at position<br>
+4. Delete at beginning<br>
+5. Delete at end<br>
+6. Delete at position<br>
+7. Display<br>
+8. Search<br>
+9. Check if empty<br>
+0. Exit<br>
+Enter choice: 2<br>
+Enter value: 69<br>
+<br>
+Menu:
+<br>
+1. Insert at beginning<br>
+2. Insert at end<br>
+3. Insert at position<br>
+4. Delete at beginning<br>
+5. Delete at end<br>
+6. Delete at position<br>
+7. Display<br>
+8. Search<br>
+9. Check if empty<br>
+0. Exit<br>
+Enter choice: 3<br>
+Enter value: 12<br>
+Enter position: 2<br>
+<br>
+Menu:
+<br>
+1. Insert at beginning<br>
+2. Insert at end<br>
+3. Insert at position<br>
+4. Delete at beginning<br>
+5. Delete at end<br>
+6. Delete at position<br>
+7. Display<br>
+8. Search<br>
+9. Check if empty<br>
+0. Exit<br>
+Enter choice: 9<br>
+List is not empty.<br>
+<br>
+Menu:
+<br>
+1. Insert at beginning<br>
+2. Insert at end<br>
+3. Insert at position<br>
+4. Delete at beginning<br>
+5. Delete at end<br>
+6. Delete at position<br>
+7. Display<br>
+8. Search<br>
+9. Check if empty<br>
+0. Exit<br>
+Enter choice: 7<br>
+List: 85 -> 12 -> 69 -> (head)<br>
+<br>
+Menu:<br>
+1. Insert at beginning<br>
+2. Insert at end<br>
+3. Insert at position<br>
+4. Delete at beginning<br>
+5. Delete at end<br>
+6. Delete at position<br>
+7. Display<br>
+8. Search<br>
+9. Check if empty<br>
+0. Exit<br>
+Enter choice: 0<br>
+Exiting program.</h3>
+</body>
+</html>

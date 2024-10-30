@@ -1,0 +1,171 @@
+<html>
+<head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3> 
+#include &lt;stdio.h&gt; <br>
+
+#define SIZE 3<br>
+
+
+void printBoard(char board[SIZE][SIZE]) {<br>
+
+    for (int i = 0; i < SIZE; i++) {<br>
+
+        for (int j = 0; j < SIZE; j++) {<br>
+
+            printf("%c ", board[i][j]);<br>
+
+            if (j < SIZE - 1) printf("| ");<br>
+
+        }<br>
+
+        printf("\n");<br>
+
+        if (i < SIZE - 1) printf("--|---|--\n");<br>
+
+    }<br>
+
+}<br>
+
+
+int checkWin(char board[SIZE][SIZE]) {<br>
+
+    for (int i = 0; i < SIZE; i++) {<br>
+
+        // Check rows and columns<br>
+
+        if ((board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' ') ||<br>
+
+            (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ')) {<br>
+
+            return 1;<br>
+
+        }<br>
+
+    }<br>
+
+    // Check diagonals<br>
+
+    if ((board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ') ||<br>
+
+        (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != ' ')) {<br>
+
+        return 1;<br>
+
+    }<br>
+
+    return 0;<br>
+
+}<br>
+
+
+int main() {<br>
+
+    char board[SIZE][SIZE] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};<br>
+
+    int row, col, turn = 0;<br>
+
+    char currentPlayer;<br>
+
+
+    while (1) {<br>
+
+        printBoard(board);<br>
+
+        currentPlayer = (turn % 2 == 0) ? 'X' : 'O';<br>
+
+
+        printf("Player %c, enter your move (row and column): ", currentPlayer);<br>
+
+        scanf("%d %d", &row, &col);<br>
+
+
+        if (row < 0 || row >= SIZE || col < 0 || col >= SIZE || board[row][col] != ' ') {<br>
+
+            printf("Invalid move! Try again.\n");<br>
+
+            continue;<br>
+
+        }<br>
+
+
+        board[row][col] = currentPlayer;<br>
+
+        turn++;<br>
+
+
+        if (checkWin(board)) {<br>
+
+            printBoard(board);<br>
+
+            printf("Player %c wins!\n", currentPlayer);<br>
+
+            break;<br>
+
+        }<br>
+
+
+        if (turn == SIZE * SIZE) {<br>
+
+            printBoard(board);<br>
+
+            printf("It's a draw!\n");<br>
+
+            break;<br>
+
+        }<br>
+
+    }<br>
+
+
+    return 0;<br>
+
+}<br><br>
+</h3><br>
+<h2> <b> OUTPUT </b> </h2><br>
+<h3>
+  |   |   <br>
+--|---|--
+  |   |   <br>
+--|---|--
+  |   |   <br>
+Player X, enter your move (row and column): 1<br>
+1
+  |   |   <br>
+--|---|--
+  | X |   <br>
+--|---|--
+  |   |   <br>
+Player O, enter your move (row and column): 0<br>
+0
+O |   |   <br>
+--|---|--
+  | X |   <br>
+--|---|--
+  |   |   <br>
+Player X, enter your move (row and column): 2<br>
+1
+O |   |   <br>
+--|---|--
+  | X |   <br>
+--|---|--
+  | X |   <br>
+Player O, enter your move (row and column): 2<br>
+2
+O |   |   <br>
+--|---|--
+  | X |   <br>
+--|---|--
+  | X | O <br>
+Player X, enter your move (row and column): 0<br>
+1
+O | X |   <br>
+--|---|--
+  | X |   <br>
+--|---|--
+  | X | O <br>
+Player X wins!<br>
+</h3>
+</body>
+</html>

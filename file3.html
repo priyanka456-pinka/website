@@ -1,0 +1,67 @@
+<html>
+<head>
+<title> 3 </title>
+</head>
+<body>
+<h2>  <b> CODE </b></h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+
+int main() {<br>
+    int matrix1[2][2], matrix2[2][2], difference[2][2];<br>
+    int i, j;<br>
+<br>
+    // Input the first matrix<br>
+    printf("Enter elements of the first 2x2 matrix:\n");<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            printf("Element [%d][%d]: ", i, j);<br>
+            scanf("%d", &matrix1[i][j]);<br>
+        }<br>
+    }<br>
+<br>
+    // Input the second matrix<br>
+    printf("Enter elements of the second 2x2 matrix:\n");<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            printf("Element [%d][%d]: ", i, j);<br>
+            scanf("%d", &matrix2[i][j]);<br>
+        }<br>
+    }<br>
+<br>
+    // Subtract the matrices<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            difference[i][j] = matrix1[i][j] - matrix2[i][j];<br>
+        }<br>
+    }<br>
+<br>
+    // Display the result<br>
+    printf("\nThe difference of the two matrices is:\n");<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            printf("%d ", difference[i][j]);<br>
+        }<br>
+        printf("\n");<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+<h2> output </h2>
+<h3>
+Enter elements of the first 2x2 matrix:<br>
+Element [0][0]: 2<br>
+Element [0][1]: 5<br>
+Element [1][0]: 7<br>
+Element [1][1]: 8<br>
+Enter elements of the second 2x2 matrix:<br>
+Element [0][0]: 6<br>
+Element [0][1]: 4<br>
+Element [1][0]: 9<br>
+Element [1][1]: 3<br>
+<br>
+The difference of the two matrices is:<br>
+-4 1 <br>
+-2 5<br></h3>
+</body>
+</html>

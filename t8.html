@@ -1,0 +1,225 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+
+struct TreeNode* insert(struct TreeNode* root, int val) {<br>
+    if (root == NULL) {<br>
+        return createNode(val);<br>
+    }<br>
+    if (val &lt; root-&gt;val) {<br>
+        root-&gt;left = insert(root-&gt;left, val);<br>
+    } else if (val &gt; root-&gt;val) {<br>
+        root-&gt;right = insert(root-&gt;right, val);<br>
+    }<br>
+    return root;<br>
+}<br>
+
+struct TreeNode* findMin(struct TreeNode* root) {<br>
+    while (root &amp;&amp; root-&gt;left != NULL) {<br>
+        root = root-&gt;left;<br>
+    }<br>
+    return root;<br>
+}<br>
+
+struct TreeNode* deleteNode(struct TreeNode* root, int val) {<br>
+    if (root == NULL) {<br>
+        return root;<br>
+    }<br>
+    if (val &lt; root-&gt;val) {<br>
+        root-&gt;left = deleteNode(root-&gt;left, val);<br>
+    } else if (val &gt; root-&gt;val) {<br>
+        root-&gt;right = deleteNode(root-&gt;right, val);<br>
+    } else {<br>
+        if (root-&gt;left == NULL) {<br>
+            struct TreeNode* temp = root-&gt;right;<br>
+            free(root);<br>
+            return temp;<br>
+        } else if (root-&gt;right == NULL) {<br>
+            struct TreeNode* temp = root-&gt;left;<br>
+            free(root);<br>
+            return temp;<br>
+        }<br>
+        struct TreeNode* temp = findMin(root-&gt;right);<br>
+        root-&gt;val = temp-&gt;val;<br>
+        root-&gt;right = deleteNode(root-&gt;right, temp-&gt;val);<br>
+    }<br>
+    return root;<br>
+}<br>
+
+struct TreeNode* search(struct TreeNode* root, int val) {<br>
+    if (root == NULL || root-&gt;val == val) {<br>
+        return root;<br>
+    }<br>
+    if (val &lt; root-&gt;val) {<br>
+        return search(root-&gt;left, val);<br>
+    }<br>
+    return search(root-&gt;right, val);<br>
+}<br>
+
+void inorder(struct TreeNode* root) {<br>
+    if (root == NULL) {<br>
+        return;<br>
+    }<br>
+    inorder(root-&gt;left);<br>
+    printf("%d ", root-&gt;val);<br>
+    inorder(root-&gt;right);<br>
+}<br>
+
+void preorder(struct TreeNode* root) {<br>
+    if (root == NULL) {<br>
+        return;<br>
+    }<br>
+    printf("%d ", root-&gt;val);<br>
+    preorder(root-&gt;left);<br>
+    preorder(root-&gt;right);<br>
+}<br>
+
+void postorder(struct TreeNode* root) {<br>
+    if (root == NULL) {<br>
+        return;<br>
+    }<br>
+    postorder(root-&gt;left);<br>
+    postorder(root-&gt;right);<br>
+    printf("%d ", root-&gt;val);<br>
+}<br>
+
+int findMinimumElement(struct TreeNode* root) {<br>
+    struct TreeNode* current = findMin(root);<br>
+    return current ? current-&gt;val : -1;<br>
+}<br>
+
+int main() {<br>
+    struct TreeNode* root = NULL;<br>
+    int choice, value;<br>
+
+    while (1) {<br>
+        printf("\nBinary Search Tree Operations:\n");<br>
+        printf("1. Insert\n2. Delete\n3. Search\n4. Inorder Traversal\n5. Preorder Traversal\n6. Postorder Traversal\n7. Find Minimum Element\n8. Exit\n");<br>
+        printf("Enter your choice: ");<br>
+        scanf("%d", &amp;choice);<br>
+
+        switch (choice) {<br>
+            case 1:<br>
+                printf("Enter value to insert: ");<br>
+                scanf("%d", &amp;value);<br>
+                root = insert(root, value);<br>
+                break;<br>
+            case 2:<br>
+                printf("Enter value to delete: ");<br>
+                scanf("%d", &amp;value);<br>
+                root = deleteNode(root, value);<br>
+                break;<br>
+            case 3:<br>
+                printf("Enter value to search: ");<br>
+                scanf("%d", &amp;value);<br>
+                struct TreeNode* result = search(root, value);<br>
+                if (result != NULL) {<br>
+                    printf("Value %d found in the tree.\n", value);<br>
+                } else {<br>
+                    printf("Value %d not found in the tree.\n", value);<br>
+                }<br>
+                break;<br>
+            case 4:<br>
+                printf("Inorder Traversal: ");<br>
+                inorder(root);<br>
+                printf("\n");<br>
+                break;<br>
+            case 5:<br>
+                printf("Preorder Traversal: ");<br>
+                preorder(root);<br>
+                printf("\n");<br>
+                break;<br>
+            case 6:<br>
+                printf("Postorder Traversal: ");<br>
+                postorder(root);<br>
+                printf("\n");<br>
+                break;<br>
+            case 7:<br>
+                value = findMinimumElement(root);<br>
+                if (value != -1) {<br>
+                    printf("The minimum element in the tree is: %d\n", value);<br>
+                } else {<br>
+                    printf("The tree is empty.\n");<br>
+                }<br>
+                break;<br>
+            case 8:<br>
+                exit(0);<br>
+            default:<br>
+                printf("Invalid choice! Please choose again.\n");<br>
+        }<br>
+    }<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Binary Search Tree Operations:<br>
+1. Insert<br>
+2. Delete<br>
+3. Search<br>
+4. Inorder Traversal<br>
+5. Preorder Traversal<br>
+6. Postorder Traversal<br>
+7. Find Minimum Element<br>
+8. Exit<br>
+Enter your choice: 1<br>
+Enter value to insert: 58<br><br>
+
+Binary Search Tree Operations:<br>
+1. Insert<br>
+2. Delete<br>
+3. Search<br>
+4. Inorder Traversal<br>
+5. Preorder Traversal<br>
+6. Postorder Traversal<br>
+7. Find Minimum Element<br>
+8. Exit<br>
+Enter your choice: 3<br>
+Enter value to search: 58<br>
+Value 58 found in the tree.<br><br>
+
+Binary Search Tree Operations:<br>
+1. Insert<br>
+2. Delete<br>
+3. Search<br>
+4. Inorder Traversal<br>
+5. Preorder Traversal<br>
+6. Postorder Traversal<br>
+7. Find Minimum Element<br>
+8. Exit<br>
+Enter your choice: 6<br>
+Postorder Traversal: 58<br><br>
+
+Binary Search Tree Operations:<br>
+1. Insert<br>
+2. Delete<br>
+3. Search<br>
+4. Inorder Traversal<br>
+5. Preorder Traversal<br>
+6. Postorder Traversal<br>
+7. Find Minimum Element<br>
+8. Exit<br>
+Enter your choice: 7<br>
+The minimum element in the tree is: 58<br>
+</h3>
+</body>
+</html>

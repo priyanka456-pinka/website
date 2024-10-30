@@ -1,0 +1,83 @@
+<html> <br>
+<head> <br>
+</head> <br>
+<body> <br>
+<h2> <b> CODE </b> </h2> <br>
+<h3> <br>
+#include &lt;stdio.h&gt; <br>
+#include &lt;string.h&gt; <br>
+#include &lt;time.h&gt; <br>
+#define MAX_NAMES 100 <br>
+#define MAX_NAME_LENGTH 50 <br>
+void swap(char *str1, char *str2) { <br>
+    char temp[MAX_NAME_LENGTH]; <br>
+    strcpy(temp, str1); <br>
+    strcpy(str1, str2); <br>
+    strcpy(str2, temp); <br>
+} <br>
+int partition(char arr[MAX_NAMES][MAX_NAME_LENGTH], int low, int high) { <br>
+    char pivot[MAX_NAME_LENGTH]; <br>
+    strcpy(pivot, arr[high]); // Choosing the last element as pivot <br>
+    int i = (low - 1); // Index of smaller element <br>
+    for (int j = low; j &lt; high; j++) { <br>
+        if (strcmp(arr[j], pivot) &lt;= 0) { <br>
+            i++; <br>
+            swap(arr[i], arr[j]); <br>
+        } <br>
+    } <br>
+    swap(arr[i + 1], arr[high]); <br>
+    return (i + 1); <br>
+} <br>
+void quickSort(char arr[MAX_NAMES][MAX_NAME_LENGTH], int low, int high) { <br>
+    if (low &lt; high) { <br>
+        int pi = partition(arr, low, high); <br>
+        quickSort(arr, low, pi - 1); // Before pi <br>
+        quickSort(arr, pi + 1, high); // After pi <br>
+    } <br>
+} <br>
+int main() { <br>
+    char names[MAX_NAMES][MAX_NAME_LENGTH]; <br>
+    int n; <br>
+    printf("Enter the number of names: "); <br>
+    scanf("%d", &amp;n); <br>
+    getchar(); <br>
+    printf("Enter the names:\n"); <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        fgets(names[i], MAX_NAME_LENGTH, stdin); <br>
+        names[i][strcspn(names[i], "\n")] = '\0'; <br>
+    } <br>
+    clock_t start = clock(); <br>
+    quickSort(names, 0, n - 1); <br>
+    clock_t end = clock(); <br>
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC; <br>
+    printf("\nSorted array of names:\n"); <br>
+    for (int i = 0; i &lt; n; i++) { <br>
+        printf("%s\n", names[i]); <br>
+    } <br>
+    printf("Time taken for sorting: %.6f seconds\n", time_taken); <br>
+    printf("\nComplexity Analysis:\n"); <br>
+    printf("Worst Case Complexity: O(n^2)\n"); <br>
+    printf("Best Case Complexity: O(n log n)\n"); <br>
+    return 0; <br>
+} <br>
+</h3> <br>
+<h2> <b> OUTPUT </b> </h2> <br>
+<h3> <br>
+Enter the number of names: 4 <br>
+Enter the names: <br>
+Vikram <br>
+Anjali <br>
+Suresh <br>
+Deepika <br>
+Sorted array of names: <br>
+Anjali <br>
+Deepika <br>
+Suresh <br>
+Vikram <br>
+Time taken for sorting: 0.000001 seconds <br>
+Complexity Analysis: <br>
+Worst Case Complexity: O(n^2) <br>
+Best Case Complexity: O(n log n) <br>
+</h3> <br>
+</body> <br>
+</html>

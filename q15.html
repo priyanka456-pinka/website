@@ -1,0 +1,110 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+#define MAX_QUEUE_SIZE 100<br>
+<br>
+// Queue structure<br>
+typedef struct {<br>
+    int data[MAX_QUEUE_SIZE];<br>
+    int front;<br>
+    int rear;<br>
+} Queue;<br>
+<br>
+// Function to initialize the queue<br>
+void initQueue(Queue *q) {<br>
+    q-&gt;front = -1;<br>
+    q-&gt;rear = -1;<br>
+}<br>
+<br>
+// Function to check if the queue is empty<br>
+int isEmpty(Queue *q) {<br>
+    return (q-&gt;front == -1);<br>
+}<br>
+<br>
+// Function to enqueue an element<br>
+void enqueue(Queue *q, int value) {<br>
+    if (q-&gt;rear == MAX_QUEUE_SIZE - 1) {<br>
+        printf(&quot;Queue overflow\n&quot;);<br>
+        return;<br>
+    }<br>
+    if (q-&gt;front == -1) {<br>
+        q-&gt;front = 0;<br>
+    }<br>
+    q-&gt;rear++;<br>
+    q-&gt;data[q-&gt;rear] = value;<br>
+}<br>
+<br>
+// Function to dequeue an element<br>
+int dequeue(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf(&quot;Queue underflow\n&quot;);<br>
+        return -1;<br>
+    }<br>
+    int value = q-&gt;data[q-&gt;front];<br>
+    if (q-&gt;front == q-&gt;rear) {<br>
+        q-&gt;front = q-&gt;rear = -1;<br>
+    } else {<br>
+        q-&gt;front++;<br>
+    }<br>
+    return value;<br>
+}<br>
+<br>
+// Function to get the front element of the queue<br>
+int front(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        return -1;<br>
+    }<br>
+    return q-&gt;data[q-&gt;front];<br>
+}<br>
+<br>
+// Function to find the next greater elements for the array<br>
+void findNextGreaterElements(int arr[], int n) {<br>
+    int nextGreater[n];<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        nextGreater[i] = -1; // Initialize all NGEs as -1<br>
+    }<br>
+    <br>
+    Queue q;<br>
+    initQueue(&amp;q);<br>
+<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        // Check if current element is greater than the element at the front of the queue<br>
+        while (!isEmpty(&amp;q) &amp;&amp; arr[i] &gt; arr[front(&amp;q)]) {<br>
+            int index = dequeue(&amp;q);<br>
+            nextGreater[index] = arr[i];<br>
+        }<br>
+        // Enqueue the current index<br>
+        enqueue(&amp;q, i);<br>
+    }<br>
+<br>
+    // Print the result<br>
+    printf(&quot;Next Greater Elements:\n&quot;);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf(&quot;%d -&gt; %d\n&quot;, arr[i], nextGreater[i]);<br>
+    }<br>
+}<br>
+<br>
+// Main function to test the solution<br>
+int main() {<br>
+    int arr[] = {4, 5, 2, 25};<br>
+    int n = sizeof(arr) / sizeof(arr[0]);<br>
+<br>
+    findNextGreaterElements(arr, n);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Next Greater Elements:<br>
+4 -&gt; 5<br>
+5 -&gt; 25<br>
+2 -&gt; 25<br>
+25 -&gt; -1<br>
+</h3>
+</body>
+</html>

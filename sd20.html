@@ -1,0 +1,54 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+int trap(int height[], int size) {<br>
+    if (size &lt;= 2) return 0;<br>
+    int left = 0, right = size - 1;<br>
+    int left_max = 0, right_max = 0;<br>
+    int water_trapped = 0;<br>
+    while (left &lt; right) {<br>
+        if (height[left] &lt; height[right]) {<br>
+            if (height[left] &gt;= left_max) {<br>
+                left_max = height[left];<br>
+            } else {<br>
+                water_trapped += left_max - height[left];<br>
+            }<br>
+            left++;<br>
+        } else {<br>
+            if (height[right] &gt;= right_max) {<br>
+                right_max = height[right];<br>
+            } else {<br>
+                water_trapped += right_max - height[right];<br>
+            }<br>
+            right--; <br>
+        }<br>
+    }<br>
+    return water_trapped;<br>
+}<br>
+int main() {<br>
+    int n;<br>
+    printf(&quot;Enter the number of elements in the elevation map: &quot;);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+    int height[n];<br>
+    printf(&quot;Enter %d non-negative integers representing the elevation map:\n&quot;, n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &height[i]);<br>
+    }<br>
+    int result = trap(height, n);<br>
+    printf(&quot;Total water trapped: %d\n&quot;, result);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the elevation map: 6<br>
+Enter 6 non-negative integers representing the elevation map:<br>
+0 1 0 2 1 0<br>
+Total water trapped: 1<br>
+</h3>
+</body>
+</html>

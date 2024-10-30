@@ -1,0 +1,75 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    int matrix1[2][2], matrix2[2][2], product[2][2];<br>
+    int i, j, k;<br>
+<br>
+    // Input the first matrix<br>
+    printf("Enter elements of the first 2x2 matrix:\n");<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            printf("Element [%d][%d]: ", i, j);<br>
+            scanf("%d", &matrix1[i][j]);<br>
+        }<br>
+    }<br>
+<br>
+    // Input the second matrix<br>
+    printf("Enter elements of the second 2x2 matrix:\n");<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            printf("Element [%d][%d]: ", i, j);<br>
+            scanf("%d", &matrix2[i][j]);<br>
+        }<br>
+    }<br>
+<br>
+    // Initialize the product matrix to 0<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            product[i][j] = 0;<br>
+        }<br>
+    }<br>
+<br>
+    // Multiply the matrices<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            for (k = 0; k < 2; k++) {<br>
+                product[i][j] += matrix1[i][k] * matrix2[k][j];<br>
+            }<br>
+        }<br>
+    }<br>
+<br>
+    // Display the result<br>
+    printf("\nThe product of the two matrices is:\n");<br>
+    for (i = 0; i < 2; i++) {<br>
+        for (j = 0; j < 2; j++) {<br>
+            printf("%d ", product[i][j]);<br>
+        }<br>
+        printf("\n"); <br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+<h2> <b> <center> OUTPUT </center> </b> </h2>
+<h3> Enter elements of the first 2x2 matrix:<br>
+Element [0][0]: 2<br>
+Element [0][1]: 5<br>
+Element [1][0]: 7<br>
+Element [1][1]: 9<br>
+Enter elements of the second 2x2 matrix:<br>
+Element [0][0]: 3<br>
+Element [0][1]: 1<br>
+Element [1][0]: 2<br>
+Element [1][1]: 5<br>
+
+The product of the two matrices is:<br>
+16 27 <br>
+39 52 <br>	
+</h3>
+</body>
+</html>

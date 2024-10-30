@@ -1,0 +1,145 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt; <br>
+#include &lt;stdlib.h&gt;<br>
+<br>
+#define MAX 100<br>
+<br>
+struct Node {<br>
+    int vertex;<br>
+    struct Node* next;<br>
+};<br>
+<br>
+struct Graph {<br>
+    int numVertices;<br>
+    struct Node** adjLists;<br>
+    int* visited;<br>
+};<br>
+<br>
+int queue[MAX], front = -1, rear = -1;<br>
+<br>
+void enqueue(int vertex) {<br>
+    if (rear == MAX - 1)<br>
+        printf("Queue is full\n");<br>
+    else {<br>
+        if (front == -1)<br>
+            front = 0;<br>
+        rear++;<br>
+        queue[rear] = vertex;<br>
+    }<br>
+}<br>
+<br>
+int dequeue() {<br>
+    int vertex;<br>
+    if (front == -1)<br>
+        return -1;<br>
+    else {<br>
+        vertex = queue[front];<br>
+        if (front == rear)<br>
+            front = rear = -1;<br>
+        else<br>
+            front++;<br>
+        return vertex;<br>
+    }<br>
+}<br>
+
+struct Node* createNode(int v) {<br>
+    struct Node* newNode = malloc(sizeof(struct Node));<br>
+    newNode->vertex = v;<br>
+    newNode->next = NULL;<br>
+    return newNode;<br>
+}<br>
+<br>
+struct Graph* createGraph(int vertices) {<br>
+    struct Graph* graph = malloc(sizeof(struct Graph));<br>
+    graph->numVertices = vertices;<br>
+    graph->adjLists = malloc(vertices * sizeof(struct Node*));<br>
+    graph->visited = malloc(vertices * sizeof(int));<br>
+<br>
+    for (int i = 0; i < vertices; i++) {<br>
+        graph->adjLists[i] = NULL;<br>
+        graph->visited[i] = 0;<br>
+    }<br>
+    return graph;<br>
+}<br>
+<br>
+void addEdge(struct Graph* graph, int src, int dest) {<br>
+    struct Node* newNode = createNode(dest);<br>
+    newNode->next = graph->adjLists[src];<br>
+    graph->adjLists[src] = newNode;<br>
+<br>
+    newNode = createNode(src);<br>
+    newNode->next = graph->adjLists[dest];<br>
+    graph->adjLists[dest] = newNode;<br>
+}<br>
+<br>
+void bfs(struct Graph* graph, int startVertex) {<br>
+    graph->visited[startVertex] = 1;<br>
+    enqueue(startVertex);<br>
+<br><br>
+    printf("BFS traversal starting from vertex %d: ", startVertex);<br>
+<br>
+    while (front != -1) {<br>
+        int currentVertex = dequeue();<br>
+        printf("%d ", currentVertex);<br>
+<br>
+        struct Node* temp = graph->adjLists[currentVertex];<br>
+<br>
+        while (temp) {<br>
+            int adjVertex = temp->vertex;<br>
+<br>
+            if (!graph->visited[adjVertex]) {<br>
+                graph->visited[adjVertex] = 1;<br>
+                enqueue(adjVertex);<br>
+            }<br>
+            temp = temp->next;<br>
+        }<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+int main() {<br>
+    int vertices, edges, src, dest, startVertex;<br>
+<br>
+    printf("Enter the number of vertices: ");<br>
+    scanf("%d", &vertices);<br>
+<br>
+    struct Graph* graph = createGraph(vertices);<br>
+<br>
+    printf("Enter the number of edges: ");<br>
+    scanf("%d", &edges);<br>
+<br>
+    printf("Enter the edges (source and destination):\n");<br>
+    for (int i = 0; i < edges; i++) {<br>
+        scanf("%d %d", &src, &dest);<br>
+        addEdge(graph, src, dest);<br>
+    }<br>
+<br>
+    printf("Enter the starting vertex for BFS: ");<br>
+    scanf("%d", &startVertex);<br>
+<br>
+    bfs(graph, startVertex);<br>
+<br>
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of vertices: 5<br>
+Enter the number of edges: 6<br>
+Enter the edges (source and destination):<br>
+0 1<br>
+0 2<br>
+1 3<br>
+1 4<br>
+2 3<br>
+3 4<br>
+Enter the starting vertex for BFS: 0<br>
+BFS traversal starting from vertex 0: 0 2 1 3 4<br>
+
+</h3>
+</body>
+</html>

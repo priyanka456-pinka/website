@@ -1,0 +1,114 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;limits.h&gt;<br>
+<br>
+#define MAX_QUEUE_SIZE 100<br>
+<br>
+// Queue structure<br>
+typedef struct {<br>
+    char data[MAX_QUEUE_SIZE];<br>
+    int front;<br>
+    int rear;<br>
+} Queue;<br>
+<br>
+// Function to initialize the queue<br>
+void initQueue(Queue *q) {<br>
+    q-&gt;front = -1;<br>
+    q-&gt;rear = -1;<br>
+}<br>
+<br>
+// Function to check if the queue is empty<br>
+int isEmpty(Queue *q) {<br>
+    return (q-&gt;front == -1);<br>
+}<br>
+<br>
+// Function to enqueue an element<br>
+void enqueue(Queue *q, char value) {<br>
+    if (q-&gt;rear == MAX_QUEUE_SIZE - 1) {<br>
+        printf(&quot;Queue overflow\n&quot;);<br>
+        return;<br>
+    }<br>
+    if (q-&gt;front == -1) {<br>
+        q-&gt;front = 0;<br>
+    }<br>
+    q-&gt;rear++;<br>
+    q-&gt;data[q-&gt;rear] = value;<br>
+}<br>
+<br>
+// Function to dequeue an element<br>
+char dequeue(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf(&quot;Queue underflow\n&quot;);<br>
+        return '\0';<br>
+    }<br>
+    char value = q-&gt;data[q-&gt;front];<br>
+    if (q-&gt;front == q-&gt;rear) {<br>
+        q-&gt;front = q-&gt;rear = -1;<br>
+    } else {<br>
+        q-&gt;front++;<br>
+    }<br>
+    return value;<br>
+}<br>
+<br>
+// Function to get the front element of the queue<br>
+char front(Queue *q) {<br>
+    if (isEmpty(q)) {<br>
+        return '\0';<br>
+    }<br>
+    return q-&gt;data[q-&gt;front];<br>
+}<br>
+<br>
+// Function to find the first non-repeating character in a stream<br>
+void firstNonRepeatingCharInStream(const char *stream) {<br>
+    int freq[256] = {0}; // Frequency array for all characters<br>
+    Queue q;<br>
+    initQueue(&amp;q);<br>
+<br>
+    printf(&quot;First non-repeating characters in the stream:\n&quot;);<br>
+    for (int i = 0; i &lt; strlen(stream); i++) {<br>
+        char ch = stream[i];<br>
+<br>
+        // Update frequency of the character<br>
+        freq[ch]++;<br>
+<br>
+        // Enqueue the character if it's the first time it's seen<br>
+        if (freq[ch] == 1) {<br>
+            enqueue(&amp;q, ch);<br>
+        }<br>
+<br>
+        // Dequeue characters from the front if their frequency is more than 1<br>
+        while (!isEmpty(&amp;q) &amp;&amp; freq[front(&amp;q)] &gt; 1) {<br>
+            dequeue(&amp;q);<br>
+        }<br>
+<br>
+        // Print the current first non-repeating character<br>
+        if (isEmpty(&amp;q)) {<br>
+            printf(&quot;After reading '%c': No non-repeating character\n&quot;, ch);<br>
+        } else {<br>
+            printf(&quot;After reading '%c': First non-repeating character is '%c'\n&quot;, ch, front(&amp;q));<br>
+        }<br>
+    }<br>
+}<br>
+<br>
+// Main function to test the solution<br>
+int main() {<br>
+    const char *stream = &quot;aabc&quot;;<br>
+    firstNonRepeatingCharInStream(stream);<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>First non-repeating characters in the stream:<br>
+After reading 'a': First non-repeating character is 'a'<br>
+After reading 'a': No non-repeating character<br>
+After reading 'b': First non-repeating character is 'b'<br>
+After reading 'c': First non-repeating character is 'b'<br>
+</h3>
+</body>
+</html>

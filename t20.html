@@ -1,0 +1,83 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode *left, *right;<br>
+};<br>
+
+struct TreeNode* createNode(int value) {<br>
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    newNode-&gt;val = value;<br>
+    newNode-&gt;left = newNode-&gt;right = NULL;<br>
+    return newNode;<br>
+}<br>
+
+struct TreeNode* insert(struct TreeNode* root, int value) {<br>
+    if (root == NULL) {<br>
+        return createNode(value);<br>
+    }<br>
+    if (value &lt; root-&gt;val) {<br>
+        root-&gt;left = insert(root-&gt;left, value);<br>
+    } else if (value &gt; root-&gt;val) {<br>
+        root-&gt;right = insert(root-&gt;right, value);<br>
+    }<br>
+    return root;<br>
+}<br>
+
+int countNodes(struct TreeNode* root) {<br>
+    if (root == NULL) {<br>
+        return 0;<br>
+    }<br>
+    return 1 + countNodes(root-&gt;left) + countNodes(root-&gt;right);<br>
+}<br>
+
+void freeTree(struct TreeNode* root) {<br>
+    if (root) {<br>
+        freeTree(root-&gt;left);<br>
+        freeTree(root-&gt;right);<br>
+        free(root);<br>
+    }<br>
+}<br>
+
+// Main function to test the program.<br>
+int main() {<br>
+    struct TreeNode* root = NULL;<br>
+    int value;<br>
+    char choice;<br>
+
+    do {<br>
+        printf("Enter a value to insert into the BST: ");<br>
+        scanf("%d", &value);<br>
+        root = insert(root, value);<br>
+
+        printf("Do you want to add another value? (y/n): ");<br>
+        scanf(" %c", &choice);<br>
+    } while (choice == 'y' || choice == 'Y');<br>
+
+    int nodeCount = countNodes(root);<br>
+    printf("The number of nodes in the BST is: %d\n", nodeCount);<br>
+
+    freeTree(root);<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a value to insert into the BST: 45<br>
+Do you want to add another value? (y/n): y<br>
+Enter a value to insert into the BST: 96<br>
+Do you want to add another value? (y/n): y<br>
+Enter a value to insert into the BST: 63<br>
+Do you want to add another value? (y/n): n<br>
+The number of nodes in the BST is: 3<br>
+</h3>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    int length = 0;<br>
+<br>
+    // Taking input from the user<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    // Calculate the length of the string<br>
+    while (str[length] != &apos;\0&apos;) {<br>
+        length++;<br>
+    }<br>
+<br>
+    // Since fgets includes the newline character, we need to adjust the length<br>
+    if (length &gt; 0 &amp;&amp; str[length - 1] == &apos;\n&apos;) {<br>
+        length--; <br>
+    }<br>
+<br>
+    // Output the final length of the string<br>
+    printf(&quot;Length of the string: %d\n&quot;, length);<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: strings are the collection of charachters <br>
+Length of the string: 42<br></h3>
+</body>
+</html>

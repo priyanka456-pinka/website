@@ -1,0 +1,64 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+void swap(int *a, int *b) {<br>
+    int temp = *a;<br>
+    *a = *b;<br>
+    *b = temp;<br>
+}<br>
+<br>
+void bubbleSort(int arr[], int n) {<br>
+    for (int i = 0; i &lt; n-1; i++) {<br>
+        for (int j = 0; j &lt; n-i-1; j++) {<br>
+            if (arr[j] &gt; arr[j+1]) {<br>
+                swap(&arr[j], &arr[j+1]);<br>
+            }<br>
+        }<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    int n, k;<br>
+    <br>
+    printf("Enter the number of elements in the array: ");<br>
+    scanf("%d", &n);<br>
+    <br>
+    int arr[n];<br>
+    <br>
+    printf("Enter %d elements:\n", n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf("Element %d: ", i + 1);<br>
+        scanf("%d", &arr[i]);<br>
+    }<br>
+    <br>
+    printf("Enter the value of k: ");<br>
+    scanf("%d", &k);<br>
+    <br>
+    if (k &gt; 0 && k &lt;= n) {<br>
+        bubbleSort(arr, n);<br>
+        printf("The %d-th smallest element is: %d\n", k, arr[k-1]);<br>
+    } else {<br>
+        printf("Invalid value of k. Please enter a value between 1 and %d.\n", n);<br>
+    }<br>
+    <br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 6<br>
+Enter 6 elements:<br>
+Element 1: 12<br>
+Element 2: 3<br>
+Element 3: 5<br>
+Element 4: 7<br>
+Element 5: 19<br>
+Element 6: 1<br>
+Enter the value of k: 3<br>
+The 3-th smallest element is: 5<br>
+</h3>
+</body>
+</html>

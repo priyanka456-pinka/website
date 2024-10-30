@@ -1,0 +1,71 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;time.h&gt;<br>
+<br>
+int compare(const void *a, const void *b) {<br>
+    return (*(int *)a - *(int *)b);<br>
+}<br>
+<br>
+int binarySearch(int arr[], int n, int target) {<br>
+    int left = 0;<br>
+    int right = n - 1;<br>
+<br>
+    while (left &lt;= right) {<br>
+        int mid = left + (right - left) / 2;<br>
+<br>
+        if (arr[mid] == target) {<br>
+            return mid;<br>
+        } else if (arr[mid] &lt; target) {<br>
+            left = mid + 1;<br>
+        } else {<br>
+            right = mid - 1;<br>
+        }<br>
+    }<br>
+    return -1;<br>
+}<br>
+<br>
+int main() {<br>
+    int n;<br>
+<br>
+    printf("Enter the number of elements in the array: ");<br>
+    scanf("%d", &amp;n);<br>
+<br>
+    int arr[n];<br>
+<br>
+    srand(time(NULL));<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        arr[i] = rand() % 100;<br>
+    }<br>
+<br>
+    qsort(arr, n, sizeof(int), compare);<br>
+<br>
+    int bestCaseTarget = arr[n / 2];<br>
+    clock_t startTime = clock();<br>
+    int bestIndex = binarySearch(arr, n, bestCaseTarget);<br>
+    clock_t endTime = clock();<br>
+    double bestCaseTime = (double)(endTime - startTime) / CLOCKS_PER_SEC;<br>
+<br>
+    int worstCaseTarget = 150;<br>
+    startTime = clock();<br>
+    int worstIndex = binarySearch(arr, n, worstCaseTarget);<br>
+    endTime = clock();<br>
+    double worstCaseTime = (double)(endTime - startTime) / CLOCKS_PER_SEC;<br>
+<br>
+    printf("Best Case: Found %d at index %d in %f seconds\n", bestCaseTarget, bestIndex, bestCaseTime);<br>
+    printf("Worst Case: Tried to find %d, result index %d in %f seconds\n", worstCaseTarget, worstIndex, worstCaseTime);<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of elements in the array: 1000000<br>
+Best Case: Found 73 at index 500000 in 0.000002 seconds<br>
+Worst Case: Tried to find 150, result index -1 in 0.000194 seconds<br>
+</h3>
+</body>
+</html>

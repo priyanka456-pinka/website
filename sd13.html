@@ -1,0 +1,62 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#define MAX_SIZE 100 // Maximum size of the array<br>
+int main() {<br>
+    int arr[MAX_SIZE]; // Array to hold the user input<br>
+    int n, i, j, count, duplicates[MAX_SIZE], dupCount = 0;<br>
+    printf(&quot;Enter the number of elements in the array (max %d): &quot;, MAX_SIZE);<br>
+    scanf(&quot;%d&quot;, &n);<br>
+    if (n &gt; MAX_SIZE) {<br>
+        printf(&quot;Number of elements exceeds maximum size of %d.\n&quot;, MAX_SIZE);<br>
+        return 1;<br>
+    }<br>
+    printf(&quot;Enter %d elements:\n&quot;, n);<br>
+    for (i = 0; i &lt; n; i++) {<br>
+        scanf(&quot;%d&quot;, &arr[i]);<br>
+    }<br>
+    for (i = 0; i &lt; n; i++) {<br>
+        count = 1;<br>
+        for (j = i + 1; j &lt; n; j++) {<br>
+            if (arr[i] == arr[j]) {<br>
+                count++;<br>
+                arr[j] = -1;<br>
+            }<br>
+        }<br>
+        if (count &gt; 1 && arr[i] != -1) {<br>
+            duplicates[dupCount++] = arr[i];<br>
+        }<br>
+    }<br>
+    if (dupCount &gt; 0) {<br>
+        printf(&quot;Duplicate values in the array are:\n&quot;);<br>
+        for (i = 0; i &lt; dupCount; i++) {<br>
+            printf(&quot;%d\n&quot;, duplicates[i]);<br>
+        }<br>
+    } else {<br>
+        printf(&quot;No duplicate values found in the array.\n&quot;);<br>
+    }<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements in the array (max 100): 8<br>
+Enter 8 elements:<br>
+10<br>
+20<br>
+10<br>
+30<br>
+40<br>
+20<br>
+50<br>
+10<br>
+Duplicate values in the array are:<br>
+10<br>
+20<br>
+</h3>
+</body>
+</html>

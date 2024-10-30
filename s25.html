@@ -1,0 +1,81 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+
+<br>
+// Function to remove leading and trailing spaces<br>
+void trimSpaces(char *str) {<br>
+    int start = 0;  // Index for the first non-space character<br>
+    int end = 0;    // Index for the last non-space character<br>
+    int i = 0;<br>
+
+    // Find the first non-space character from the beginning<br>
+    while (str[start] == ' ') {<br>
+        start++;<br>
+    }<br>
+
+    // Find the last non-space character from the end<br>
+    end = start;<br>
+    while (str[end] != '\0') {<br>
+        end++;<br>
+    }<br>
+    end--; // Move to the last valid character<br>
+
+    // Move backward to find the last non-space character<br>
+    while (end >= 0 && str[end] == ' ') {<br>
+        end--;<br>
+    }<br>
+
+    // If there are no non-space characters, the string is empty<br>
+    if (start > end) {<br>
+        str[0] = '\0';<br>
+        return;<br>
+    }<br>
+
+    // Shift the characters to the beginning of the string<br>
+    i = 0;<br>
+    while (start <= end) {<br>
+        str[i++] = str[start++];<br>
+    }<br>
+
+    // Null-terminate the trimmed string<br>
+    str[i] = '\0';<br>
+}<br>
+
+<br>int main() {<br>
+    char str[1000]; // Array to hold the input string<br>
+
+    // Input: Get the string from the user<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin); // Read the input string<br>
+
+    // Remove the newline character if it exists<br>
+    int length = 0;<br>
+    while (str[length] != '\0') {<br>
+        if (str[length] == '\n') {<br>
+            str[length] = '\0';<br>
+            break;<br>
+        }<br>
+        length++;<br>
+    }<br>
+
+    // Trim the spaces from both ends<br>
+    trimSpaces(str);<br>
+
+    // Output the trimmed string<br>
+    printf("The trimmed string is: \"%s\"\n", str);<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a string:     hello, world!<br>
+The trimmed string is: "hello, world!"<br>
+</h3>
+</body>
+</html>

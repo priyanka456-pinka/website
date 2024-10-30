@@ -1,0 +1,69 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode* left;<br>
+    struct TreeNode* right;<br>
+};<br>
+struct TreeNode* createNode(int val) {<br>
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    node-&gt;val = val;<br>
+    node-&gt;left = node-&gt;right = NULL;<br>
+    return node;<br>
+}<br>
+int search(int* inorder, int start, int end, int value) {<br>
+    for (int i = start; i &lt;= end; i++) {<br>
+        if (inorder[i] == value) {<br>
+            return i;<br>
+        }<br>
+    }<br>
+    return -1;<br>
+}<br>
+struct TreeNode* buildTreeHelper(int* postorder, int* inorder, int inorderStart, int inorderEnd, int* postorderIndex) {<br>
+    if (inorderStart &gt; inorderEnd) {<br>
+        return NULL;<br>
+    }<br>
+    int currentVal = postorder[*postorderIndex];<br>
+    (*postorderIndex)--;<br>
+    struct TreeNode* root = createNode(currentVal);<br>
+    if (inorderStart == inorderEnd) {<br>
+        return root;<br>
+    }<br>
+    int inorderIndex = search(inorder, inorderStart, inorderEnd, currentVal);<br>
+    root-&gt;right = buildTreeHelper(postorder, inorder, inorderIndex + 1, inorderEnd, postorderIndex);<br>
+    root-&gt;left = buildTreeHelper(postorder, inorder, inorderStart, inorderIndex - 1, postorderIndex);<br>
+    return root;<br>
+}<br>
+struct TreeNode* buildTree(int* postorder, int* inorder, int size) {<br>
+    int postorderIndex = size - 1;<br>
+    return buildTreeHelper(postorder, inorder, 0, size - 1, &postorderIndex);<br>
+}<br>
+void printInorder(struct TreeNode* root) {<br>
+    if (root == NULL) {<br>
+        return;<br>
+    }<br>
+    printInorder(root-&gt;left);<br>
+    printf("%d ", root-&gt;val);<br>
+    printInorder(root-&gt;right);<br>
+}<br>
+int main() {<br>
+    int postorder[] = {9, 15, 7, 20, 3};<br>
+    int inorder[] = {9, 3, 15, 20, 7};<br>
+    int size = sizeof(postorder) / sizeof(postorder[0]);<br>
+    struct TreeNode* root = buildTree(postorder, inorder, size);<br>
+    printf("Inorder traversal of the constructed tree: ");<br>
+    printInorder(root);<br>
+    printf("\n");<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3> Inorder traversal of the constructed tree: 9 3 15 20 7 </h3>
+</body>
+</html>

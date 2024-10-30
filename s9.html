@@ -1,0 +1,37 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str1[100], str2[100];<br>
+    int i = 0;<br>
+<br>
+    // Taking input for the first string<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str1, sizeof(str1), stdin);<br>
+<br>
+    // Copying the string from str1 to str2<br>
+    while (str1[i] != &apos;\0&apos;) {<br>
+        str2[i] = str1[i];<br>
+        i++;<br>
+    }<br>
+<br>
+    // Add the null terminator at the end of str2<br>
+    str2[i] = &apos;\0&apos;;<br>
+<br>
+    // Output the copied string<br>
+    printf(&quot;Copied string: %s&quot;, str2);<br>
+<br>
+    return 0;<br>
+}<br>
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: Data structures<br>
+Copied string: Data structures<br>
+</h3>
+</body>
+</html>

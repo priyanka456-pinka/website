@@ -1,0 +1,132 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+<br>
+#define MAX 5  // Define the maximum size of the queue<br>
+#define STRING_LENGTH 100  // Define the maximum length for each string<br>
+<br>
+typedef struct {<br>
+    char items[MAX][STRING_LENGTH];  // Array of strings<br>
+    int front;<br>
+    int rear;<br>
+    int size;<br>
+} CircularQueue;<br>
+<br>
+void initQueue(CircularQueue *q) {<br>
+    q-&gt;front = 0;<br>
+    q-&gt;rear = -1;<br>
+    q-&gt;size = 0;<br>
+}<br>
+<br>
+int isEmpty(CircularQueue *q) {<br>
+    return q-&gt;size == 0;<br>
+}<br>
+<br>
+int isFull(CircularQueue *q) {<br>
+    return q-&gt;size == MAX;<br>
+}<br>
+<br>
+void enqueue(CircularQueue *q, const char *value) {<br>
+    if (isFull(q)) {<br>
+        printf("Queue is full. Cannot enqueue '%s'.\n", value);<br>
+        return;<br>
+    }<br>
+    q-&gt;rear = (q-&gt;rear + 1) % MAX;  // Circular increment<br>
+    strcpy(q-&gt;items[q-&gt;rear], value);<br>
+    q-&gt;size++;<br>
+    printf("Enqueued: '%s'\n", value);<br>
+}<br>
+<br>
+char* dequeue(CircularQueue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. Cannot dequeue.\n");<br>
+        return NULL;  // Return NULL to indicate the queue is empty<br>
+    }<br>
+    char *value = q-&gt;items[q-&gt;front];<br>
+    q-&gt;front = (q-&gt;front + 1) % MAX;  // Circular increment<br>
+    q-&gt;size--;<br>
+    printf("Dequeued: '%s'\n", value);<br>
+    return value;<br>
+}<br>
+<br>
+char* peek(CircularQueue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty. No front item.\n");<br>
+        return NULL;  // Return NULL to indicate the queue is empty<br>
+    }<br>
+    return q-&gt;items[q-&gt;front];<br>
+}<br>
+<br>
+void display(CircularQueue *q) {<br>
+    if (isEmpty(q)) {<br>
+        printf("Queue is empty.\n");<br>
+        return;<br>
+    }<br>
+    printf("Queue elements: ");<br>
+    for (int i = 0; i &lt; q-&gt;size; i++) {<br>
+        int index = (q-&gt;front + i) % MAX;<br>
+        printf("'%s' ", q-&gt;items[index]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+<br>
+int main() {<br>
+    CircularQueue q;<br>
+    initQueue(&amp;q);<br>
+<br>
+    // Enqueue different strings<br>
+    enqueue(&amp;q, "Apple");<br>
+    enqueue(&amp;q, "Banana");<br>
+    enqueue(&amp;q, "Cherry");<br>
+    enqueue(&amp;q, "Date");<br>
+    enqueue(&amp;q, "Elderberry");<br>
+    display(&amp;q);<br>
+<br>
+    // Attempt to enqueue another string, which should fail<br>
+    enqueue(&amp;q, "Fig");<br>
+<br>
+    // Dequeue two strings<br>
+    dequeue(&amp;q);<br>
+    dequeue(&amp;q);<br>
+    display(&amp;q);<br>
+<br>
+    // Peek at the front element<br>
+    printf("Front element: '%s'\n", peek(&amp;q));<br>
+<br>
+    // Enqueue more strings<br>
+    enqueue(&amp;q, "Grape");<br>
+    enqueue(&amp;q, "Honeydew");<br>
+    display(&amp;q);<br>
+<br>
+    // Attempt to enqueue yet another string, which should fail again<br>
+    enqueue(&amp;q, "Kiwi");<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enqueued: 'Apple'<br>
+Enqueued: 'Banana'<br>
+Enqueued: 'Cherry'<br>
+Enqueued: 'Date'<br>
+Enqueued: 'Elderberry'<br>
+Queue elements: 'Apple' 'Banana' 'Cherry' 'Date' 'Elderberry'<br>
+Queue is full. Cannot enqueue 'Fig'.<br>
+Dequeued: 'Apple'<br>
+Dequeued: 'Banana'<br>
+Queue elements: 'Cherry' 'Date' 'Elderberry'<br>
+Front element: 'Cherry'<br>
+Enqueued: 'Grape'<br>
+Enqueued: 'Honeydew'<br>
+Queue elements: 'Cherry' 'Date' 'Elderberry' 'Grape' 'Honeydew'<br>
+Queue is full. Cannot enqueue 'Kiwi'.<br>
+</h3>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavender Navigation Bar</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5; /* Light lavender background */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #6a5acd; /* Slate blue (lavender-like) */
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            box-shadow: 0px 4px 2px -2px gray;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        /* Navigation bar styling */
+        .navbar {
+            background-color: #d8bfd8; /* Lavender color */
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-list li {
+            flex: 1;
+        }
+
+        .nav-list li a {
+            display: block;
+            color: #4b0082; /* Dark lavender for text */
+            text-align: center;
+            padding: 15px 25px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-list li a:hover {
+            background-color: #e6e6fa; /* Lavender on hover */
+            color: white; /* Change text color to white on hover */
+        }
+
+        /* Main content styling */
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content img {
+            width: 100%;
+            height: auto;
+            max-width: 1500px;
+            border: 2px solid #4b0082; /* Dark lavender border */
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #6a5acd; /* Slate blue (lavender-like) */
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0px -4px 2px -2px gray;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section -->
+    <header>
+        <h1>Lavender Navigation Bar</h1>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="navigation.html">Home</a></li>
+            <li><a href="1.html">Topics</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main content section -->
+    <div class="content">
+        <img src="image.jpg" alt="Content Image">
+    </div>
+
+    <!-- Footer section -->
+    <footer>
+        <p>&copy; 2024 Lavender Navigation Bar. All rights reserved.</p>
+    </footer>
+</body>
+</html>

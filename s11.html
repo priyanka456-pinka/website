@@ -1,0 +1,49 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    char str[100];<br>
+    int length = 0, i, isPalindrome = 1;<br>
+<br>
+    // Taking input for the string<br>
+    printf(&quot;Enter a string: &quot;);<br>
+    fgets(str, sizeof(str), stdin);<br>
+<br>
+    // Calculate the length of the string manually<br>
+    while (str[length] != &apos;\0&apos;) {<br>
+        // Stop counting if we hit a newline character<br>
+        if (str[length] == &apos;\n&apos;) {<br>
+            str[length] = &apos;\0&apos;; // Replace newline with null terminator<br>
+            break;<br>
+        }<br>
+        length++;<br>
+    }<br>
+<br>
+    // Check if the string is a palindrome<br>
+    for (i = 0; i &lt; length / 2; i++) {<br>
+        if (str[i] != str[length - 1 - i]) {<br>
+            isPalindrome = 0; // Not a palindrome<br>
+            break;<br>
+        }<br>
+    }<br>
+<br>
+    // Output the result<br>
+    if (isPalindrome) {<br>
+        printf(&quot;The string is a palindrome.&quot;);\n<br>
+    } else {<br>
+        printf(&quot;The string is not a palindrome.&quot;);\n<br>
+    }<br>
+<br>
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter a string: dad<br>
+The string is a palindrome.<br>
+</h3>
+</body>
+</html>

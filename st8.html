@@ -1,0 +1,100 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#define MAX_SIZE 100<br>
+typedef struct Stack {<br>
+    int arr[MAX_SIZE];<br>
+    int top;<br>
+} Stack;<br>
+void initialize(Stack* stack) {<br>
+    stack-&gt;top = -1;<br>
+}<br>
+int isFull(Stack* stack) {<br>
+    return stack-&gt;top == MAX_SIZE - 1;<br>
+}<br>
+int isEmpty(Stack* stack) {<br>
+    return stack-&gt;top == -1;<br>
+}<br>
+void push(Stack* stack, int item) {<br>
+    if (isFull(stack)) {<br>
+        printf("Stack is full! Cannot push %d\n", item);<br>
+        return;<br>
+    }<br>
+    stack-&gt;arr[++stack-&gt;top] = item;<br>
+}<br>
+int pop(Stack* stack) {<br>
+    if (isEmpty(stack)) {<br>
+        printf("Stack is empty! Cannot pop\n");<br>
+        return -1;<br>
+    }<br>
+    return stack-&gt;arr[stack-&gt;top--];<br>
+}<br>
+int peek(Stack* stack) {<br>
+    if (isEmpty(stack)) {<br>
+        printf("Stack is empty! Cannot peek\n");<br>
+        return -1;<br>
+    }<br>
+    return stack-&gt;arr[stack-&gt;top];<br>
+}<br>
+void sortStack(Stack* input) {<br>
+    Stack temp;<br>
+    initialize(&amp;temp);<br>
+    while (!isEmpty(input)) {<br>
+        int current = pop(input);<br>
+        while (!isEmpty(&amp;temp) &amp;&amp; peek(&amp;temp) &gt; current) {<br>
+            push(input, pop(&amp;temp));<br>
+        }<br>
+        push(&amp;temp, current);<br>
+    }<br>
+    while (!isEmpty(&amp;temp)) {<br>
+        push(input, pop(&amp;temp));<br>
+    }<br>
+}<br>
+void displayStack(Stack* stack) {<br>
+    if (isEmpty(stack)) {<br>
+        printf("Stack is empty\n");<br>
+        return;<br>
+    }<br>
+    printf("Stack elements: ");<br>
+    for (int i = stack-&gt;top; i &gt;= 0; i--) {<br>
+        printf("%d ", stack-&gt;arr[i]);<br>
+    }<br>
+    printf("\n");<br>
+}<br>
+int main() {<br>
+    Stack stack;<br>
+    initialize(&amp;stack);<br>
+    int n, value;<br>
+    printf("Enter the number of elements to push onto the stack (max %d): ", MAX_SIZE);<br>
+    scanf("%d", &amp;n);<br>
+    for (int i = 0; i &lt; n; i++) {<br>
+        printf("Enter value %d: ", i + 1);<br>
+        scanf("%d", &amp;value);<br>
+        push(&amp;stack, value);<br>
+    }<br>
+    printf("Original ");<br>
+    displayStack(&amp;stack);<br>
+    sortStack(&amp;stack);<br>
+    printf("Sorted ");<br>
+    displayStack(&amp;stack);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of elements to push onto the stack (max 100): 5<br>
+Enter value 1: 34<br>
+Enter value 2: 3<br>
+Enter value 3: 31<br>
+Enter value 4: 98<br>
+Enter value 5: 92<br>
+Original Stack elements: 92 98 31 3 34<br>
+Sorted Stack elements: 3 31 34 92 98<br>
+</h3>
+</body>
+</html>

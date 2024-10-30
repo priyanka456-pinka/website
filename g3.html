@@ -1,0 +1,71 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+
+#define MAX_VERTICES 10 <br>
+
+// Function to perform DFS traversal<br>
+void DFS(int graph[MAX_VERTICES][MAX_VERTICES], int visited[], int vertex, int numVertices) {<br>
+   <br>
+    visited[vertex] = 1;<br>
+    printf("%d ", vertex); <br>
+
+<br>
+    for (int i = 0; i < numVertices; i++) {<br>
+<br>
+        if (graph[vertex][i] == 1 && !visited[i]) {<br>
+            DFS(graph, visited, i, numVertices);<br>
+        }<br>
+    }<br>
+}<br>
+
+int main() {<br>
+    int numVertices;<br>
+    int graph[MAX_VERTICES][MAX_VERTICES] = {0};<br>
+
+    <br>
+    printf("Enter the number of vertices (max %d): ", MAX_VERTICES);<br>
+    scanf("%d", &numVertices);<br>
+
+  <br><br>
+    printf("Enter the adjacency matrix (%dx%d):\n", numVertices, numVertices);<br>
+    for (int i = 0; i < numVertices; i++) {<br>
+        for (int j = 0; j < numVertices; j++) {<br>
+            scanf("%d", &graph[i][j]);<br>
+        }<br>
+    }<br>
+
+   <br>
+    int visited[MAX_VERTICES] = {0};<br>
+
+   <br>
+    printf("Depth First Search (DFS) traversal starting from vertex 0:\n");<br>
+    DFS(graph, visited, 0, numVertices);<br>
+<br>
+    printf("\n");<br>
+<br>
+    return 0;<br>
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Enter the number of vertices (max 10): 5<br>
+Enter the adjacency matrix (5x5):<br>
+0 1 1 0 0<br>
+
+1 0 0 1 1<br>
+
+1 0 0 0 0<br>
+
+0 1 0 0 1<br>
+
+0 1 0 1 0<br>
+Depth First Search (DFS) traversal starting from vertex 0:<br>
+0 1 3 4 2 <br>
+</h3>
+</body>
+</html>

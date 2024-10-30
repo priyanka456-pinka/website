@@ -1,0 +1,95 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE  </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+
+
+#define MAX 10 <br>
+<br>
+
+int main() {<br>
+<br>
+    int matrix[MAX][MAX] = {0}; <br>
+
+    int vertices, edges;<br>
+
+    int start, end;<br>
+<br>
+
+    // Input the number of vertices<br>
+
+    printf("Enter the number of vertices: ");<br>
+
+    scanf("%d", &vertices);<br>
+
+<br>
+    // Input the number of edges<br>
+
+    printf("Enter the number of edges: ");<br>
+
+    scanf("%d", &edges);<br>
+
+<br>
+    // Input each edge and update the matrix<br>
+
+    printf("Enter the edges (start end):\n");<br>
+
+    for (int i = 0; i < edges; i++) {<br>
+
+        scanf("%d %d", &start, &end);<br>
+
+        matrix[start][end] = 1; <br>
+
+        matrix[end][start] = 1; <br>
+
+    }<br>
+
+<br>
+    // Print the adjacency matrix<br>
+
+    printf("\nAdjacency Matrix:\n");<br>
+
+    for (int i = 0; i < vertices; i++) {<br>
+
+        for (int j = 0; j < vertices; j++) {<br>
+
+            printf("%d ", matrix[i][j]);<br>
+
+        }<br>
+
+        printf("\n");<br>
+
+    }<br>
+
+
+    return 0;<br>
+
+}<br>
+
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the number of vertices: 2<br>
+
+Enter the number of edges: 3<br>
+
+Enter the edges (start end):<br>
+
+0 1<br>
+
+1 2<br>
+
+1 2<br>
+
+
+Adjacency Matrix:<br>
+
+0 1 <br>
+
+1 0  <br>
+</h3>
+</body>
+</html>

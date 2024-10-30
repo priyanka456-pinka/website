@@ -1,0 +1,63 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+
+<br>// Function to find the start index of the second word<br>
+int findSecondWordStartIndex(char *str) {<br>
+    int i = 0;<br>
+
+    // Skip leading spaces<br>
+    while (str[i] == ' ') {<br>
+        i++;<br>
+    }<br>
+
+    // Skip the first word<br>
+    while (str[i] != ' ' && str[i] != '\0') {<br>
+        i++;<br>
+    }<br>
+
+    // Skip spaces between the first and second word<br>
+    while (str[i] == ' ') {<br>
+        i++;<br>
+    }<br>
+
+    // Check if there is a second word<br>
+    if (str[i] == '\0') {<br>
+        return -1; // No second word found<br>
+    }<br>
+
+    // Return the start index of the second word<br>
+    return i;<br>
+}<br>
+
+<br>int main() {<br>
+    char str[1000]; // Array to hold the input string<br>
+
+    // Input: Get the string from the user<br>
+    printf("Enter a string: ");<br>
+    fgets(str, sizeof(str), stdin); // Read the input string<br>
+
+    // Find the start index of the second word<br>
+    int index = findSecondWordStartIndex(str);<br>
+
+    // Output the results<br>
+    if (index == -1) {<br>
+        printf("No second word found in the input string.\n");<br>
+    } else {<br>
+        printf("The start index of the second word is: %d\n", index);<br>
+    }<br>
+
+    return 0;<br>
+}<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter a string: data structures.<br>
+The start index of the second word is: 5<br>
+</h3>
+</body>
+</html>

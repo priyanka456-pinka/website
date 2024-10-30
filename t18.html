@@ -1,0 +1,132 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include <stdio.h><br>
+#include <stdlib.h><br>
+
+struct TreeNode {<br>
+    int val;<br>
+    struct TreeNode *left, *right;<br>
+};<br>
+
+struct TreeNode* createNode(int value) {<br>
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));<br>
+    newNode-&gt;val = value;<br>
+    newNode-&gt;left = newNode-&gt;right = NULL;<br>
+    return newNode;<br>
+}<br>
+
+struct QueueNode {<br>
+    struct TreeNode* treeNode;<br>
+    struct QueueNode* next;<br>
+};<br>
+
+struct QueueNode *front = NULL, *rear = NULL;<br>
+
+void enqueue(struct TreeNode* node) {<br>
+    struct QueueNode* newQueueNode = (struct QueueNode*)malloc(sizeof(struct QueueNode));<br>
+    newQueueNode-&gt;treeNode = node;<br>
+    newQueueNode-&gt;next = NULL;<br>
+    if (rear == NULL) {<br>
+        front = rear = newQueueNode;<br>
+    } else {<br>
+        rear-&gt;next = newQueueNode;<br>
+        rear = newQueueNode;<br>
+    }<br>
+}<br>
+
+struct TreeNode* dequeue() {<br>
+    if (front == NULL) return NULL;<br>
+    struct QueueNode* temp = front;<br>
+    struct TreeNode* node = temp-&gt;treeNode;<br>
+    front = front-&gt;next;<br>
+    if (front == NULL) rear = NULL;<br>
+    free(temp);<br>
+    return node;<br>
+}<br>
+
+int isQueueEmpty() {<br>
+    return front == NULL;<br>
+}<br>
+
+struct TreeNode* createAlmostCompleteBinaryTree() {<br>
+    int value;<br>
+    char choice;<br>
+
+    printf("Enter value for the root node: ");<br>
+    scanf("%d", &value);<br>
+
+    struct TreeNode* root = createNode(value);<br>
+    enqueue(root);<br>
+
+    while (!isQueueEmpty()) {<br>
+        struct TreeNode* current = dequeue();<br>
+
+        printf("Do you want to add a left child for node with value %d? (y/n): ", current-&gt;val);<br>
+        scanf(" %c", &choice);<br>
+        if (choice == 'y' || choice == 'Y') {<br>
+            printf("Enter value for the left child: ");<br>
+            scanf("%d", &value);<br>
+            current-&gt;left = createNode(value);<br>
+            enqueue(current-&gt;left);<br>
+        }<br>
+
+        printf("Do you want to add a right child for node with value %d? (y/n): ", current-&gt;val);<br>
+        scanf(" %c", &choice);<br>
+        if (choice == 'y' || choice == 'Y') {<br>
+            printf("Enter value for the right child: ");<br>
+            scanf("%d", &value);<br>
+            current-&gt;right = createNode(value);<br>
+            enqueue(current-&gt;right);<br>
+        }<br>
+    }<br>
+
+    return root;<br>
+}<br>
+
+void levelOrderTraversal(struct TreeNode* root) {<br>
+    if (!root) return;<br>
+
+    enqueue(root);<br>
+    while (!isQueueEmpty()) {<br>
+        struct TreeNode* current = dequeue();<br>
+        printf("%d ", current-&gt;val);<br>
+
+        if (current-&gt;left) enqueue(current-&gt;left);<br>
+        if (current-&gt;right) enqueue(current-&gt;right);<br>
+    }<br>
+}<br>
+
+int main() {<br>
+    printf("Create an almost complete binary tree.\n");<br>
+    struct TreeNode* root = createAlmostCompleteBinaryTree();<br>
+
+    printf("Level order traversal of the created almost complete binary tree: ");<br>
+    levelOrderTraversal(root);<br>
+    printf("\n");<br>
+
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Create an almost complete binary tree.<br>
+Enter value for the root node: 45<br>
+Do you want to add a left child for node with value 45? (y/n): y<br>
+Enter value for the left child: 35<br>
+Do you want to add a right child for node with value 45? (y/n): n<br>
+Do you want to add a left child for node with value 35? (y/n): y<br>
+Enter value for the left child: 63<br>
+Do you want to add a right child for node with value 35? (y/n): n<br>
+Do you want to add a left child for node with value 63? (y/n): n<br>
+Do you want to add a right child for node with value 63? (y/n): y<br>
+Enter value for the right child: 89<br>
+Do you want to add a left child for node with value 89? (y/n): n<br>
+Do you want to add a right child for node with value 89? (y/n): n<br>
+Level order traversal of the created almost complete binary tree: 45 35 63 89  
+</h3>
+</body>
+</html>

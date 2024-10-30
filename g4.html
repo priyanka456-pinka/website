@@ -1,0 +1,110 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+
+// Structure to represent a node in the adjacency list
+typedef struct Node {<br>
+    int vertex;<br>
+    struct Node* next;<br>
+} Node;<br>
+
+<br>
+typedef struct Graph {<br>
+    int numVertices;<br>
+    Node** adjLists;<br>
+} Graph;<br>
+
+<br>
+Node* createNode(int vertex) {<br>
+    Node* newNode = (Node*)malloc(sizeof(Node));<br>
+    newNode->vertex = vertex;<br>
+    newNode->next = NULL;<br>
+    return newNode;<br>
+}<br>
+<br>
+// Function to create a graph<br>
+Graph* createGraph(int vertices) {<br>
+    Graph* graph = (Graph*)malloc(sizeof(Graph));<br>
+    graph->numVertices = vertices;<br>
+<br>
+    // Create an array of adjacency lists<br>
+    graph->adjLists = (Node**)malloc(vertices * sizeof(Node*));<br>
+
+<br>
+    for (int i = 0; i < vertices; i++) {<br>
+        graph->adjLists[i] = NULL;<br>
+    }
+<br>
+    return graph;<br>
+}
+
+<br>
+void addEdge(Graph* graph, int src, int dest) {
+<br>
+    Node* newNode = createNode(dest);<br>
+    newNode->next = graph->adjLists[src];<br>
+    graph->adjLists[src] = newNode;<br>
+
+   <br>
+    newNode = createNode(src);<br>
+    newNode->next = graph->adjLists[dest];<br>
+    graph->adjLists[dest] = newNode;<br>
+}
+
+<br>
+void DFS(Graph* graph, int vertex, int visited[]) {<br>
+   
+    visited[vertex] = 1;<br>
+    printf("%d ", vertex); <br>
+
+<br>
+    Node* temp = graph->adjLists[vertex];<br>
+    while (temp) {<br>
+        if (!visited[temp->vertex]) {<br>
+            DFS(graph, temp->vertex, visited);<br>
+        }<br>
+        temp = temp->next;<br>
+    }<br>
+}<br>
+<br>
+int main() {<br>
+    int vertices = 5; <br>
+    Graph* graph = createGraph(vertices);<br>
+
+<br>
+    addEdge(graph, 0, 1);<br>
+    addEdge(graph, 0, 4);<br>
+    addEdge(graph, 1, 2);<br>
+    addEdge(graph, 1, 3);<br>
+    addEdge(graph, 1, 4);<br>
+    addEdge(graph, 2, 3);<br>
+    addEdge(graph, 3, 4);<br>
+<br>
+ 
+    int visited[vertices];<br>
+    for (int i = 0; i < vertices; i++) {<br>
+        visited[i] = 0; <br>
+    }
+
+<br>
+    printf("Depth First Search (DFS) traversal starting from vertex 0:\n");<br>
+    DFS(graph, 0, visited);<br>
+    printf("\n");<br>
+
+
+
+    return 0;<br>
+}
+<br>
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>Depth First Search (DFS) traversal starting from vertex 0:<br>
+0 4 3 2 1 <br>
+
+</h3>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<html>
+<head>
+</head> 
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;ctype.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#define MAX_SIZE 100<br>
+typedef struct Stack {<br>
+    int arr[MAX_SIZE];<br>
+    int top;<br>
+} Stack;<br>
+void initialize(Stack* stack) {<br>
+    stack-&gt;top = -1;<br>
+}<br>
+int isEmpty(Stack* stack) {<br>
+    return stack-&gt;top == -1;<br>
+}<br>
+void push(Stack* stack, int value) {<br>
+    if (stack-&gt;top &lt; MAX_SIZE - 1) {<br>
+        stack-&gt;arr[++stack-&gt;top] = value;<br>
+    }<br>
+}<br>
+int pop(Stack* stack) {<br>
+    if (!isEmpty(stack)) {<br>
+        return stack-&gt;arr[stack-&gt;top--];<br>
+    }<br>
+    return 0;<br>
+}<br>
+int evaluatePrefix(char* prefix) {<br>
+    Stack stack;<br>
+    initialize(&amp;stack);<br>
+    for (int i = strlen(prefix) - 1; i &gt;= 0; i--) {<br>
+        char token = prefix[i];<br>
+        if (token == ' ') {<br>
+            continue;<br>
+        }<br>
+        if (isdigit(token)) {<br>
+            push(&amp;stack, token - '0');<br>
+        } else {<br>
+            int operand1 = pop(&amp;stack);<br>
+            int operand2 = pop(&amp;stack);<br>
+            int result;<br>
+            switch (token) {<br>
+                case '+':<br>
+                    result = operand1 + operand2;<br>
+                    break;<br>
+                case '-':<br>
+                    result = operand1 - operand2;<br>
+                    break;<br>
+                case '*':<br>
+                    result = operand1 * operand2;<br>
+                    break;<br>
+                case '/':<br>
+                    result = operand1 / operand2;<br>
+                    break;<br>
+                default:<br>
+                    printf("Unknown operator: %c\n", token);<br>
+                    return 0;<br>
+            }<br>
+            push(&amp;stack, result);<br>
+        }<br>
+    }<br>
+    return pop(&amp;stack);<br>
+}<br>
+int main() {<br>
+    char prefix[MAX_SIZE];<br>
+    printf("Enter the prefix expression: ");<br>
+    fgets(prefix, sizeof(prefix), stdin);<br>
+    prefix[strcspn(prefix, "\n")] = 0;<br>
+    int result = evaluatePrefix(prefix);<br>
+    printf("Result of prefix expression: %d\n", result);<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Enter the prefix expression: + 9 * 2 3<br>
+Result of prefix expression: 15<br>
+</h3>
+</body>
+</html>

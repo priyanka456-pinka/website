@@ -1,0 +1,146 @@
+<html>
+<head>
+</head>
+<body>
+<h2> <b> CODE </b> </h2>
+<h3>
+#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+typedef struct Node {<br>
+    int data;<br>
+    struct Node* next;<br>
+} Node;<br>
+typedef struct Stack {<br>
+    Node* top;<br>
+} Stack;<br>
+void initialize(Stack* stack) {<br>
+    stack-&gt;top = NULL;<br>
+}<br>
+int isEmpty(Stack* stack) {<br>
+    return stack-&gt;top == NULL;<br>
+}<br>
+void push(Stack* stack, int item) {<br>
+    Node* newNode = (Node*)malloc(sizeof(Node));<br>
+    if (newNode == NULL) {<br>
+        printf("Memory allocation failed! Cannot push '%d'\n", item);<br>
+        return;<br>
+    }<br>
+    newNode-&gt;data = item;<br>
+    newNode-&gt;next = stack-&gt;top;<br>
+    stack-&gt;top = newNode;<br>
+    printf("Pushed '%d' onto the stack\n", item);<br>
+}<br>
+int pop(Stack* stack) {<br>
+    if (isEmpty(stack)) {<br>
+        printf("Stack underflow! Cannot pop from the stack\n");<br>
+        return -1;<br>
+    }<br>
+    Node* temp = stack-&gt;top;<br>
+    int poppedValue = temp-&gt;data;<br>
+    stack-&gt;top = stack-&gt;top-&gt;next;<br>
+    free(temp);<br>
+    return poppedValue;<br>
+}<br>
+int peek(Stack* stack) {<br>
+    if (isEmpty(stack)) {<br>
+        printf("Stack is empty! Cannot peek\n");<br>
+        return -1;<br>
+    }<br>
+    return stack-&gt;top-&gt;data;<br>
+}<br>
+int main() {<br>
+    Stack stack;<br>
+    initialize(&amp;stack);<br>
+    int choice;<br>
+    int item;<br>
+    while (1) {<br>
+        printf("\nStack Operations:\n");<br>
+        printf("1. Push\n");<br>
+        printf("2. Pop\n");<br>
+        printf("3. Peek\n");<br>
+        printf("4. Check if Empty\n");<br>
+        printf("5. Exit\n");<br>
+        printf("Enter your choice: ");<br>
+        scanf("%d", &amp;choice);<br>
+        switch (choice) {<br>
+            case 1:<br>
+                printf("Enter an integer to push: ");<br>
+                scanf("%d", &amp;item);<br>
+                push(&amp;stack, item);<br>
+                break;<br>
+            case 2:<br>
+                item = pop(&amp;stack);<br>
+                if (item != -1) {<br>
+                    printf("Popped '%d' from the stack\n", item);<br>
+                }<br>
+                break;<br>
+            case 3:<br>
+                item = peek(&amp;stack);<br>
+                if (item != -1) {<br>
+                    printf("Top element is: '%d'\n", item);<br>
+                }<br>
+                break;<br>
+            case 4:<br>
+                if (isEmpty(&amp;stack)) {<br>
+                    printf("Stack is empty.\n");<br>
+                } else {<br>
+                    printf("Stack is not empty.\n");<br>
+                }<br>
+                break;<br>
+            case 5:<br>
+                printf("Exiting the program. Goodbye!\n");<br>
+                return 0;<br>
+            default:<br>
+                printf("Invalid choice. Please try again.\n");<br>
+        }<br>
+    }<br>
+    return 0;<br>
+}
+</h3>
+<h2> <b> OUTPUT </b> </h2>
+<h3>
+Stack Operations:<br>
+1. Push<br>
+2. Pop<br>
+3. Peek<br>
+4. Check if Empty<br>
+5. Exit<br>
+Enter your choice: 1<br>
+Enter an integer to push: 10<br>
+Pushed '10' onto the stack<br>
+Stack Operations:<br>
+1. Push<br>
+2. Pop<br>
+3. Peek<br>
+4. Check if Empty<br>
+5. Exit<br>
+Enter your choice: 1<br>
+Enter an integer to push: 20<br>
+Pushed '20' onto the stack<br>
+Stack Operations:<br>
+1. Push<br>
+2. Pop<br>
+3. Peek<br>
+4. Check if Empty<br>
+5. Exit<br>
+Enter your choice: 3<br>
+Top element is: '20'<br>
+Stack Operations:<br>
+1. Push<br>
+2. Pop<br>
+3. Peek<br>
+4. Check if Empty<br>
+5. Exit<br>
+Enter your choice: 2<br>
+Popped '20' from the stack<br>
+Stack Operations:<br>
+1. Push<br>
+2. Pop<br>
+3. Peek<br>
+4. Check if Empty<br>
+5. Exit<br>
+Enter your choice: 4<br>
+Stack is not empty.<br>
+</h3>
+</body>
+</html>
